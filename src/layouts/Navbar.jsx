@@ -1,13 +1,14 @@
+import {Link} from 'react-router-dom'
 
 export const Navbar = () => {
 	return (
 	<nav className="p-4 z-20 text-sm bg-slate-100/60 backdrop-blur-lg fixed w-full">
 	<ul className="flex justify-between container">
 			<li>
-				<a href="#">Brand</a>
+				<Link to='/'>Dragon Group</Link>
 			</li>
 			<li>
-				<a href="#">Store</a>
+				<Link to='/store'>Store</Link>
 			</li>
 			<li>
 				<a href="#">Samsung</a>
