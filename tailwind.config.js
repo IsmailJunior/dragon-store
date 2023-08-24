@@ -6,6 +6,9 @@ export default {
 ],
   theme: {
     extend: {
+      spacing: {
+        '96': '38rem'
+      },
       container: {
         padding: '9rem',
         center: true
