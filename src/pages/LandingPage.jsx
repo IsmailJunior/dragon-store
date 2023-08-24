@@ -7,9 +7,11 @@ export const LandingPage = () => {
 		<FeatureBlock />
 		<FeatureBlock />
 		<FeatureBlock />
+		<div className='mx-3'>
 		<FeaturesGroup />
 		<FeaturesGroup />
 		<FeaturesGroup />
+		</div>
 	</>
   )
 }
