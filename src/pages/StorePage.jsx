@@ -1,13 +1,14 @@
-import {Category} from '../components/Category'
-export const StorePage = () => {
+import { CategoryGroup } from '../components/CategoryGroup'
+import {FeatureCardGroup} from '../components/FeatureCardGroup'
+export const StorePage = () =>
+{
   return (
 	<div className='container py-10'>
-		<section className='flex'>
-		<Category/>
-		<Category/>	
-		<Category />
-		<Category />
-		<Category />
+		<section className='flex mb-10'>
+			<CategoryGroup />
+	</section>
+		<section>
+			<FeatureCardGroup />
 		</section>
 	</div>
   )
