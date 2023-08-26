@@ -8,19 +8,22 @@ export const FeatureCardGroup = ({headline='Headline Description.', data}) => {
 					title={ data?.data?.one?.title }
 					heading={ data?.data?.one?.heading }
 					description={ data?.data?.one?.description }
-					image={data?.data?.one?.image}
+					image={ data?.data?.one?.image }
+					invert={data?.data?.one?.invert}
 				/>	
 				<FeatureCard
 					title={ data?.data?.two?.title }
 					heading={ data?.data?.two?.heading }
 					description={ data?.data?.two?.description }
-					image={data?.data?.two?.image}
+					image={ data?.data?.two?.image }
+					invert={data?.data?.two?.invert}
 				/>	
 				<FeatureCard
-					title={ data?.data?.two?.title }
-					heading={ data?.data?.two?.heading }
-					description={ data?.data?.two?.description }
-					image={data?.data?.two?.image}
+					title={ data?.data?.three?.title }
+					heading={ data?.data?.three?.heading }
+					description={ data?.data?.three?.description }
+					image={ data?.data?.three?.image }
+					invert={data?.data?.three?.invert}
 				/>	
 	</div>
 	</div>
