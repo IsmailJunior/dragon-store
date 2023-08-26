@@ -1,4 +1,27 @@
 .FeatureCard {
+	position: relative;
+	overflow: hidden;
 	width: 500px;
-	background-color: aqua;
+	height: 450px;
+	border-radius: 15px;
+	padding: 25px 30px;
+	box-shadow: 0 0 7px #0000002a;
+	background-color: #bababa;
+	color: white;
+	transition: transform 700ms ease;
+}
+
+.FeatureCard:hover {
+	transform: scale(1.03);
+}
+
+.FeatureCardFigure {
+	position: absolute;
+	top: 0;
+	left: -50px;
+	transform: translateX(-50px);
+	width: 500px;
+	height: 450px;
+	background-size: cover;
+	background-position: center;
 }
