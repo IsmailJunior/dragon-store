@@ -16,145 +16,147 @@ import redmit from '../assets/Redmi9TCard.jpg'
 import redmib from '../assets/Redmi9Card.jpg'
 import redmip from '../assets/Redmi7ProCard.jpg'
 import honor from '../assets/HonorX6ACard.jpg'
+import redmipro from '../assets/RedmiNote8ProCard.jpg'
+import honorx from '../assets/HonorX8Card.jpg'
 export const StorePage = () =>
 {
 
 	const data = {
 		firstSection: {
 		one: {
-			title: 'S23 ULTRA',
-			heading: '200MP Camera.',
-			description: 'From $999.',
+			title: 's23 ultra',
+			heading: '200MP camera',
+			description: '999',
 			image: samsung,
 			invert: false
 		},
 		two: {
-			title: 'IPHONE 14 PRO',
-			heading: 'Pro. Beyond.',
-			description: 'From $999.',
+			title: 'iphone 14 pro max',
+			heading: 'pro. beyond',
+			description: '999',
 			image: apple,
 			invert: false
 			},
 		three: {
-			title: 'iPad',
-			heading: '9th Generation.',
-			description: 'From $399.',
+			title: 'ipad',
+			heading: '9th generation',
+			description: '399',
 			image: ipad,
 			invert: true
 			},
 		},
 		secondSection: {
 		one: {
-			title: 'MEXMON M1 WATCH',
-			heading: 'Sportage.',
-			description: 'From $29.99',
+			title: 'mexmon m1 watch',
+			heading: 'sportage',
+			description: '29.99',
 			image: mexmon,
 			invert: true
 		},
 		two: {
-			title: 'A SERIERS 2023',
-			heading: 'For Everyone.',
-			description: 'From $200.',
+			title: 'a series 2023',
+			heading: 'for everyone',
+			description: '200',
 			image: aseries,
 			invert: true
 			},
 		three: {
-			title: 'TECNO SPARK 10 PRO',
-			heading: '32MP Selfie.',
-			description: 'From $149.99',
+			title: 'tecno spark 10 pro',
+			heading: '32MP selfie',
+			description: '149.99',
 			image: tecno,
 			invert: false
 			},
 		},
 		thirdSection: {
 		one: {
-			title: 'INFINIX SMART 7 HD',
-			heading: 'Super Massive Storage.',
-			description: 'From $89.99',
+			title: 'infinix smart 7hd',
+			heading: 'super massive storage',
+			description: '89.99',
 			image: infinix,
 			invert: true
 		},
 		two: {
-			title: 'REALME C55',
-			heading: 'Better Performing Camera.',
-			description: 'From $99.99',
+			title: 'realme c55',
+			heading: 'better performing camera',
+			description: '99.99',
 			image: realme,
 			invert: false
 			},
 		three: {
-			title: 'REDMI NOTE 11',
-			heading: 'Rise to The Challenge.',
-			description: 'From $149.99',
+			title: 'redmi note 11',
+			heading: 'rise to the challenge',
+			description: '149.99',
 			image: redmi,
 			invert: true
 			},
 		},
 		fourthSection: {
 		one: {
-			title: 'OPPO A16',
-			heading: '5000mAh Long-lasting Battery.',
-			description: 'From $84.99',
+			title: 'oppo a16',
+			heading: '5000mAh long-lasting battery',
+			description: '84.99',
 			image: oppo,
 			invert: true
 		},
 		two: {
-			title: 'REDMI 10A',
-			heading: '6.53” HD+ Dot Drop display.',
-			description: 'From $89.99',
+			title: 'redmi a10',
+			heading: '6.53” HD+ dot drop display',
+			description: '89.99',
 			image: redmia,
 			invert: true
 			},
 		three: {
-			title: 'REDMI NOTE 9',
-			heading: 'Lightweight.',
-			description: 'From $79.99',
+			title: 'redmi note 9',
+			heading: 'lightweight',
+			description: '79.99',
 			image: redmin,
 			invert: true
 			},
 		},
 		fifthSection: {
 		one: {
-			title: 'REDMI 9T',
-			heading: 'Powerfull Colors',
-			description: 'From $89.99',
+			title: 'redmi 9t',
+			heading: 'powerfull colors',
+			description: '89.99',
 			image: redmit,
 			invert: true
 		},
 		two: {
-			title: 'REDMI 9',
-			heading: 'Anyone Can Get It.',
-			description: 'From $59.99',
+			title: 'redmi 9',
+			heading: 'anyone can get it',
+			description: '59.99',
 			image: redmib,
 			invert: true
 			},
 		three: {
-			title: 'REDMI 7 PRO',
-			heading: 'Value With Power',
-			description: 'From $49.99',
+			title: 'redmi 7 pro',
+			heading: 'value with power',
+			description: '49.99',
 			image: redmip,
 			invert: true
 			},
 		},
 		sixthSection: {
 		one: {
-			title: 'HONOR X6A',
-			heading: 'New Colors',
-			description: 'From $169.99',
+			title: 'honor x6a',
+			heading: 'new colors',
+			description: '169.99',
 			image: honor,
 			invert: true
 		},
 		two: {
-			title: 'IPHONE 14 PRO',
-			heading: 'Pro. Beyond.',
-			description: 'From $999.',
-			image: apple,
-			invert: false
+			title: 'redmi note 8 pro',
+			heading: 'quality and preformence',
+			description: '69.99',
+			image: redmipro,
+			invert: true
 			},
 		three: {
-			title: 'iPad',
-			heading: '9th Generation.',
-			description: 'From $399.',
-			image: ipad,
+			title: 'honor x8',
+			heading: 'eXtra Elegance, eXtra Vision',
+			description: '139.99',
+			image: honorx,
 			invert: true
 			},
 		}
