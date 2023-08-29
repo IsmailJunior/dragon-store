@@ -17,40 +17,40 @@ export const FooterBar = () => {
 							<Link to='/store/o'>Samsung</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Huawei</Link>
+							<Link to='/store/s'>Huawei</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Honor</Link>
+							<Link to='/store/d'>Honor</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Xiaomi</Link>
+							<Link to='/store/g'>Xiaomi</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Oppo</Link>
+							<Link to='/store/v'>Oppo</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Itel</Link>
+							<Link to='/store/w'>Itel</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Tecno</Link>
+							<Link to='/store/q'>Tecno</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>ZTE</Link>
+							<Link to='/store/a'>ZTE</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>TCL</Link>
+							<Link to='/store/s'>TCL</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Vivo</Link>
+							<Link to='/store/u'>Vivo</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Infinix</Link>
+							<Link to='/store/p'>Infinix</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Nokia</Link>
+							<Link to='/store/z'>Nokia</Link>
 						</li>
 						<li>
-							<Link to='/store/o'>Watchs</Link>
+							<Link to='/store/a'>Watchs</Link>
 						</li>
 				</ul>	
 				{/* Store */ }
@@ -59,16 +59,16 @@ export const FooterBar = () => {
 						<h1 className="text-black">Store</h1>	
 					</li>	
 					<li>
-						<Link to='/store/d'>Mobile Phones</Link>
+						<Link to='/store/2'>Mobile Phones</Link>
 					</li>
 					<li>
-						<Link to='/store/d'>Used Phones</Link>
+						<Link to='/store/1'>Used Phones</Link>
 					</li>
 					<li>
-						<Link to='/store/d'>New Phones</Link>
+						<Link to='/store/5'>New Phones</Link>
 					</li>
 					<li>
-						<Link to='/store/d'>Watchs</Link>
+						<Link to='/store/2'>Watchs</Link>
 					</li>
 				</ul>
 				{/* Paymenet */}
@@ -77,16 +77,16 @@ export const FooterBar = () => {
 							<h1 className="text-black">Payment</h1>
 						</li>
 						<li>
-							<Link to='/store/l'>Zain Cash</Link>
+							<Link to='/store/7'>Zain Cash</Link>
 						</li>
 						<li>
-							<Link to='/store/l'>Asiacell</Link>
+							<Link to='/store/6'>Asiacell</Link>
 						</li>
 						<li>
-							<Link to='/store/l'>Visa</Link>
+							<Link to='/store/5'>Visa</Link>
 						</li>
 						<li>
-							<Link to='/store/l'>Cash</Link>
+							<Link to='/store/4'>Cash</Link>
 						</li>
 				</ul>
 				{/* Contact */ }
@@ -107,13 +107,13 @@ export const FooterBar = () => {
 						<h1 className="text-black">Hiring</h1>	
 					</li>	
 					<li>
-						<Link to='/store/s'>Designer</Link>	
+						<Link to='/store/3'>Designer</Link>	
 					</li>
 					<li>
-						<Link to='/store/s'>Sales Manger</Link>	
+						<Link to='/store/2'>Sales Manger</Link>	
 					</li>
 					<li>
-						<Link to='/store/s'>Online Marketer</Link>	
+						<Link to='/store/0'>Online Marketer</Link>	
 					</li>
 				</ul>
 				{/* About us */}
@@ -122,10 +122,10 @@ export const FooterBar = () => {
 						<h1 className="text-black">About us</h1>
 					</li>
 					<li>
-						<Link to='/store/s'>Career Opportunities</Link>
+						<Link to='/store/6'>Career Opportunities</Link>
 					</li>
 					<li>
-						<Link to='/store/s'>News Room</Link>
+						<Link to='/store/0'>News Room</Link>
 					</li>
 				</ul>
 			</section>

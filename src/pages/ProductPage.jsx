@@ -1,15 +1,31 @@
-
+import {useState, useEffect} from 'react'
+import { doc, getDoc } from 'firebase/firestore';
+import { store } from '../config/firebase';
 import { RadioSquare } from '../components/RadioSquare'
 import { RadioCircle } from '../components/RadioCircle'
 import { RadioSquareContained } from '../components/RadioSqureContained'
 import {Summary} from '../components/Summary'
 export const ProductPage = () =>
 {
+	const [ product, setProduct ] = useState({});
+	const docRef = doc( store, 'products', 'fZZDnNyQILQQ4T8VJzQs' );
+	useEffect( () =>
+	{
+		( async () =>
+		{
+			const docSnap = await getDoc( docRef );
+			if ( docSnap.exists() )
+			{
+				setProduct( docSnap.data() )
+			}
+		})()
+	}, [])
+
   return (
 	<div className="mx-20 py-10">
 		<div className="mb-10">
-		<h1 className="text-6xl font-semibold mb-5">Title</h1>	
-		<p>Very very long description</p>
+			<h1 className="text-6xl font-semibold mb-5">{product.title}</h1>	
+		<p>{product.description}</p>
 		</div>
 		<div className="flex gap-12">
 			<div className='flex flex-col gap-10'>
@@ -29,8 +45,9 @@ export const ProductPage = () =>
 					</legend>
 				<div className='flex flex-col gap-5'>
 					<div className='flex flex-col gap-3'>
-						<RadioSquare id='one' name='price'/>
-						<RadioSquare id='two' name='price'/>
+						{ product?.model?.map( ( model, i ) => (
+							<RadioSquare key={i} data={{model: model}} id={i} name='price'/>
+						))}
 					</div>	
 					<h1 className='text-xl mb-1'>Color:</h1>
 					<div className='flex gap-5'>
@@ -40,9 +57,9 @@ export const ProductPage = () =>
 					</div>
 					<div className='flex flex-col gap-3'>
 						<h1 className='text-3xl font-semibold mb-7'>Headline Description</h1>
-						<RadioSquare id='six' name='storage'/>
-						<RadioSquare id='seven' name='storage'/>
-						<RadioSquare id='eight' name='storage'/>
+						{ product?.storage?.map( ( model, i ) => (
+							<RadioSquare key={i} data={{model: model}} id={i} name='price'/>
+						))}
 					</div>
 					</div> 
 				</fieldset>

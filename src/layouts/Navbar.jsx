@@ -18,13 +18,13 @@ export const Navbar = () => {
 				<Link to='/store/i'>Samsung</Link>
 			</li>
 			<li>
-				<Link to='/store/i'>Huawei</Link>
+				<Link to='/store/a'>Huawei</Link>
 			</li>
 			<li>
-				<Link to='/store/i'>Xiaomi</Link>
+				<Link to='/store/0'>Xiaomi</Link>
 			</li>
 			<li>
-				<Link to='/store/i'>Tecno</Link>
+				<Link to='/store/2'>Tecno</Link>
 			</li>
 			<li>
 				<Link to='/bag'>
