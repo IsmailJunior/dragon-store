@@ -1,7 +1,8 @@
 
 import { RadioSquare } from '../components/RadioSquare'
 import { RadioCircle } from '../components/RadioCircle'
-import {RadioSquareContained} from '../components/RadioSqureContained'
+import { RadioSquareContained } from '../components/RadioSqureContained'
+import {Summary} from '../components/Summary'
 export const ProductPage = () =>
 {
   return (
@@ -19,7 +20,8 @@ export const ProductPage = () =>
 			<div className='flex justify-center gap-5'>
 			<RadioSquareContained id='nine' name='payment'/>	
 			<RadioSquareContained id='ten' name='payment'/>	
-			</div>	
+			</div>
+				<Summary />
 			</div>	
 				<fieldset>
 					<legend>
