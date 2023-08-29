@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import {ShoppingBagIcon} from '@heroicons/react/24/outline'
 import dragon from '../assets/dragon.png'
 
 export const Navbar = () => {
@@ -24,6 +25,11 @@ export const Navbar = () => {
 			</li>
 			<li>
 				<Link to='/store/i'>Tecno</Link>
+			</li>
+			<li>
+				<Link to='/bag'>
+						<ShoppingBagIcon className='w-6 h-6' />
+				</Link>
 			</li>
 	</ul>
 	</nav>

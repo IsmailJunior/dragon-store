@@ -1,4 +1,4 @@
-import {PrimaryButton} from '../components/PrimaryButton'
+import {PrimaryButtonContained} from './PrimaryButtonContained'
 export const Summary = () => {
   return (
 	<div className="flex justify-between bg-slate-200 rounded-xl p-8">
@@ -14,7 +14,7 @@ export const Summary = () => {
 		<div className="flex flex-col gap-10">	
 			<h1>Transport Method</h1>
 			<p>Delivery</p>
-			<PrimaryButton />
+			<PrimaryButtonContained />
 		</div>
 	</div>
   )
