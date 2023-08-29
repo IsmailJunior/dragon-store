@@ -1,0 +1,7 @@
+.RadioCircle[type='radio']:checked ~ label span {
+	border-color: blue;
+}
+
+.RadioCircle {
+	display: none;
+}

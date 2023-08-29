@@ -14,16 +14,16 @@ export const Navbar = () => {
 				<Link to='/store'>Store</Link>
 			</li>
 			<li>
-				<a href="#">Samsung</a>
+				<Link to='/store/i'>Samsung</Link>
 			</li>
 			<li>
-				<a href="#">Huawei</a>
+				<Link to='/store/i'>Huawei</Link>
 			</li>
 			<li>
-				<a href="#">Xiaomi</a>
+				<Link to='/store/i'>Xiaomi</Link>
 			</li>
 			<li>
-				<a href="#">Tecno</a>
+				<Link to='/store/i'>Tecno</Link>
 			</li>
 	</ul>
 	</nav>

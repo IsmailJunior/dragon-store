@@ -1,4 +1,4 @@
-
+import {Link} from 'react-router-dom'
 export const FooterBar = () => {
   return (
 	<footer className="bg-slate-100 text-gray-500 p-4">
@@ -14,43 +14,43 @@ export const FooterBar = () => {
 							<h1 className="text-black">Catagories</h1>
 						</li>
 						<li>
-							<a href="#">Samsung</a>
+							<Link to='/store/o'>Samsung</Link>
 						</li>
 						<li>
-							<a href="#">Huawei</a>
+							<Link to='/store/o'>Huawei</Link>
 						</li>
 						<li>
-							<a href="#">Honor</a>
+							<Link to='/store/o'>Honor</Link>
 						</li>
 						<li>
-							<a href="#">Xiaomi</a>
+							<Link to='/store/o'>Xiaomi</Link>
 						</li>
 						<li>
-							<a href="#">Oppo</a>
+							<Link to='/store/o'>Oppo</Link>
 						</li>
 						<li>
-							<a href="#">Itel</a>
+							<Link to='/store/o'>Itel</Link>
 						</li>
 						<li>
-							<a href="#">Tecno</a>
+							<Link to='/store/o'>Tecno</Link>
 						</li>
 						<li>
-							<a href="#">ZTE</a>
+							<Link to='/store/o'>ZTE</Link>
 						</li>
 						<li>
-							<a href="#">TCL</a>
+							<Link to='/store/o'>TCL</Link>
 						</li>
 						<li>
-							<a href="#">Vivo</a>
+							<Link to='/store/o'>Vivo</Link>
 						</li>
 						<li>
-							<a href="#">Infinix</a>
+							<Link to='/store/o'>Infinix</Link>
 						</li>
 						<li>
-							<a href="#">Nokia</a>
+							<Link to='/store/o'>Nokia</Link>
 						</li>
 						<li>
-							<a href="#">Watchs</a>
+							<Link to='/store/o'>Watchs</Link>
 						</li>
 				</ul>	
 				{/* Store */ }
@@ -59,16 +59,16 @@ export const FooterBar = () => {
 						<h1 className="text-black">Store</h1>	
 					</li>	
 					<li>
-						<a href="#">Mobile Phones</a>
+						<Link to='/store/d'>Mobile Phones</Link>
 					</li>
 					<li>
-						<a href="#">Used Phones</a>
+						<Link to='/store/d'>Used Phones</Link>
 					</li>
 					<li>
-						<a href="#">New Phones</a>
+						<Link to='/store/d'>New Phones</Link>
 					</li>
 					<li>
-						<a href="#">Watchs</a>
+						<Link to='/store/d'>Watchs</Link>
 					</li>
 				</ul>
 				{/* Paymenet */}
@@ -77,16 +77,16 @@ export const FooterBar = () => {
 							<h1 className="text-black">Payment</h1>
 						</li>
 						<li>
-							<a href="#">Zain Cash</a>
+							<Link to='/store/l'>Zain Cash</Link>
 						</li>
 						<li>
-							<a href="#">Asiacell</a>
+							<Link to='/store/l'>Asiacell</Link>
 						</li>
 						<li>
-							<a href="#">Visa</a>
+							<Link to='/store/l'>Visa</Link>
 						</li>
 						<li>
-							<a href="#">Cash</a>
+							<Link to='/store/l'>Cash</Link>
 						</li>
 				</ul>
 				{/* Contact */ }
@@ -95,10 +95,10 @@ export const FooterBar = () => {
 						<h1 className="text-black">Contact</h1>
 					</li>	
 					<li>
-						<a href="#">Via Number</a>
+						<Link to='/store/d'>Via Number</Link>
 					</li>
 					<li>
-						<a href="#">Via Email</a>
+						<Link to='/store/d'>Via Email</Link>
 					</li>
 				</ul>
 				{/* Hiring */ }
@@ -107,13 +107,13 @@ export const FooterBar = () => {
 						<h1 className="text-black">Hiring</h1>	
 					</li>	
 					<li>
-						<a href="#">Designer</a>	
+						<Link to='/store/s'>Designer</Link>	
 					</li>
 					<li>
-						<a href="#">Sales Manger</a>	
+						<Link to='/store/s'>Sales Manger</Link>	
 					</li>
 					<li>
-						<a href="#">Online Marketer</a>	
+						<Link to='/store/s'>Online Marketer</Link>	
 					</li>
 				</ul>
 				{/* About us */}
@@ -122,10 +122,10 @@ export const FooterBar = () => {
 						<h1 className="text-black">About us</h1>
 					</li>
 					<li>
-						<a href="#">Career Opportunities</a>
+						<Link to='/store/s'>Career Opportunities</Link>
 					</li>
 					<li>
-						<a href="#">News Room</a>
+						<Link to='/store/s'>News Room</Link>
 					</li>
 				</ul>
 			</section>
@@ -134,13 +134,13 @@ export const FooterBar = () => {
 				<div className="flex gap-20">
 					<p>Copyright © 2023 Dragon Group. All rights reserved.</p>
 					<div className="text-gray-600">
-						<a href="#">Privacy Policy</a>
+						<Link to='/store/s'>Privacy Policy</Link>
 						<span className="mx-3">|</span>
-						<a href="#">Terms of Use</a>
+						<Link to='/store/s'>Terms of Use</Link>
 						<span className="mx-3">|</span>
-						<a href="#">Sales and Refunds</a>
+						<Link to='/store/s'>Sales and Refunds</Link>
 						<span className="mx-3">|</span>
-						<a href="#">Site Map</a>
+						<Link to='/store/s'>Site Map</Link>
 					</div>
 				</div>	
 			</section>

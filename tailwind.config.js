@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       spacing: {
-        '96': '35rem'
+        '96': '35rem',
+        '120': '50rem'
       },
       container: {
         padding: '9rem',

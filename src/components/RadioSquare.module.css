@@ -1,0 +1,7 @@
+ .RadioSquare[type='radio']:checked ~ label span {
+	border-color: blue;
+}
+
+.RadioSquare {
+	display: none;
+}
