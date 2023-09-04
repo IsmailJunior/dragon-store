@@ -1,7 +1,8 @@
-import { FeatureBlock } from '../components/FeatureBlock'
+import { FeatureBlock } from '../components/FeatureBlock';
 import { FeaturesGroup } from '../components/FeaturesGroup'
 export const LandingPage = () =>
 {
+
 return (
 <>
 <FeatureBlock />

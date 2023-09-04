@@ -9,7 +9,7 @@ import { RadioSquareContained } from "../components/RadioSqureContained";
 import { Summary } from "../components/Summary";
 export const ProductPage = () => {
 const [product, setProduct] = useState({});
-const docRef = doc(store, "products", "IMIlieN7iwsO5jIj2lli");
+const docRef = doc(store, "products", "2Z6hGXfrX7nLYbUCGJs1");
 useEffect(() => {
 (async () => {
 const docSnap = await getDoc(docRef);
@@ -20,33 +20,26 @@ setProduct(docSnap.data());
 }, []);
 return (
 <div className="mx-20 py-10">
-	{product.title ? (
+	{product.name ? (
 	<>
 	<div className="mb-10">
-		<h1 className="text-6xl font-semibold mb-5">{product.title}</h1>
-		<p>From ${product.price}</p>
+		<h1 className="text-6xl font-semibold mb-5">{product.name}</h1>
+		<p>{product.description}</p>
 	</div>
 	<div className="flex gap-12">
 		<div className="flex flex-col gap-10">
 			<div className="overflow-hidden w-120 h-80 border-2 flex justify-center items-center rounded-xl">
-				<img src={product?.image} />
+				<img src={product.images[0].block} />
 			</div>
 			<h1 className="text-2xl font-semibold">
 				Payment options. Select the one that works for you.
 			</h1>
 			<div className="flex justify-center gap-5">
-				{product?.payment?.map((pay, i) => (
-				<RadioSquareContained
-					key={i}
-					data={{ data: pay }}
-					id={uuid()}
-					name="payment"
-					/>
-				))}
+			
 			</div>
 			<Summary
-				title={product?.title}
-				image={product?.image}
+				title={product?.name}
+				image={product?.images[0].block}
 				price={product?.price}
 				/>
 		</div>
@@ -71,22 +64,19 @@ return (
 				<h1 className="text-xl mb-1">Color:</h1>
 				<div className="w-56 flex flex-wrap gap-5">
 					{product?.colors?.map((color, i) => (
-					<RadioCircle color={color} key={i} id={uuid()} />
+					<RadioCircle color={color.hex} key={i} id={uuid()} />
 					))}
 				</div>
 				<div className="flex flex-col gap-3">
 					<h1 className="text-2xl font-semibold mb-7">
 						Headline Description
 					</h1>
-					{product?.storages?.map((storage, i) => (
 					<RadioSquare
 						titleLabel="GB"
-						key={i}
-						data={{ data: storage }}
+						data={{ data: product.storages[0] }}
 						id={uuid()}
 						name="storage"
 						/>
-					))}
 				</div>
 			</div>
 		</fieldset>

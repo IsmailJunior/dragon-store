@@ -7,7 +7,7 @@ return (
 	<label className="cursor-pointer" htmlFor={id}>
 	<span className="w-80 border-2 border-neutral-400 rounded-xl flex flex-row justify-between p-3">
 	<span className="flex flex-col">
-	<span>{data?.data?.title + ' ' + titleLabel}</span>
+	<span>{data?.data?.name + ' ' + titleLabel}</span>
 	<span>{data?.data?.type ? data?.data?.type + ' ' + typeLabel : null}</span>	
 	</span>
 	<span className="flex flex-col">
