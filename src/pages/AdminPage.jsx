@@ -4,7 +4,7 @@ import { PlusIcon } from '@heroicons/react/24/outline'
 export const AdminPage = () => {
   return (
 	<div className='flex gap-10'>
-		<aside className="w-64 h-fit bg-slate-900 block">
+		<aside className="sticky top-0 w-64 h-fit bg-slate-900 block">
 			<ul className="flex flex-col gap-12 items-center text-white p-4">
 			<Link to='/admin/new'>
 			<li className='flex items-center gap-3'>
