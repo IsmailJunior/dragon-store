@@ -1,0 +1,65 @@
+import {useState} from 'react'
+
+export const FifthStageForm = () =>
+{
+	const [ banner, setBanner ] = useState( '' );
+  const [ block, setBlock ] = useState( '' );
+  const [ card, setCard ] = useState( '' );
+  const [ transparent, setTransparent ] = useState( '' );
+  const [ preview, setPreview ] = useState( '' );
+	const [ previews, setPreviews ] = useState( [] );
+	const canSaveImages = [ banner, block, card, transparent ].every( Boolean );
+
+	const onBannerChanged = ( e ) => setBanner( e.target.files[ 0 ] );
+  const onBlockChanged = ( e ) => setBlock( e.target.files[ 0 ] );
+  const onCardChanged = ( e ) => setCard( e.target.files[ 0 ] );
+  const onTransparentChanged = ( e ) => setTransparent( e.target.files[ 0 ] );
+  const onPreviewChanged = ( e ) => setPreview( e.target.files[0] );
+  return (
+	<>
+		<div className='flex flex-col'>
+          <label htmlFor="company">Images:</label>
+          <div className='flex flex-wrap gap-10  border p-4 rounded-lg my-4'>
+            <div className='flex flex-col'>
+              <input onChange={onBannerChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='banner' name='banner' />
+            <label className='text-sm text-slate-500' htmlFor="banner">Banner</label>
+            <div className='flex items-center gap-10 mt-5'>
+              </div>
+            </div>
+            <div className='flex flex-col'>
+              <input onChange={onBlockChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='block' name='block' />
+            <label className='text-sm text-slate-500' htmlFor="block">Block</label>
+            <div className='flex items-center gap-10 mt-5'>
+              </div>
+            </div>
+            <div className='flex flex-col'>
+              <input onChange={onCardChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='card' name='card' />
+            <label className='text-sm text-slate-500' htmlFor="card">Card</label>
+            <div className='flex items-center gap-10 mt-5'>
+              </div>
+            </div>
+            <div className='flex flex-col'>
+              <input onChange={onTransparentChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='transparent' name='transparent' />
+            <label className='text-sm text-slate-500' htmlFor="transparent">Transparent</label>
+            <div className='flex items-center gap-10 mt-5'>
+              </div>
+            </div>
+            <div className='flex flex-col'>
+              <input onChange={onPreviewChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='preview' name='preview' />
+            <label className='text-sm text-slate-500' htmlFor="preview">Preview</label>
+            <div className='flex items-center gap-10 mt-5'>
+              <button className='w-44 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>Add Preview</button>
+              </div>
+            </div>
+        </div>
+        <div className='flex gap-10'>
+          <button className='w-44 h-8 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Save</button>
+          <button className='w-44 h-8 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Upload Images</button>
+        </div>
+      </div>
+      <div className='flex justify-end px-20'>
+      <button disabled={!canSaveImages ? true : false} className='w-44 h-10 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Next</button>
+      </div>
+	</>
+  )
+}

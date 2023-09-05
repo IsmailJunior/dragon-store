@@ -1,19 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { addDoc, collection } from 'firebase/firestore';
-import { store } from '../../config/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { store, storage } from '../../config/firebase';
 
 const initialState = {
 	status: 'idle',
-	items: [],
-	item: {
-		name: '',
-		company: '',
-		price: 0,
-		description: '',
-		models: [],
-		storages: [],
-		colors: []
-	}
+	items: []
 };
 
 export const addItem = createAsyncThunk( 'items/addItem', async ( item ) =>
@@ -24,38 +16,19 @@ export const addItem = createAsyncThunk( 'items/addItem', async ( item ) =>
 		await addDoc( collectionRef, item );
 	} catch ( error )
 	{
-		console.log( error.message );
+		console.error( error.message );
 	}
 } );
+
+export const uploadTemp = createAsyncThunk( 'items/uploadTemp', async () =>
+{
+
+} )
 
 const itemsSlice = createSlice( {
 	name: 'items',
 	initialState,
-	reducers: {
-		addModel: ( state, action ) =>
-		{
-			state.item.models.push( action.payload );
-		},
-		addStorage: ( state, action ) =>
-		{
-			state.item.storages.push( action.payload );
-		},
-		addColor: ( state, action ) =>
-		{
-			state.item.colors.push( action.payload );
-		},
-		addInfo: ( state, action ) =>
-		{
-			const { name } = action.payload;
-			const { company } = action.payload;
-			const { price } = action.payload;
-			const { description } = action.payload;
-			state.item.name = name,
-				state.item.company = company,
-				state.item.price = price,
-				state.item.description = description;
-		}
-	},
+	reducers: {},
 	extraReducers ( builder )
 	{
 		builder.addCase( addItem.pending, ( state ) =>
@@ -73,5 +46,4 @@ const itemsSlice = createSlice( {
 	}
 } );
 export const selectItem = ( state ) => state.items.item;
-export const { addModel, addStorage, addColor, addInfo } = itemsSlice.actions;
 export default itemsSlice.reducer;
