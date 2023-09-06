@@ -1,4 +1,8 @@
-import {FirstStageForm} from '../components/stages/FirstStageForm'
+import { FirstStageForm } from '../components/stages/FirstStageForm';
+import { SecondStageForm } from '../components/stages/SecondStageForm';
+import { ThirdStageForm } from '../components/stages/ThirdStageForm';
+import { FourthStageForm } from '../components/stages/FourthStageForm';
+import {FifthStageForm} from '../components/stages/FifthStageForm'
 export const NewItemPage = () =>
 {
   return (
@@ -6,8 +10,11 @@ export const NewItemPage = () =>
       <div className='flex justify-between'>
         <h1 className='text-3xl mb-2 font-semibold'>Make new item.</h1>
     </div>
-      <hr />
-      <FirstStageForm />
+      { localStorage.getItem( 'firstStageForm' ) === 'true' ? <FirstStageForm /> : null}
+      { localStorage.getItem( 'secondStageForm' ) === 'true' ? <SecondStageForm /> : null }
+      {localStorage.getItem('thirdStageForm') === 'true' ? <ThirdStageForm /> : null}
+      { localStorage.getItem( 'fourthStageForm' ) === 'true' ? <FourthStageForm /> : null }
+      {localStorage.getItem('fifthStageForm') === 'true' ? <FifthStageForm /> : null}
     </div>
   )
 }

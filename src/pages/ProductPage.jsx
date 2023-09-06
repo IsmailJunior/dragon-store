@@ -9,7 +9,7 @@ import { RadioSquareContained } from "../components/RadioSqureContained";
 import { Summary } from "../components/Summary";
 export const ProductPage = () => {
 const [product, setProduct] = useState({});
-const docRef = doc(store, "products", "2Z6hGXfrX7nLYbUCGJs1");
+const docRef = doc(store, "products", "xnOqBGyStjDzmenn7bmR");
 useEffect(() => {
 (async () => {
 const docSnap = await getDoc(docRef);
