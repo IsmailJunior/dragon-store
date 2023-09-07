@@ -1,5 +1,5 @@
 import classes from './RadioSquare.module.css'
-export const RadioSquare = ( { id, name, data, titleLabel='', typeLabel=''} ) =>
+export const RadioSquareModel = ( { id, name, data, titleLabel='', typeLabel=''} ) =>
 {
 return (
 <div>
@@ -7,11 +7,11 @@ return (
 	<label className="cursor-pointer" htmlFor={id}>
 	<span className="w-80 border-2 border-neutral-400 rounded-xl flex flex-row justify-between p-3">
 	<span className="flex flex-col">
-	<span>{data?.data?.name + ' ' + titleLabel}</span>
-	<span>{data?.data?.type ? data?.data?.type + ' ' + typeLabel : null}</span>	
+	<span className=' font-semibold'>{data?.data?.modelName + ' ' + titleLabel}</span>
+	<span className=' text-slate-500 mt-2 text-sm'>{data?.data?.modelDescription ? data?.data?.modelDescription + ' ' + typeLabel : null}</span>	
 	</span>
 	<span className="flex flex-col">
-	<span>From ${data?.data?.price}</span>
+	<span className='text-sm text-slate-500'>From ${data?.data?.modelPrice}</span>
 	</span>	
 	</span>	
 	</label>

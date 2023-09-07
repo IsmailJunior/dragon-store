@@ -1,15 +1,51 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addDoc, collection, updateDoc, doc, arrayUnion } from 'firebase/firestore';
+import { addDoc, collection, updateDoc, doc, arrayUnion, getDocs, getDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
 import { store, storage } from '../../config/firebase';
 
 const initialState = {
 	status: 'idle',
-	items: []
+	items: [],
+	featured: {
+		banner: '',
+		block: ''
+	}
 };
 
+const featuredRef = collection( store, 'featured' );
 const collectionRef = collection( store, 'products' );
+
+export const getFeatured = createAsyncThunk( 'items/getFeatured', async () =>
+{
+	try
+	{
+		const arrayData = await getDocs( featuredRef );
+		const data = arrayData.docs.map( ( doc ) => doc.data() );
+		const bannerId = data?.at( 0 )?.banners?.at( 0 )?.id;
+		const blockId = data?.at( 0 )?.banners.at( 0 )?.id;
+		const bannerRef = doc( featuredRef, bannerId );
+		const bannerSnapshot = await getDoc( bannerRef );
+		return [ bannerSnapshot, blockId ];
+	} catch ( error )
+	{
+		return error;
+	}
+} );
+
+export const getItems = createAsyncThunk( 'items/getItems', async () =>
+{
+	try
+	{
+		const arrayData = await getDocs( collectionRef );
+		const data = arrayData.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
+		return data;
+	} catch ( error )
+	{
+		return error;
+	}
+} )
+
 export const addItem = createAsyncThunk( 'items/addItem', async ( { name, description, company, price } ) =>
 {
 	try
@@ -208,8 +244,38 @@ const itemsSlice = createSlice( {
 			{
 				state.status = 'success';
 			} )
+			.addCase( getItems.pending, ( state ) =>
+			{
+				{
+					state.status = 'loading';
+				}
+			} )
+			.addCase( getItems.rejected, ( state ) =>
+			{
+				state.status = 'failed';
+			} )
+			.addCase( getItems.fulfilled, ( state, action ) =>
+			{
+				state.status = 'success';
+				state.items = action.payload;
+			} )
+			.addCase( getFeatured.pending, ( state ) =>
+			{
+				state.status = 'loading';
+			} )
+			.addCase( getFeatured.rejected, ( state ) =>
+			{
+				state.status = 'failed';
+			} )
+			.addCase( getFeatured.fulfilled, ( state, action ) =>
+			{
+				state.status = 'success';
+				console.log( action.payload );
+			} )
 	}
 } );
 export const selectStatus = ( state ) => state.items.status;
 export const selectItem = ( state ) => state.items.item;
+export const selectItems = ( state ) => state.items.items;
+export const selectFeatured = ( state ) => state.items.featured;
 export default itemsSlice.reducer;

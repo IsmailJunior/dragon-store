@@ -3,13 +3,14 @@ import { v4 as uuid } from "uuid";
 import { doc, getDoc } from "firebase/firestore";
 import { Oval } from "react-loader-spinner";
 import { store } from "../config/firebase";
-import { RadioSquare } from "../components/RadioSquare";
+import { RadioSquareModel } from "../components/RadioSquareModel";
+import { RadioSquareStorage } from "../components/RadioSquareStorage";
 import { RadioCircle } from "../components/RadioCircle";
 import { RadioSquareContained } from "../components/RadioSqureContained";
 import { Summary } from "../components/Summary";
 export const ProductPage = () => {
 const [product, setProduct] = useState({});
-const docRef = doc(store, "products", "xnOqBGyStjDzmenn7bmR");
+const docRef = doc(store, "products", "seXHhqKUDGhoug9jCk0Z");
 useEffect(() => {
 (async () => {
 const docSnap = await getDoc(docRef);
@@ -29,17 +30,17 @@ return (
 	<div className="flex gap-12">
 		<div className="flex flex-col gap-10">
 			<div className="overflow-hidden w-120 h-80 border-2 flex justify-center items-center rounded-xl">
-				<img src={product.images[0].block} />
+				<img src={product.previews[0]} />
 			</div>
 			<h1 className="text-2xl font-semibold">
-				Payment options. Select the one that works for you.
+			Payment options. Select the one that works for you.
 			</h1>
 			<div className="flex justify-center gap-5">
 			
 			</div>
 			<Summary
 				title={product?.name}
-				image={product?.images[0].block}
+				image={product?.transparent}
 				price={product?.price}
 				/>
 		</div>
@@ -52,7 +53,7 @@ return (
 			<div className="flex flex-col gap-5">
 				<div className="flex flex-col gap-3">
 					{product?.models?.map((model, i) => (
-					<RadioSquare
+					<RadioSquareModel
 						typeLabel="display"
 						key={i}
 						data={{ data: model }}
@@ -64,19 +65,22 @@ return (
 				<h1 className="text-xl mb-1">Color:</h1>
 				<div className="w-56 flex flex-wrap gap-5">
 					{product?.colors?.map((color, i) => (
-					<RadioCircle color={color.hex} key={i} id={uuid()} />
+					<RadioCircle color={color.colorHex} key={i} id={uuid()} />
 					))}
 				</div>
 				<div className="flex flex-col gap-3">
 					<h1 className="text-2xl font-semibold mb-7">
 						Headline Description
 					</h1>
-					<RadioSquare
+					{ product?.storages.map( ( storage, i ) => (
+						<RadioSquareStorage
+						key={i}
 						titleLabel="GB"
-						data={{ data: product.storages[0] }}
+						data={{ data: storage}}
 						id={uuid()}
 						name="storage"
 						/>
+					))}
 				</div>
 			</div>
 		</fieldset>

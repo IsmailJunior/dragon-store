@@ -5,16 +5,16 @@ return (
 	<h1 className='text-3xl font-semibold'>{headline}</h1>
 	<div className='flex gap-5'>	
 		<FeatureCard
-		title={ data?.data?.one?.title }
-		heading={ data?.data?.one?.heading }
-		description={ data?.data?.one?.description }
-		image={ data?.data?.one?.image }
+		title={ data?.item?.name }
+		heading={ data?.item?.description }
+		price={ data?.item?.price }
+		image={ data?.item?.card }
 		invert={data?.data?.one?.invert}
 		/>	
 		<FeatureCard
 		title={ data?.data?.two?.title }
 		heading={ data?.data?.two?.heading }
-		description={ data?.data?.two?.description }
+		price={ data?.data?.two?.price }
 		image={ data?.data?.two?.image }
 		invert={data?.data?.two?.invert}
 		/>	
