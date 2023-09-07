@@ -8,8 +8,8 @@ const initialState = {
 	status: 'idle',
 	items: [],
 	featured: {
-		banner: '',
-		block: ''
+		banners: null,
+		blocks: null
 	}
 };
 
@@ -21,12 +21,29 @@ export const getFeatured = createAsyncThunk( 'items/getFeatured', async () =>
 	try
 	{
 		const arrayData = await getDocs( featuredRef );
+
 		const data = arrayData.docs.map( ( doc ) => doc.data() );
-		const bannerId = data?.at( 0 )?.banners?.at( 0 )?.id;
-		const blockId = data?.at( 0 )?.banners.at( 0 )?.id;
-		const bannerRef = doc( featuredRef, bannerId );
-		const bannerSnapshot = await getDoc( bannerRef );
-		return [ bannerSnapshot, blockId ];
+		const bannersIds = data?.at( 0 )?.banners.map( ( banner ) => banner?.id );
+		const bannersCollections = data?.at( 0 )?.banners.map( ( banner ) => banner?.parent?.id );
+		const blocksCollections = data?.at( 0 )?.blocks.map( ( block ) => block?.parent?.id );
+		const blocksIds = data?.at( 0 )?.blocks.map( ( block ) => block?.id );
+		let banners = [];
+		let blocks = [];
+		let bannerRef;
+		let bannerSnapShot;
+		let blockRef;
+		let blockSnapshot;
+		for ( let i = 0; i <= bannersIds?.length - 1; i++ )
+		{
+			bannerRef = doc( store, bannersCollections?.at( i ), bannersIds?.at( i ) );
+			bannerSnapShot = await getDoc( bannerRef );
+			banners.push( bannerSnapShot?.data() );
+			blockRef = doc( store, blocksCollections?.at( i ), blocksIds?.at( i ) );
+			blockSnapshot = await getDoc( blockRef );
+			banners.push( bannerSnapShot?.data() );
+			blocks.push( blockSnapshot?.data() );
+		}
+		return [ banners, blocks ];
 	} catch ( error )
 	{
 		return error;
@@ -270,7 +287,8 @@ const itemsSlice = createSlice( {
 			.addCase( getFeatured.fulfilled, ( state, action ) =>
 			{
 				state.status = 'success';
-				console.log( action.payload );
+				state.featured.banners = action.payload[ 0 ];
+				state.featured.blocks = action.payload[ 1 ];
 			} )
 	}
 } );
