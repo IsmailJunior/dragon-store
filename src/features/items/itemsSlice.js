@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { store, storage } from '../../config/firebase';
 
 const initialState = {
+	addStatus: 'idle',
 	status: 'idle',
 	items: [],
 	featured: {
@@ -21,29 +22,14 @@ export const getFeatured = createAsyncThunk( 'items/getFeatured', async () =>
 	try
 	{
 		const arrayData = await getDocs( featuredRef );
-
 		const data = arrayData.docs.map( ( doc ) => doc.data() );
-		const bannersIds = data?.at( 0 )?.banners.map( ( banner ) => banner?.id );
-		const bannersCollections = data?.at( 0 )?.banners.map( ( banner ) => banner?.parent?.id );
-		const blocksCollections = data?.at( 0 )?.blocks.map( ( block ) => block?.parent?.id );
+		const productsRef = await getDocs( collectionRef );
+		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
 		const blocksIds = data?.at( 0 )?.blocks.map( ( block ) => block?.id );
-		let banners = [];
-		let blocks = [];
-		let bannerRef;
-		let bannerSnapShot;
-		let blockRef;
-		let blockSnapshot;
-		for ( let i = 0; i <= bannersIds?.length - 1; i++ )
-		{
-			bannerRef = doc( store, bannersCollections?.at( i ), bannersIds?.at( i ) );
-			bannerSnapShot = await getDoc( bannerRef );
-			banners.push( bannerSnapShot?.data() );
-			blockRef = doc( store, blocksCollections?.at( i ), blocksIds?.at( i ) );
-			blockSnapshot = await getDoc( blockRef );
-			banners.push( bannerSnapShot?.data() );
-			blocks.push( blockSnapshot?.data() );
-		}
-		return [ banners, blocks ];
+		const bannersIds = data?.at( 0 )?.banners.map( ( banner ) => banner.id );
+		const intersectionBanners = productsData.filter( ( product ) => bannersIds.includes( product.id ) );
+		const intersectionBlocks = productsData.filter( ( product ) => blocksIds.includes( product.id ) );
+		return [ intersectionBanners, intersectionBlocks ];
 	} catch ( error )
 	{
 		return error;
@@ -188,78 +174,78 @@ const itemsSlice = createSlice( {
 	{
 		builder.addCase( addItem.pending, ( state ) =>
 		{
-			state.status = 'loading';
+			state.addStatus = 'loading';
 		} )
 			.addCase( addItem.rejected, ( state ) =>
 			{
-				state.status = 'failed';
+				state.addStatus = 'failed';
 			} )
 			.addCase( addItem.fulfilled, ( state, action ) =>
 			{
-				state.status = 'success';
+				state.addStatus = 'success';
 				localStorage.removeItem( 'itemId' );
 				localStorage.setItem( 'itemId', action.payload );
 			} )
 			.addCase( addModel.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.addStatus = 'loading';
 			} )
 			.addCase( addModel.rejected, ( state, action ) =>
 			{
-				state.status = 'failed';
+				state.addStatus = 'failed';
 				console.log( action.payload );
 			} )
 			.addCase( addModel.fulfilled, ( state ) =>
 			{
-				state.status = 'success';
+				state.addStatus = 'success';
 			} )
 			.addCase( addStorage.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.addStatus = 'loading';
 			} )
 			.addCase( addStorage.rejected, ( state, ) =>
 			{
-				state.status = 'failed';
+				state.addStatus = 'failed';
 			} )
 			.addCase( addStorage.fulfilled, ( state ) =>
 			{
-				state.status = 'success';
+				state.addStatus = 'success';
 			} )
 			.addCase( addColors.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.addStatus = 'loading';
 			} )
 			.addCase( addColors.rejected, ( state ) =>
 			{
-				state.status = 'failed';
+				state.addStatus = 'failed';
 			} )
 			.addCase( addColors.fulfilled, ( state ) =>
 			{
-				state.status = 'success';
+				state.addStatus = 'success';
 			} )
 			.addCase( uploadImages.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.addStatus = 'loading';
 			} )
 			.addCase( uploadImages.rejected, ( state ) =>
 			{
-				state.status = 'failed';
+				state.addStatus = 'failed';
 			} )
 			.addCase( uploadImages.fulfilled, ( state ) =>
 			{
-				state.status = 'success';
+				state.addStatus = 'success';
 			} )
 			.addCase( UploadPreviews.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.addStatus = 'loading';
 			} )
 			.addCase( UploadPreviews.rejected, ( state ) =>
 			{
-				state.status = 'failed';
+				state.addStatus = 'failed';
 			} )
 			.addCase( UploadPreviews.fulfilled, ( state ) =>
 			{
-				state.status = 'success';
+				state.addStatus = 'success';
 			} )
 			.addCase( getItems.pending, ( state ) =>
 			{
@@ -292,6 +278,7 @@ const itemsSlice = createSlice( {
 			} )
 	}
 } );
+export const selectAddStatus = ( state ) => state.items.addStatus;
 export const selectStatus = ( state ) => state.items.status;
 export const selectItem = ( state ) => state.items.item;
 export const selectItems = ( state ) => state.items.items;

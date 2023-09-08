@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {selectStatus,addColors} from '../../features/items/itemsSlice'
+import {selectAddStatus,addColors} from '../../features/items/itemsSlice'
 import { ChromePicker } from 'react-color';
 
 export const FourthStageForm = () =>
 {
-  const status = useSelector( selectStatus );
+  const status = useSelector( selectAddStatus );
   const dispatch = useDispatch()
 	const [ colorName, setColorName ] = useState( '' );
   const [ colorHex, setColorHex ] = useState( '' );

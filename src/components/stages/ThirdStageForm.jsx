@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react'
 import { useDispatch,useSelector } from 'react-redux';
-import {addStorage, selectStatus} from '../../features/items/itemsSlice'
+import {addStorage, selectAddStatus} from '../../features/items/itemsSlice'
 export const ThirdStageForm = () =>
 {
-  const status = useSelector(selectStatus)
+  const status = useSelector(selectAddStatus)
   const dispatch = useDispatch()
 	const [ storage, setSotorage ] = useState( '' );
   const [ storagePrice, setStoragePrice ] = useState( '' );

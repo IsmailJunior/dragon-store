@@ -1,16 +1,22 @@
 import { useSelector } from 'react-redux'
-import {selectItems,selectStatus,selectFeatured} from '../features/items/itemsSlice'
+import {selectStatus,selectFeatured} from '../features/items/itemsSlice'
 import { FeatureBlock } from '../components/FeatureBlock';
 import { FeaturesGroup } from '../components/FeaturesGroup'
 export const LandingPage = () =>
 {
 	const status = useSelector( selectStatus );
 	const featured = useSelector( selectFeatured );
+
+	const banners = {
+		firstBanner: featured?.banners?.at(0),
+		secondBanner: featured?.banners?.at(1),
+		thirdBanner: featured?.banners?.at(2)
+	}
 return (
 <>
-<FeatureBlock description={featured?.banners?.at(0)?.description} title={featured?.banners?.at(0).name} image={featured?.banners?.at(0)?.banner} link='Shop now >' />
-<FeatureBlock />
-<FeatureBlock />
+		<FeatureBlock title={ banners?.firstBanner?.name } description={banners?.firstBanner?.description} image={banners?.firstBanner?.banner} link='Shop now >'/>
+		<FeatureBlock title={ banners?.secondBanner?.name } description={banners?.secondBanner?.description} image={banners?.secondBanner?.banner} link='Shop now >'/>
+		<FeatureBlock />
 <div className='mx-3'>
 	<FeaturesGroup />
 	<FeaturesGroup />

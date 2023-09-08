@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {selectStatus, uploadImages,UploadPreviews} from '../../features/items/itemsSlice'
+import {selectAddStatus, uploadImages,UploadPreviews} from '../../features/items/itemsSlice'
 
 export const FifthStageForm = () =>
 {
-  const status = useSelector( selectStatus );
+  const status = useSelector( selectAddStatus );
   const dispatch = useDispatch()
 	const [ banner, setBanner ] = useState( '' );
   const [ block, setBlock ] = useState( '' );

@@ -1,10 +1,10 @@
 import { useState,useEffect } from 'react'
 import {useDispatch, useSelector } from 'react-redux'
-import {addModel,selectStatus} from '../../features/items/itemsSlice'
+import {addModel,selectAddStatus} from '../../features/items/itemsSlice'
 
 export const SecondStageForm = () =>
 {
-  const status = useSelector(selectStatus)
+  const status = useSelector(selectAddStatus)
   const dispatch = useDispatch();
 	const [ modelName, setModelName ] = useState( '' );
   const [ modelDescription, setModelDescription ] = useState( '' );

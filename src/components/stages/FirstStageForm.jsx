@@ -1,9 +1,9 @@
 import { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {addItem,selectStatus} from '../../features/items/itemsSlice'
+import {addItem,selectAddStatus} from '../../features/items/itemsSlice'
 export const FirstStageForm = () =>
 {
-  const status = useSelector( selectStatus );
+  const status = useSelector( selectAddStatus );
   const dispatch = useDispatch();
 const [ name, setName ] = useState( '' );
 const [ description, setDescription ] = useState( '' );

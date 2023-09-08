@@ -1,9 +1,9 @@
 import classes from './RadioSquare.module.css'
-export const RadioSquareModel = ( { id, name, data, titleLabel='', typeLabel=''} ) =>
+export const RadioSquareModel = ( { id, name, data, titleLabel='', typeLabel='',changedData} ) =>
 {
 return (
 <div>
-	<input className={classes.RadioSquare} type="radio" name={name} id={id} />
+	<input onClick={() => changedData(data?.data)} className={classes.RadioSquare} type="radio" name={name} id={id} />
 	<label className="cursor-pointer" htmlFor={id}>
 	<span className="w-80 border-2 border-neutral-400 rounded-xl flex flex-row justify-between p-3">
 	<span className="flex flex-col">

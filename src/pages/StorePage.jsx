@@ -6,7 +6,7 @@ export const StorePage = () =>
 {
 	const status = useSelector(selectStatus)
 	const items = useSelector( selectItems );
-	console.log(items)
+	
 return (
 <div className='container py-10'>
 	<section className='flex mb-10'>
