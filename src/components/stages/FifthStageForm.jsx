@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import {Oval} from 'react-loader-spinner'
 import {selectAddStatus, uploadImages,UploadPreviews} from '../../features/items/itemsSlice'
 
 export const FifthStageForm = () =>
@@ -86,16 +87,16 @@ export const FifthStageForm = () =>
               <input onChange={onPreviewChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='preview' name='preview' />
             <label className='text-sm text-slate-500' htmlFor="preview">Preview</label>
             <div className='flex items-center gap-10 mt-5'>
-              <button disabled={!preview ? true : false} onClick={onAddPreviewClickedHandler}  className='w-44 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>Add Preview</button>
+              <button disabled={!preview || status === 'loading' ? true : false} onClick={onAddPreviewClickedHandler}  className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add preview'}</button>
               </div>
             </div>
         </div>
         <div className='flex gap-10'>
-          <button onClick={onUploadClickedHandler} disabled={!canSaveImages ? true : false} className='w-44 h-8 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Upload Images</button>
+          <button onClick={onUploadClickedHandler} disabled={!canSaveImages || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Upload images'}</button>
         </div>
       </div>
       <div className='flex justify-end px-20'>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('images') === 'true' ? false : true} className='w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Next</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('images') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
       </div>
 	</>
   )

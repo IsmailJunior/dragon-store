@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {Oval} from 'react-loader-spinner'
 import {addStorage, selectAddStatus} from '../../features/items/itemsSlice'
 export const ThirdStageForm = () =>
 {
@@ -50,12 +51,12 @@ export const ThirdStageForm = () =>
             <label className='text-sm text-slate-500' htmlFor="storage">Storage</label>
             <input onChange={onStoragePriceChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-3 rounded border border-slate-400 my-3' type="number" id='storagePrice' name='storagePrice' />
             <label className='text-sm text-slate-500' htmlFor="storagePrice">Storage price</label>
-            <button onClick={onAddStorageClickedHandler} disabled={!canSaveStorage ? true : false} className='w-44 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>Add Storage</button>
+            <button onClick={onAddStorageClickedHandler} disabled={!canSaveStorage || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add storage'}</button>
             </div>
         </div>
       </div>
         <div className='flex justify-end px-20'>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('storages') === 'true' ?  false : true} className='w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Next</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('storages') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
       </div>
 	</>
   )

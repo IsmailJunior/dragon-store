@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import {Oval} from 'react-loader-spinner'
 import {selectAddStatus,addColors} from '../../features/items/itemsSlice'
 import { ChromePicker } from 'react-color';
 
@@ -43,7 +44,7 @@ export const FourthStageForm = () =>
               <input onChange={onColorNameChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-3 rounded border border-slate-400 my-3' type="text" id='modelName' name='modelName' />
             <label className='text-sm text-slate-500' htmlFor="modelName">Color name</label>
             <div className='flex items-center gap-10 mt-5'>
-              <button onClick={onAddColorClickedHandler} disabled={!canSaveColor ? true : false} className='w-44 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>Add Color</button>
+              <button onClick={onAddColorClickedHandler} disabled={!canSaveColor || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add color'}</button>
               <div className='w-12 h-12 rounded-full shadow-inner shadow-gray-500' style={{backgroundColor: colorHex}}></div>
               </div>
             </div>
@@ -54,7 +55,7 @@ export const FourthStageForm = () =>
         </div>
       </div>
       <div className='flex justify-end px-20'>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('colors') === 'true' ? false : true} className='w-44 disabled:bg-sky-300 h-10 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Next</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('colors') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 disabled:bg-sky-300 h-10 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
       </div>
 	</>
   )
