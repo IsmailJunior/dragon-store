@@ -6,9 +6,9 @@ export const FirstStageForm = () =>
 {
   const status = useSelector( selectAddStatus );
   const dispatch = useDispatch();
-const [ name, setName ] = useState( '' );
-const [ description, setDescription ] = useState( '' );
-const [ company, setCompany ] = useState( '' );
+  const [ name, setName ] = useState( '' );
+  const [ description, setDescription ] = useState( '' );
+  const [ company, setCompany ] = useState( '' );
   const [ price, setPrice ] = useState( '' );
   const canSave = [ name, description, company, price].every( Boolean );
 	const onNameChanged = ( e ) => setName( e.target.value );
@@ -16,9 +16,18 @@ const [ company, setCompany ] = useState( '' );
   const onCompanyChanged = ( e ) => setCompany( e.target.value );
   const onPriceChanged = ( e ) => setPrice( e.target.value );
 
-
   useEffect( () =>
   {
+    localStorage.setItem( 'firstStageForm', 'true' );
+    localStorage.setItem( 'secondStageForm', 'false' );
+    localStorage.setItem( 'thirdStageForm', 'false' );
+    localStorage.setItem( 'fourthStageForm', 'false' );
+	  localStorage.setItem( 'fifthStageForm', 'false' );
+	  localStorage.setItem( 'sixthStageForm', 'false' );
+    localStorage.setItem( 'colors', 'false' );
+    localStorage.setItem( 'models', 'false' );
+    localStorage.setItem( 'storages', 'false' );
+	  localStorage.setItem( 'images', 'false' );
     if ( status === 'success' )
     {
       window.location.reload()
@@ -27,7 +36,6 @@ const [ company, setCompany ] = useState( '' );
 
   const onNextClickedHandler = () =>
   {
-
     if ( !canSave ) return console.log( 'Please fill the forms.' );
     dispatch( addItem( { name: name, description: description, company: company, price: price } ) );
     localStorage.setItem( 'firstStageForm', 'false' );

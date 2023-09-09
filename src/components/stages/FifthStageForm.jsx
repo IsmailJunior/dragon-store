@@ -42,16 +42,8 @@ export const FifthStageForm = () =>
 
   const onNextClickedHandler = () =>
   {
-    localStorage.setItem( 'firstStageForm', 'true' );
-    localStorage.setItem( 'secondStageForm', 'false' );
-    localStorage.setItem( 'thirdStageForm', 'false' );
-    localStorage.setItem( 'fourthStageForm', 'false' );
     localStorage.setItem( 'fifthStageForm', 'false' );
-    localStorage.setItem( 'colors', 'false' );
-    localStorage.setItem( 'models', 'false' );
-    localStorage.setItem( 'storages', 'false' );
-    localStorage.setItem( 'images', 'false' );
-    localStorage.removeItem( 'itemId')
+    localStorage.setItem( 'sixthStageForm', 'true' );
     window.location.reload();
   }
   return (
@@ -96,7 +88,7 @@ export const FifthStageForm = () =>
         </div>
       </div>
       <div className='flex justify-end px-20'>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('images') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('images') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Preview'}</button>
       </div>
 	</>
   )

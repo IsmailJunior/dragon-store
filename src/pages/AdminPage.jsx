@@ -1,7 +1,9 @@
 import {Link, Outlet} from 'react-router-dom'
 import { PlusIcon } from '@heroicons/react/24/outline'
 
-export const AdminPage = () => {
+export const AdminPage = () =>
+{
+localStorage.setItem( 'firstStageForm', 'true' );
   return (
 	<div className='flex gap-10'>
 		<aside className="sticky top-0 w-64 h-fit bg-slate-900 block">

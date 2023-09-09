@@ -145,25 +145,25 @@ export const uploadImages = createAsyncThunk( 'items/uploadImages', async ( { ba
 {
 	try
 	{
-		const bannerRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/banners/${ uuid() }` );
+		const bannerRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/banners/${ uuid() }.jpg` );
 		const bannerSnapshot = await uploadBytes( bannerRef, banner );
 		const bannerUrl = await getDownloadURL( bannerSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
 			banner: bannerUrl
 		} );
-		const cardRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/cards/${ uuid() }` );
+		const cardRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/cards/${ uuid() }.jpg` );
 		const cardSnapshot = await uploadBytes( cardRef, card );
 		const cardUrl = await getDownloadURL( cardSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
 			card: cardUrl
 		} );
-		const blockRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/blocks/${ uuid() }` );
+		const blockRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/blocks/${ uuid() }.jpg` );
 		const blockSnapshot = await uploadBytes( blockRef, block );
 		const blockUrl = await getDownloadURL( blockSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
 			block: blockUrl
 		} );
-		const transparentRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/transparents/${ uuid() }` );
+		const transparentRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/transparents/${ uuid() }.png` );
 		const transparentSnapshot = await uploadBytes( transparentRef, transparent );
 		const transparentUrl = await getDownloadURL( transparentSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
@@ -180,7 +180,7 @@ export const UploadPreviews = createAsyncThunk( 'items/uploadPreivews', async ( 
 
 	try
 	{
-		const previewRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/previews/${ uuid() }` );
+		const previewRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/previews/${ uuid() }.jpg` );
 		const previewSnapshot = await uploadBytes( previewRef, preview );
 		const previewUrl = await getDownloadURL( previewSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
@@ -316,7 +316,6 @@ const itemsSlice = createSlice( {
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
 export const selectStatus = ( state ) => state.items.status;
-export const selectItem = ( state ) => state.items.item;
 export const selectItems = ( state ) => state.items.items;
 export const selectFeatured = ( state ) => state.items.featured;
 export const selectStore = ( state ) => state.items.store;
