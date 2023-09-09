@@ -36,9 +36,10 @@ function App ()
 				<Route path='store/:product' element={ <ProductPage /> } />
 				<Route path='bag' element={ <BagPage /> } />
 			</Route>
-			<Route path={user ? '/admin' : '/login'} element={user  ? <AdminPage /> : <AuthPage />}>
+			<Route path='/admin' element={<AdminPage />}>
 				<Route path='new'  element={<NewItemPage />} />
 			</Route>
+			<Route path='/login' element={<AuthPage/>} />
 		</Routes>
 	)
 }
