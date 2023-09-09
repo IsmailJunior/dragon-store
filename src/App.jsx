@@ -10,7 +10,8 @@ import { StorePage } from './pages/StorePage'
 import { ProductPage } from './pages/ProductPage'
 import { BagPage } from './pages/BagPage'
 import { AdminPage } from './pages/AdminPage'
-import {NewItemPage} from './pages/NewItemPage'
+import { NewItemPage } from './pages/NewItemPage'
+import {NotFoundPage} from './pages/NotFoundPage'
 function App ()
 {
 	const user = useSelector( selectUser );
@@ -39,7 +40,8 @@ function App ()
 			<Route path='/admin' element={<AdminPage />}>
 				<Route path='new'  element={<NewItemPage />} />
 			</Route>
-			<Route path='/login' element={<AuthPage/>} />
+			<Route path='/login' element={ <AuthPage /> } />
+			<Route path='/*' element={ <NotFoundPage /> } />
 		</Routes>
 	)
 }
