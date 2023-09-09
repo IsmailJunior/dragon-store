@@ -1,9 +1,20 @@
-import {Link, Outlet} from 'react-router-dom'
-import { PlusIcon } from '@heroicons/react/24/outline'
-
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import {useDispatch,useSelector} from 'react-redux'
+import { PlusIcon, UserCircleIcon } from '@heroicons/react/24/outline'
+import {logOut,selectStatus,selectUser} from '../features/user/userSlice'
 export const AdminPage = () =>
 {
-localStorage.setItem( 'firstStageForm', 'true' );
+	
+	localStorage.setItem( 'firstStageForm', 'true' );
+	const status = useSelector( selectStatus );
+	const navigate = useNavigate();
+	const dispatch = useDispatch();	
+	const onLogoutClickedHandler = () =>
+	{
+		dispatch( logOut());
+		navigate('/login')
+	}
+
   return (
 	<div className='flex gap-10'>
 		<aside className="sticky top-0 w-64 h-fit bg-slate-900 block">
@@ -14,6 +25,10 @@ localStorage.setItem( 'firstStageForm', 'true' );
 				Create new item
 			</li>	
 			</Link>	
+			<li onClick={onLogoutClickedHandler} className='flex items-center gap-3 cursor-pointer'>
+			<UserCircleIcon className='w-6'/>		
+					Logout
+			</li>	
 			</ul>
 		</aside>
 		<div className='py-5'>

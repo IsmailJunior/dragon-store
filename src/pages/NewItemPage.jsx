@@ -3,7 +3,7 @@ import { SecondStageForm } from '../components/stages/SecondStageForm';
 import { ThirdStageForm } from '../components/stages/ThirdStageForm';
 import { FourthStageForm } from '../components/stages/FourthStageForm';
 import { FifthStageForm } from '../components/stages/FifthStageForm'
-import {SixthStageForm} from '../components/stages/SixthStageForm'
+import { SixthStageForm } from '../components/stages/SixthStageForm'
 export const NewItemPage = () =>
 {
   return (
