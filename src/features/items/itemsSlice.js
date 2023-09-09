@@ -11,11 +11,37 @@ const initialState = {
 	featured: {
 		banners: null,
 		blocks: null
-	}
+	},
+	store: []
 };
 
 const featuredRef = collection( store, 'featured' );
+const storeRef = collection( store, 'store' );
 const collectionRef = collection( store, 'products' );
+
+export const getStore = createAsyncThunk( 'items/getStore', async () =>
+{
+	try
+	{
+		const productsRef = await getDocs( collectionRef );
+		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
+		const arrayData = await getDocs( storeRef );
+		const data = arrayData.docs.map( ( doc ) => doc.data() );
+		const sections = data?.at( 0 )?.sections;
+		sections.forEach( ( element, index, arr ) =>
+		{
+			element.cards.forEach( ( element, index, arr ) =>
+			{
+				arr[ index ] = element.id;
+			} );
+			arr[ index ].cards = productsData.filter( ( product ) => element.cards.includes( product.id ) );
+		} );
+		return sections;
+	} catch ( error )
+	{
+		return error;
+	}
+} );
 
 export const getFeatured = createAsyncThunk( 'items/getFeatured', async () =>
 {
@@ -190,10 +216,9 @@ const itemsSlice = createSlice( {
 			{
 				state.addStatus = 'loading';
 			} )
-			.addCase( addModel.rejected, ( state, action ) =>
+			.addCase( addModel.rejected, ( state, ) =>
 			{
 				state.addStatus = 'failed';
-				console.log( action.payload );
 			} )
 			.addCase( addModel.fulfilled, ( state ) =>
 			{
@@ -249,9 +274,7 @@ const itemsSlice = createSlice( {
 			} )
 			.addCase( getItems.pending, ( state ) =>
 			{
-				{
-					state.status = 'loading';
-				}
+				state.status = 'loading';
 			} )
 			.addCase( getItems.rejected, ( state ) =>
 			{
@@ -276,6 +299,19 @@ const itemsSlice = createSlice( {
 				state.featured.banners = action.payload[ 0 ];
 				state.featured.blocks = action.payload[ 1 ];
 			} )
+			.addCase( getStore.pending, ( state ) =>
+			{
+				state.status = 'loading';
+			} )
+			.addCase( getStore.rejected, ( state ) =>
+			{
+				state.status = 'failed';
+			} )
+			.addCase( getStore.fulfilled, ( state, action ) =>
+			{
+				state.status = 'success';
+				state.store = action.payload;
+			} )
 	}
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
@@ -283,4 +319,5 @@ export const selectStatus = ( state ) => state.items.status;
 export const selectItem = ( state ) => state.items.item;
 export const selectItems = ( state ) => state.items.items;
 export const selectFeatured = ( state ) => state.items.featured;
+export const selectStore = ( state ) => state.items.store;
 export default itemsSlice.reducer;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import {useParams} from 'react-router-dom'
 import { v4 as uuid } from "uuid";
 import { doc, getDoc } from "firebase/firestore";
 import { Oval } from "react-loader-spinner";
@@ -8,13 +9,15 @@ import { RadioSquareStorage } from "../components/RadioSquareStorage";
 import { RadioCircle } from "../components/RadioCircle";
 import { RadioSquareContained } from "../components/RadioSqureContained";
 import { Summary } from "../components/Summary";
-export const ProductPage = () => {
+export const ProductPage = () =>
+{
+	const params = useParams();
 	const [ product, setProduct ] = useState( {} );
 	const [ colorProp, setColorProp ] = useState( '' );
 	const [ storageProp, setStorageProp ] = useState( '' );
 	const [ modelProp, setModelProp ] = useState( '' );
 	const [ colorLabelProp, setColorLabelProp ] = useState( '' );
-const docRef = doc(store, "products", "G3CrVvaEkIIg7GPpGDue");
+const docRef = doc(store, "products", params.product);
 useEffect(() => {
 (async () => {
 const docSnap = await getDoc(docRef);
@@ -33,8 +36,7 @@ return (
 	</div>
 	<div className="flex gap-12">
 		<div className="flex flex-col gap-10">
-			<div className="overflow-hidden w-120 h-80 border-2 flex justify-center items-center rounded-xl">
-				<img src={product.previews[0]} />
+			<div className="bg-no-repeat bg-cover w-120 h-80 border-2 flex justify-center items-center rounded-xl" style={{backgroundImage: `url(${product.previews[0]})`}}>
 			</div>
 			<h1 className="text-2xl font-semibold">
 			Payment options. Select the one that works for you.
