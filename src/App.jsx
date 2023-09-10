@@ -38,7 +38,8 @@ function App ()
 				<Route path='bag' element={ <BagPage /> } />
 			</Route>
 			<Route path='/admin' element={<AdminPage />}>
-				<Route path='new'  element={<NewItemPage />} />
+				<Route path='new' element={ <NewItemPage /> } />
+				<Route path='landing' element={<LandingPage />} />
 			</Route>
 			<Route path='/login' element={ <AuthPage /> } />
 			<Route path='/*' element={ <NotFoundPage /> } />

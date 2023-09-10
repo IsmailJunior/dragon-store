@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import classes from './FeaturesBlock.module.css'
+import classes from '../FeaturesBlock.module.css'
 export const FeatureBlock = ( { title = 'Title', description = 'Description', link = 'Link', image, invert, id } ) =>
 {
 return (
