@@ -18,16 +18,6 @@ export const FirstStageForm = () =>
 
   useEffect( () =>
   {
-    localStorage.setItem( 'firstStageForm', 'true' );
-    localStorage.setItem( 'secondStageForm', 'false' );
-    localStorage.setItem( 'thirdStageForm', 'false' );
-    localStorage.setItem( 'fourthStageForm', 'false' );
-	  localStorage.setItem( 'fifthStageForm', 'false' );
-	  localStorage.setItem( 'sixthStageForm', 'false' );
-    localStorage.setItem( 'colors', 'false' );
-    localStorage.setItem( 'models', 'false' );
-    localStorage.setItem( 'storages', 'false' );
-	  localStorage.setItem( 'images', 'false' );
     if ( status === 'success' )
     {
       window.location.reload()

@@ -52,32 +52,53 @@ export const FifthStageForm = () =>
           <label htmlFor="company">Images:</label>
           <div className='flex flex-wrap gap-10  border p-4 rounded-lg my-4'>
             <div className='flex flex-col'>
-              <input onChange={onBannerChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='banner' name='banner' />
-            <label className='text-sm text-slate-500' htmlFor="banner">Banner</label>
+              <input onChange={onBannerChanged} className='block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-violet-50 file:text-slate-700' type="file" id='banner' name='banner' />
+            <label className='text-sm my-5 text-slate-500' htmlFor="banner">Banner</label>
             <div className='flex items-center gap-10 mt-5'>
               </div>
             </div>
             <div className='flex flex-col'>
-              <input onChange={onBlockChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='block' name='block' />
-            <label className='text-sm text-slate-500' htmlFor="block">Block</label>
+              <input onChange={onBlockChanged} className='block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-violet-50 file:text-slate-700' type="file" id='block' name='block' />
+            <label className='text-sm my-5 text-slate-500' htmlFor="block">Block</label>
             <div className='flex items-center gap-10 mt-5'>
               </div>
             </div>
             <div className='flex flex-col'>
-              <input onChange={onCardChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='card' name='card' />
-            <label className='text-sm text-slate-500' htmlFor="card">Card</label>
+              <input onChange={onCardChanged} className='block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-violet-50 file:text-slate-700' type="file" id='card' name='card' />
+            <label className='text-sm my-5 text-slate-500' htmlFor="card">Card</label>
             <div className='flex items-center gap-10 mt-5'>
               </div>
             </div>
             <div className='flex flex-col'>
-              <input onChange={onTransparentChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='transparent' name='transparent' />
-            <label className='text-sm text-slate-500' htmlFor="transparent">Transparent</label>
+              <input onChange={onTransparentChanged} className='block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-violet-50 file:text-slate-700
+      hover:file:bg-violet-100' type="file" id='transparent' name='transparent' />
+            <label className='text-sm my-5 text-slate-500' htmlFor="transparent">Transparent</label>
             <div className='flex items-center gap-10 mt-5'>
               </div>
             </div>
             <div className='flex flex-col'>
-              <input onChange={onPreviewChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-1 rounded border border-slate-400 my-3' type="file" id='preview' name='preview' />
-            <label className='text-sm text-slate-500' htmlFor="preview">Preview</label>
+              <input onChange={onPreviewChanged} className='block w-full text-sm text-slate-500
+      file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-violet-50 file:text-slate-700' type="file" id='preview' name='preview' />
+            <label className='text-sm my-5 text-slate-500' htmlFor="preview">Preview</label>
             <div className='flex items-center gap-10 mt-5'>
               <button disabled={!preview || status === 'loading' ? true : false} onClick={onAddPreviewClickedHandler}  className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add preview'}</button>
               </div>
