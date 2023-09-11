@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import {useDispatch,useSelector} from 'react-redux'
+import { addGuest,selectGuest} from '../features/items/itemsSlice';
 import {useParams} from 'react-router-dom'
 import { v4 as uuid } from "uuid";
 import { doc, getDoc } from "firebase/firestore";
@@ -8,8 +10,16 @@ import { RadioSquareModel } from "../components/RadioSquareModel";
 import { RadioSquareStorage } from "../components/RadioSquareStorage";
 import { RadioCircle } from "../components/RadioCircle";
 import { Summary } from "../components/Summary";
+
 export const ProductPage = () =>
 {
+	const guest = useSelector( selectGuest );
+	const dispatch = useDispatch()
+	if ( localStorage.getItem( 'userId' ) === null )
+	{
+		localStorage.setItem( 'userId', uuid() );
+		dispatch( addGuest() );
+	}
 	const params = useParams();
 	const [ product, setProduct ] = useState( {} );
 	const [ colorProp, setColorProp ] = useState( '' );
@@ -21,11 +31,11 @@ useEffect(() => {
 (async () => {
 const docSnap = await getDoc(docRef);
 if (docSnap.exists()) {
-setProduct(docSnap.data());
+setProduct({...docSnap.data(), id: docSnap.id});
 }
 })();
-}, []);
-return (
+}, [] );
+return (	
 <div className="mx-20 py-10">
 	{product.name ? (
 	<>
@@ -41,9 +51,9 @@ return (
 			Payment options. Select the one that works for you.
 			</h1>
 			<div className="flex justify-center gap-5">
-			
 			</div>
-				<Summary
+				<Summary			
+				productId={ product?.id }				
 				model={modelProp}	
 				color={colorProp}
 				storage={storageProp}

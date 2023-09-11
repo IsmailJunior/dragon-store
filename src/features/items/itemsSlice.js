@@ -8,12 +8,89 @@ const initialState = {
 	cancelStatus: 'idle',
 	addStatus: 'idle',
 	status: 'idle',
+	guestId: null,
+	cart: [],
+	landing: {},
 	items: [],
 	store: []
 };
+const guestsRef = collection( store, 'guests' );
 const storeRef = collection( store, 'store' );
+const landingRef = collection( store, 'landing' );
 const collectionRef = collection( store, 'products' );
 const utiltiesCollectionRef = collection( store, 'utilties' );
+
+export const getLanding = createAsyncThunk( 'items/getLanding', async () =>
+{
+	try
+	{
+		const productsRef = await getDocs( collectionRef );
+		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
+		const arrayData = await getDocs( landingRef );
+		const data = arrayData.docs.map( ( doc ) => doc.data() );
+		const firstBanner = productsData.filter( ( product ) => product.id === data[ 0 ].banners.firstBanner.path.split( '/' )[ 1 ] );
+		const secondBanner = productsData.filter( ( product ) => product.id === data[ 0 ].banners.secondBanner.path.split( '/' )[ 1 ] );
+		const thirdBanner = productsData.filter( ( product ) => product.id === data[ 0 ].banners.thirdBanner.path.split( '/' )[ 1 ] );
+		const firstSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.firstSection.leftBlock.path.split( '/' )[ 1 ] );
+		const firstSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.firstSection.rightBlock.path.split( '/' )[ 1 ] );
+		const secondSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.secondSection.leftBlock.path.split( '/' )[ 1 ] );
+		const secondSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.secondSection.rightBlock.path.split( '/' )[ 1 ] );
+		const thirdSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.thirdSection.leftBlock.path.split( '/' )[ 1 ] );
+		const thirdSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.thirdSection.rightBlock.path.split( '/' )[ 1 ] );
+		const landing = {
+			banners: {
+				firstBanner: firstBanner[ 0 ],
+				secondBanner: secondBanner[ 0 ],
+				thirdBanner: thirdBanner[ 0 ]
+			},
+			blocks: {
+				firstSection: {
+					leftBlock: firstSectionLeftBlock[ 0 ],
+					rightBlock: firstSectionRightBlock[ 0 ]
+				},
+				secondSection: {
+					leftBlock: secondSectionLeftBlock[ 0 ],
+					rightBlock: secondSectionRightBlock[ 0 ]
+				},
+				thirdSection: {
+					leftBlock: thirdSectionLeftBlock[ 0 ],
+					rightBlock: thirdSectionRightBlock[ 0 ]
+				}
+			}
+		};
+		return landing;
+
+	} catch ( error )
+	{
+		return error;
+	}
+} );
+
+export const addGuest = createAsyncThunk( 'items/addGuest', async () =>
+{
+	try
+	{
+		const guestSnapShot = await addDoc( guestsRef, {
+			cart: []
+		} );
+		return guestSnapShot.id;
+	} catch ( error )
+	{
+		return error;
+	}
+} );
+
+export const addToCart = createAsyncThunk( 'items/addToCart', async ( { id } ) =>
+{
+	try
+	{
+		const productsRef = await getDocs( collectionRef );
+		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
+	} catch ( error )
+	{
+		return error;
+	}
+} )
 
 export const getStore = createAsyncThunk( 'items/getStore', async () =>
 {
@@ -38,7 +115,6 @@ export const getStore = createAsyncThunk( 'items/getStore', async () =>
 		return error;
 	}
 } );
-
 
 export const getItems = createAsyncThunk( 'items/getItems', async () =>
 {
@@ -320,6 +396,19 @@ const itemsSlice = createSlice( {
 				state.status = 'success';
 				state.store = action.payload;
 			} )
+			.addCase( getLanding.pending, ( state ) =>
+			{
+				state.status = 'loading';
+			} )
+			.addCase( getLanding.rejected, ( state ) =>
+			{
+				state.status = 'failed';
+			} )
+			.addCase( getLanding.fulfilled, ( state, action ) =>
+			{
+				state.status = 'success';
+				state.landing = { ...action.payload };
+			} )
 			.addCase( deleteItem.pending, ( state ) =>
 			{
 				state.cancelStatus = 'loading';
@@ -332,6 +421,32 @@ const itemsSlice = createSlice( {
 			{
 				state.cancelStatus = 'success';
 			} )
+			.addCase( addGuest.pending, ( state ) =>
+			{
+				state.status = 'loading';
+			} )
+			.addCase( addGuest.rejected, ( state ) =>
+			{
+				state.status = 'failed';
+			} )
+			.addCase( addGuest.fulfilled, ( state, action ) =>
+			{
+				state.status = 'success';
+				state.guestId = action.payload;
+			} )
+			.addCase( addToCart.pending, ( state ) =>
+			{
+				state.status = 'loading';
+			} )
+			.addCase( addToCart.rejected, ( state ) =>
+			{
+				state.status = 'failed';
+			} )
+			.addCase( addToCart.fulfilled, ( state, action ) =>
+			{
+				state.status = 'success';
+				state.cart.push( action.payload );
+			} )
 	}
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
@@ -339,4 +454,6 @@ export const selectCancelStatus = ( state ) => state.items.cancelStatus;
 export const selectStatus = ( state ) => state.items.status;
 export const selectItems = ( state ) => state.items.items;
 export const selectStore = ( state ) => state.items.store;
+export const selectLanding = ( state ) => state.items.landing;
+export const selectGuest = ( state ) => state.items.guestId;
 export default itemsSlice.reducer;

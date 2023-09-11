@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import { Link } from 'react-router-dom';
 import classes from './FeaturesBlockAdmin.module.css'
 export const FeatureBlockAdmin = ( { title, description , link, image, invert, id } ) =>

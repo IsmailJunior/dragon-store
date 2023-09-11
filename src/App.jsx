@@ -41,7 +41,7 @@ function App ()
 				<Route path='bag' element={ <BagPage /> } />
 			</Route>
 			<Route path='/admin' element={<AdminPage />}>
-				<Route path='new' element={ <NewItemPage /> } />
+				<Route index element={ <NewItemPage /> } />
 				<Route path='landing' element={ <LandingPageAdmin /> } />
 				<Route path='store' element={ <StorePageAdmin /> } />
 				<Route path='items' element={<AllItemsAdmin />} />

@@ -57,7 +57,7 @@ export const AdminPage = () =>
 		</div> : !user ? <AuthPage /> : <div className='flex'>
 		<aside className="sticky z-30 top-0 w-64 h-screen shadow-lg bg-white border block">
 			<ul className="flex flex-col gap-12 items-center p-4 py-10">
-			<Link to='/admin/new'>
+			<Link to='/admin'>
 			<li className='w-42 font-semibold flex items-center gap-3 hover:text-slate-400'>
 			<PlusIcon className='w-6'/>	
 				Create new item
