@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import classes from './FeaturesBlock.module.css'
-export const FeatureBlock = ( { title = 'Title', description = 'Description', link = 'Link', image, invert, id } ) =>
+export const FeatureBlock = ( { title, description, link, image, invert, id } ) =>
 {
 return (
 <Link to={`/store/${id}`} className="w-full h-96 bg-slate-200 flex justify-center items-center flex-col mb-3 relative">
@@ -10,7 +10,6 @@ return (
 <p className="underline decoration-solid text-sky-600">{link}</p>
 </div>
 <figure className={classes.featureImage} style={{backgroundImage: `url(${image})`}}></figure>
-<img src="https://static.thenounproject.com/png/1269202-200.png" />
 </Link>
 )
 }

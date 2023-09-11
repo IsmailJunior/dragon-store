@@ -1,11 +1,30 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux'
-import { PlusIcon, UserCircleIcon ,HomeIcon, BuildingOfficeIcon} from '@heroicons/react/24/outline'
+import { PlusIcon, UserCircleIcon ,HomeIcon, BuildingStorefrontIcon, Square3Stack3DIcon} from '@heroicons/react/24/outline'
 import { logOut, selectStatus, selectUser } from '../features/user/userSlice'
+import { selectAddStatus, deleteItem} from '../features/items/itemsSlice'
+import { Oval } from "react-loader-spinner";
 import {AuthPage} from '../pages/AuthPage'
 export const AdminPage = () =>
 {
+
+		const firstStageForm = localStorage.getItem( 'firstStageForm' );
+	const secondStageForm = localStorage.getItem( 'secondStageForm' );
+	const thirdStageForm = localStorage.getItem( 'thirdStageForm' );
+	const fourthStageForm = localStorage.getItem( 'fourthStageForm' );
+	const fifthStageForm = localStorage.getItem( 'fifthStageForm' );
+	const sixthStageForm = localStorage.getItem( 'sixthStageForm' );
+	const models = localStorage.getItem( 'models' );
+	const colors = localStorage.getItem( 'colors' );
+	const storages = localStorage.getItem( 'storages' );
+	const images = localStorage.getItem( 'images' );
+	// const itemId = localStorage.getItem( 'itemId' );
+
+	const stages = [ firstStageForm, secondStageForm, thirdStageForm, fourthStageForm, fifthStageForm, sixthStageForm, models, colors, storages, images ];
+
+
 	
+	const addStatus = useSelector( selectAddStatus );
 	const user = useSelector( selectUser );
 	const status = useSelector( selectStatus );
 	const navigate = useNavigate();
@@ -16,30 +35,60 @@ export const AdminPage = () =>
 		navigate('/login')
 	}
 
+
+	if ( stages.includes(null))
+	{
+	localStorage.setItem('firstStageForm', 'true')
+    localStorage.setItem('secondStageForm', 'false')
+	localStorage.setItem( 'thirdStageForm', 'false' )
+	localStorage.setItem('fourthStageForm', 'false')
+    localStorage.setItem('fifthStageForm', 'false')
+    localStorage.setItem('sixthStageForm', 'false')
+    localStorage.setItem('models', 'false')
+    localStorage.setItem('colors', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem( 'storages', 'false' )
+	localStorage.removeItem( 'itemId' )	
+	dispatch( deleteItem() );
+	if ( status === 'success' )
+	{
+		window.location.reload()		
+	}
+	}
+
   return (
 	<>
-		{!user ? <AuthPage /> : <div className='flex'>
-		<aside className="sticky z-30 top-0 w-64 h-screen bg-slate-900 block">
-			<ul className="flex flex-col gap-12 items-center text-white p-4">
+		{status !== 'success' ? <div className="flex justify-center items-center h-52">
+		<Oval secondaryColor="black" color="white" />
+		</div> : !user ? <AuthPage /> : <div className='flex'>
+		<aside className="sticky z-30 top-0 w-64 h-screen shadow-lg bg-white border block">
+			<ul className="flex flex-col gap-12 items-center p-4 py-10">
 			<Link to='/admin/new'>
-			<li className='w-42 flex items-center gap-3'>
+			<li className='w-42 font-semibold flex items-center gap-3 hover:text-slate-400'>
 			<PlusIcon className='w-6'/>	
 				Create new item
 			</li>	
 			</Link>		
 			<Link to='/admin/landing'>
-			<li className='w-36 flex items-center gap-3 cursor-pointer'>
+			<li className='w-36 font-semibold flex items-center gap-3 cursor-pointer hover:text-slate-400'>
 			<HomeIcon className='w-6'/>		
 				Landing Page
 			</li>			
 			</Link>	
 			<Link to='/admin/store'>
-			<li className='w-36 flex items-center gap-3 cursor-pointer'>
-			<BuildingOfficeIcon className='w-6'/>		
+			<li className='w-36 flex font-semibold items-center gap-3 cursor-pointer hover:text-slate-400'>
+			<BuildingStorefrontIcon className='w-6'/>		
 				Store Page
 			</li>			
 			</Link>	
-			<li onClick={onLogoutClickedHandler} className='w-36 flex items-center gap-3 cursor-pointer'>
+			<Link to='/admin/items'>
+			<li className='w-36 flex font-semibold items-center gap-3 cursor-pointer hover:text-slate-400'>
+			<Square3Stack3DIcon className='w-6'/>		
+				All Items
+			</li>			
+			</Link>	
+			<li onClick={onLogoutClickedHandler} className='w-36 flex font-semibold items-center gap-3 cursor-pointer hover:text-slate-400'>
 			<UserCircleIcon className='w-6'/>		
 					Logout
 			</li>
@@ -51,4 +100,4 @@ export const AdminPage = () =>
 	</div>}
 	</>
   )
-}
+};

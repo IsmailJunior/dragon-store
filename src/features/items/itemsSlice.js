@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addDoc, collection, updateDoc, doc, arrayUnion, getDocs } from 'firebase/firestore';
+import { addDoc, collection, updateDoc, doc, arrayUnion, getDocs, deleteDoc, getDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
 import { store, storage } from '../../config/firebase';
@@ -18,6 +18,7 @@ const initialState = {
 const featuredRef = collection( store, 'featured' );
 const storeRef = collection( store, 'store' );
 const collectionRef = collection( store, 'products' );
+const utiltiesCollectionRef = collection( store, 'utilties' );
 
 export const getStore = createAsyncThunk( 'items/getStore', async () =>
 {
@@ -85,12 +86,29 @@ export const addItem = createAsyncThunk( 'items/addItem', async ( { name, descri
 			company: company,
 			price: price
 		} );
+		const itemId = docSnapshot.id;
+		await updateDoc( doc( utiltiesCollectionRef, 'XHIgATrWMN9jUv54BA8W' ), {
+			CreatedItemId: itemId
+		} )
 		return docSnapshot.id;
 	} catch ( error )
 	{
 		return error;
 	}
 } );
+
+export const deleteItem = createAsyncThunk( 'items/deleteItem', async () =>
+{
+	try
+	{
+		const docRef = doc( store, 'utilties', 'XHIgATrWMN9jUv54BA8W' );
+		const docSnap = await getDoc( docRef );
+		await deleteDoc( doc( store, 'products', docSnap.data().CreatedItemId ) );
+	} catch ( error )
+	{
+		return error;
+	}
+} )
 
 export const addModel = createAsyncThunk( 'items/addModels', async ( { modelName, modelDescription, modelPrice } ) =>
 {
@@ -311,6 +329,18 @@ const itemsSlice = createSlice( {
 			{
 				state.status = 'success';
 				state.store = action.payload;
+			} )
+			.addCase( deleteItem.pending, ( state ) =>
+			{
+				state.status = 'loading';
+			} )
+			.addCase( deleteItem.rejected, ( state ) =>
+			{
+				state.status = 'failed';
+			} )
+			.addCase( deleteItem.fulfilled, ( state ) =>
+			{
+				state.status = 'success';
 			} )
 	}
 } );

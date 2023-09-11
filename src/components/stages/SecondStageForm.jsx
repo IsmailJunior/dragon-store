@@ -1,11 +1,11 @@
 import { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {Oval} from 'react-loader-spinner'
-import {addModel,selectAddStatus} from '../../features/items/itemsSlice'
+import {addModel,selectAddStatus,deleteItem} from '../../features/items/itemsSlice'
 
 export const SecondStageForm = () =>
 {
-  const status = useSelector(selectAddStatus)
+  const Addstatus = useSelector(selectAddStatus)
   const dispatch = useDispatch();
 	const [ modelName, setModelName ] = useState( '' );
   const [ modelDescription, setModelDescription ] = useState( '' );
@@ -18,11 +18,11 @@ export const SecondStageForm = () =>
 
   useEffect( () =>
   {
-    if ( status === 'success' )
+    if ( Addstatus === 'success' )
     {
       window.location.reload();
     }
-  }, [status])
+  }, [Addstatus])
 
     const onAddModelClickedHandler = () =>
     {
@@ -30,6 +30,27 @@ export const SecondStageForm = () =>
       dispatch( addModel( { modelName: modelName, modelDescription: modelDescription, modelPrice: modelPrice} ) );
       localStorage.setItem( 'models', 'true' );
     }
+  
+  const onCancelClickedHandler = () =>
+  {
+    localStorage.setItem('firstStageForm', 'true')
+    localStorage.setItem('secondStageForm', 'false')
+	localStorage.setItem( 'thirdStageForm', 'false' )
+	localStorage.setItem('fourthStageForm', 'false')
+    localStorage.setItem('fifthStageForm', 'false')
+    localStorage.setItem('sixthStageForm', 'false')
+    localStorage.setItem('models', 'false')
+    localStorage.setItem('colors', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem( 'storages', 'false' )
+	localStorage.removeItem( 'itemId' )	
+    dispatch( deleteItem() )
+    if ( status === 'success' )
+    {
+      window.location.reload()
+    }
+  }
   
   const onNextClickedHandler = () =>
   {
@@ -57,8 +78,9 @@ export const SecondStageForm = () =>
           </div>
         </div>
       </div>
-      <div className='flex justify-end px-20'>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('models') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
+      <div className='flex justify-between px-20'>
+      <button onClick={onCancelClickedHandler} disabled={localStorage.getItem('models') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Cancel'}</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('models') === 'false' || Addstatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{Addstatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
       </div>
 	</div>
   )

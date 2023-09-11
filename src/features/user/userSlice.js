@@ -18,7 +18,6 @@ export const signIn = createAsyncThunk( 'user/signIn', async ( { email, password
 	}
 } );
 
-
 const userSlice = createSlice( {
 	name: 'user',
 	initialState,
@@ -26,10 +25,12 @@ const userSlice = createSlice( {
 		logIn: ( state, action ) =>
 		{
 			state.user = action.payload;
+			state.status = 'success'
 		},
 		logOut: ( state ) =>
 		{
 			signOut( auth );
+			state.status = 'success'
 			state.user = null;
 		}
 	},

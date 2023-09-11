@@ -21,9 +21,9 @@ export const FirstStageForm = () =>
     if ( status === 'success' )
     {
       window.location.reload()
-    }
-}, [status])
-
+    } 
+  }, [ status ] )
+  
   const onNextClickedHandler = () =>
   {
     if ( !canSave ) return console.log( 'Please fill the forms.' );

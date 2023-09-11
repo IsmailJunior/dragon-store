@@ -7,7 +7,6 @@ import { store } from "../config/firebase";
 import { RadioSquareModel } from "../components/RadioSquareModel";
 import { RadioSquareStorage } from "../components/RadioSquareStorage";
 import { RadioCircle } from "../components/RadioCircle";
-import { RadioSquareContained } from "../components/RadioSqureContained";
 import { Summary } from "../components/Summary";
 export const ProductPage = () =>
 {
