@@ -13,11 +13,9 @@ import { Summary } from "../components/Summary";
 
 export const ProductPage = () =>
 {
-	const guest = useSelector( selectGuest );
 	const dispatch = useDispatch()
-	if ( localStorage.getItem( 'userId' ) === null )
+	if ( localStorage.getItem( 'guest' ) === null )
 	{
-		localStorage.setItem( 'userId', uuid() );
 		dispatch( addGuest() );
 	}
 	const params = useParams();

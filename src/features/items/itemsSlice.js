@@ -7,14 +7,12 @@ import { store, storage } from '../../config/firebase';
 const initialState = {
 	cancelStatus: 'idle',
 	addStatus: 'idle',
+	cartStatus: 'idle',
 	status: 'idle',
-	guestId: null,
-	cart: [],
 	landing: {},
 	items: [],
 	store: []
 };
-const guestsRef = collection( store, 'guests' );
 const storeRef = collection( store, 'store' );
 const landingRef = collection( store, 'landing' );
 const collectionRef = collection( store, 'products' );
@@ -70,10 +68,11 @@ export const addGuest = createAsyncThunk( 'items/addGuest', async () =>
 {
 	try
 	{
-		const guestSnapShot = await addDoc( guestsRef, {
-			cart: []
-		} );
-		return guestSnapShot.id;
+		const guest = {
+			cart: [],
+		};
+		localStorage.setItem( 'guest', JSON.stringify( guest ) );
+		JSON.parse( localStorage.getItem( 'guest' ) );
 	} catch ( error )
 	{
 		return error;
@@ -86,6 +85,12 @@ export const addToCart = createAsyncThunk( 'items/addToCart', async ( { id } ) =
 	{
 		const productsRef = await getDocs( collectionRef );
 		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
+		const product = productsData.filter( ( item ) => item.id === id );
+		console.log( product );
+		const cart = JSON.parse( localStorage.getItem( 'guest' ) );
+		cart.cart.push( ...product );
+		const newCart = JSON.stringify( cart );
+		localStorage.setItem( 'guest', newCart );
 	} catch ( error )
 	{
 		return error;
@@ -429,23 +434,21 @@ const itemsSlice = createSlice( {
 			{
 				state.status = 'failed';
 			} )
-			.addCase( addGuest.fulfilled, ( state, action ) =>
+			.addCase( addGuest.fulfilled, ( state ) =>
 			{
 				state.status = 'success';
-				state.guestId = action.payload;
 			} )
 			.addCase( addToCart.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.cartStatus = 'loading';
 			} )
 			.addCase( addToCart.rejected, ( state ) =>
 			{
-				state.status = 'failed';
+				state.cartStatus = 'failed';
 			} )
-			.addCase( addToCart.fulfilled, ( state, action ) =>
+			.addCase( addToCart.fulfilled, ( state ) =>
 			{
-				state.status = 'success';
-				state.cart.push( action.payload );
+				state.cartStatus = 'success';
 			} )
 	}
 } );
@@ -455,5 +458,6 @@ export const selectStatus = ( state ) => state.items.status;
 export const selectItems = ( state ) => state.items.items;
 export const selectStore = ( state ) => state.items.store;
 export const selectLanding = ( state ) => state.items.landing;
-export const selectGuest = ( state ) => state.items.guestId;
+export const selectGuest = ( state ) => state.items.guest;
+export const selectCartStatus = ( state ) => state.items.cartStatus;
 export default itemsSlice.reducer;

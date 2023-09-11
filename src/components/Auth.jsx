@@ -9,7 +9,6 @@ import {auth} from '../config/firebase'
 export const Auth = () =>
 {
   const status = useSelector( selectStatus );
-  console.log(status)
   const dispatch = useDispatch()
   const navigate = useNavigate();
 	const [ email, setEamil ] = useState( '' );
