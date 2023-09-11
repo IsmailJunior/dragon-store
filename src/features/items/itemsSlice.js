@@ -6,6 +6,7 @@ import { store, storage } from '../../config/firebase';
 
 const initialState = {
 	cancelStatus: 'idle',
+	updateLandingStatus: 'idle',
 	addStatus: 'idle',
 	cartStatus: 'idle',
 	status: 'idle',
@@ -27,23 +28,35 @@ export const updateLanding = createAsyncThunk( 'items/updateLanding', async ( { 
 		{
 			if ( item === 'firstBanner' )
 			{
+				const docRef = doc( landingRef, landingId );
+				const docSnapshot = await getDoc( docRef );
 				await updateDoc( doc( landingRef, landingId ), {
 					banners: {
-						firstBanner: `products/${ id }`
+						firstBanner: doc( store, `products/${ id }` ),
+						secondBanner: docSnapshot.data().banners.secondBanner,
+						thirdBanner: docSnapshot.data().banners.thirdBanner
 					}
 				} );
 			} else if ( item === 'secondBanner' )
 			{
+				const docRef = doc( landingRef, landingId );
+				const docSnapshot = await getDoc( docRef );
 				await updateDoc( doc( landingRef, landingId ), {
 					banners: {
-						secondBanner: `products/${ id }`
+						firstBanner: docSnapshot.data().banners.firstBanner,
+						secondBanner: doc( store, `products/${ id }` ),
+						thirdBanner: docSnapshot.data().banners.thirdBanner
 					}
 				} );
 			} else if ( item === 'thirdBanner' )
 			{
+				const docRef = doc( landingRef, landingId );
+				const docSnapshot = await getDoc( docRef );
 				await updateDoc( doc( landingRef, landingId ), {
 					banners: {
-						thirdBanner: `products/${ id }`
+						firstBanner: docSnapshot.data().banners.firstBanner,
+						secondBanner: docSnapshot.data().banners.secondBanner,
+						thirdBanner: doc( store, `products/${ id }` )
 					}
 				} );
 			}
@@ -53,19 +66,41 @@ export const updateLanding = createAsyncThunk( 'items/updateLanding', async ( { 
 			{
 				if ( side === 'leftBlock' )
 				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
 					await updateDoc( doc( landingRef, landingId ), {
 						blocks: {
 							firstSection: {
-								leftBlock: `products/${ id }`
+								leftBlock: doc( store, `products/${ id }` ),
+								rightBlock: docSnapshot.data().blocks.firstSection.rightBlock
+							},
+							secondSection: {
+								leftBlock: docSnapshot.data().blocks.secondSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.secondSection.rightBlock,
+							},
+							thirdSection: {
+								leftBlock: docSnapshot.data().blocks.thirdSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.thirdSection.rightBlock,
 							}
 						}
 					} );
 				} else if ( side === 'rightBlock' )
 				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
 					await updateDoc( doc( landingRef, landingId ), {
 						blocks: {
 							firstSection: {
-								rightBlock: `products/${ id }`
+								leftBlock: docSnapshot.data().blocks.firstSection.leftBlock,
+								rightBlock: doc( store, `products/${ id }` )
+							},
+							secondSection: {
+								leftBlock: docSnapshot.data().blocks.secondSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.secondSection.rightBlock,
+							},
+							thirdSection: {
+								leftBlock: docSnapshot.data().blocks.thirdSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.thirdSection.rightBlock,
 							}
 						}
 					} );
@@ -74,19 +109,41 @@ export const updateLanding = createAsyncThunk( 'items/updateLanding', async ( { 
 			{
 				if ( side === 'leftBlock' )
 				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
 					await updateDoc( doc( landingRef, landingId ), {
 						blocks: {
+							firstSection: {
+								leftBlock: docSnapshot.data().blocks.firstSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.firstSection.rightBlock,
+							},
 							secondSection: {
-								leftBlock: `products/${ id }`
+								leftBlock: doc( store, `products/${ id }` ),
+								rightBlock: docSnapshot.data().blocks.secondSection.rightBlock
+							},
+							thirdSection: {
+								leftBlock: docSnapshot.data().blocks.thirdSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.thirdSection.rightBlock,
 							}
 						}
 					} );
 				} else if ( side === 'rightBlock' )
 				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
 					await updateDoc( doc( landingRef, landingId ), {
 						blocks: {
+							firstSection: {
+								leftBlock: docSnapshot.data().blocks.firstSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.firstSection.rightBlock,
+							},
 							secondSection: {
-								rightBlock: `products/${ id }`
+								leftBlock: docSnapshot.data().blocks.secondSection.leftBlock,
+								rightBlock: doc( store, `products/${ id }` )
+							},
+							thirdSection: {
+								leftBlock: docSnapshot.data().blocks.thirdSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.thirdSection.rightBlock,
 							}
 						}
 					} );
@@ -95,19 +152,41 @@ export const updateLanding = createAsyncThunk( 'items/updateLanding', async ( { 
 			{
 				if ( side === 'leftBlock' )
 				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
 					await updateDoc( doc( landingRef, landingId ), {
 						blocks: {
+							firstSection: {
+								leftBlock: docSnapshot.data().blocks.firstSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.firstSection.rightBlock,
+							},
+							secondSection: {
+								leftBlock: docSnapshot.data().blocks.secondSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.secondSection.rightBlock,
+							},
 							thirdSection: {
-								leftBlock: `products/${ id }`
+								leftBlock: doc( store, `products/${ id }` ),
+								rightBlock: docSnapshot.data().blocks.thirdSection.rightBlock
 							}
 						}
 					} );
 				} else if ( side === 'rightBlock' )
 				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
 					await updateDoc( doc( landingRef, landingId ), {
 						blocks: {
+							firstSection: {
+								leftBlock: docSnapshot.data().blocks.firstSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.firstSection.rightBlock,
+							},
+							secondSection: {
+								leftBlock: docSnapshot.data().blocks.secondSection.leftBlock,
+								rightBlock: docSnapshot.data().blocks.secondSection.rightBlock,
+							},
 							thirdSection: {
-								rightBlock: `products/${ id }`
+								leftBlock: docSnapshot.data().blocks.thirdSection.leftBlock,
+								rightBlock: doc( store, `products/${ id }` )
 							}
 						}
 					} );
@@ -128,15 +207,15 @@ export const getLanding = createAsyncThunk( 'items/getLanding', async () =>
 		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
 		const arrayData = await getDocs( landingRef );
 		const data = arrayData.docs.map( ( doc ) => doc.data() );
-		const firstBanner = productsData.filter( ( product ) => product.id === data[ 0 ].banners.firstBanner.path.split( '/' )[ 1 ] );
-		const secondBanner = productsData.filter( ( product ) => product.id === data[ 0 ].banners.secondBanner.path.split( '/' )[ 1 ] );
-		const thirdBanner = productsData.filter( ( product ) => product.id === data[ 0 ].banners.thirdBanner.path.split( '/' )[ 1 ] );
-		const firstSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.firstSection.leftBlock.path.split( '/' )[ 1 ] );
-		const firstSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.firstSection.rightBlock.path.split( '/' )[ 1 ] );
-		const secondSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.secondSection.leftBlock.path.split( '/' )[ 1 ] );
-		const secondSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.secondSection.rightBlock.path.split( '/' )[ 1 ] );
-		const thirdSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.thirdSection.leftBlock.path.split( '/' )[ 1 ] );
-		const thirdSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ].blocks.thirdSection.rightBlock.path.split( '/' )[ 1 ] );
+		const firstBanner = productsData.filter( ( product ) => product.id === data[ 0 ]?.banners?.firstBanner?.path?.split( '/' )[ 1 ] );
+		const secondBanner = productsData.filter( ( product ) => product.id === data[ 0 ]?.banners?.secondBanner?.path?.split( '/' )[ 1 ] );
+		const thirdBanner = productsData.filter( ( product ) => product.id === data[ 0 ]?.banners?.thirdBanner?.path?.split( '/' )[ 1 ] );
+		const firstSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ]?.blocks?.firstSection?.leftBlock?.path?.split( '/' )[ 1 ] );
+		const firstSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ]?.blocks?.firstSection?.rightBlock?.path?.split( '/' )[ 1 ] );
+		const secondSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ]?.blocks?.secondSection?.leftBlock?.path?.split( '/' )[ 1 ] );
+		const secondSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ]?.blocks?.secondSection?.rightBlock?.path?.split( '/' )[ 1 ] );
+		const thirdSectionLeftBlock = productsData.filter( ( product ) => product.id === data[ 0 ]?.blocks?.thirdSection?.leftBlock?.path?.split( '/' )[ 1 ] );
+		const thirdSectionRightBlock = productsData.filter( ( product ) => product.id === data[ 0 ]?.blocks?.thirdSection?.rightBlock?.path?.split( '/' )[ 1 ] );
 		const landing = {
 			banners: {
 				firstBanner: firstBanner[ 0 ],
@@ -550,6 +629,18 @@ const itemsSlice = createSlice( {
 			{
 				state.cartStatus = 'success';
 			} )
+			.addCase( updateLanding.pending, ( state ) =>
+			{
+				state.updateLandingStatus = 'loading';
+			} )
+			.addCase( updateLanding.rejected, ( state ) =>
+			{
+				state.updateLandingStatus = 'failed';
+			} )
+			.addCase( updateLanding.fulfilled, ( state ) =>
+			{
+				state.updateLandingStatus = 'success';
+			} )
 	}
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
@@ -560,4 +651,5 @@ export const selectStore = ( state ) => state.items.store;
 export const selectLanding = ( state ) => state.items.landing;
 export const selectGuest = ( state ) => state.items.guest;
 export const selectCartStatus = ( state ) => state.items.cartStatus;
+export const selectUpdateLandingStatus = ( state ) => state.items.updateLandingStatus;
 export default itemsSlice.reducer;

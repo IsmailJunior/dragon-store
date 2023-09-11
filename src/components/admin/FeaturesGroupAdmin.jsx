@@ -1,9 +1,10 @@
 import { FeatureBlockAdmin } from './FeatureBlockAdmin'
-export const FeaturesGroupAdmin = ({data}) =>
+export const FeaturesGroupAdmin = ({data, onLeftClick,onRightClick}) =>
 {
 return (
 <div className='flex gap-3'>
 	<FeatureBlockAdmin
+	onClick={onLeftClick}
 	title={ data?.data?.leftBlock?.name }
 	description={ data?.data?.leftBlock?.description }
 	link='Shop Now >'
@@ -12,6 +13,7 @@ return (
 	id={data?.data?.leftBlock?.id}
 	/>
 	<FeatureBlockAdmin
+	onClick={onRightClick}	
 	title={ data?.data?.rightBlock?.name }
 	description={ data?.data?.rightBlock?.description }
 	link='Shop Now >'
