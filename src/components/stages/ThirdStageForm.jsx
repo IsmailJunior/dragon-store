@@ -1,10 +1,11 @@
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {Oval} from 'react-loader-spinner'
-import {addStorage, selectAddStatus} from '../../features/items/itemsSlice'
+import {addStorage, selectAddStatus, selectCancelStatus,deleteItem} from '../../features/items/itemsSlice'
 export const ThirdStageForm = () =>
 {
-  const status = useSelector(selectAddStatus)
+  const addStatus = useSelector( selectAddStatus );
+  const cancelStatus = useSelector( selectCancelStatus );
   const dispatch = useDispatch()
 	const [ storage, setSotorage ] = useState( '' );
   const [ storagePrice, setStoragePrice ] = useState( '' );
@@ -15,11 +16,11 @@ export const ThirdStageForm = () =>
 
   useEffect( () =>
   {
-    if ( status === 'success' )
+    if ( addStatus === 'success' || cancelStatus === 'success' )
     {
       window.location.reload();
     }
-  }, [status])
+  }, [addStatus,cancelStatus])
 
   const onAddStorageClickedHandler = () =>
   {
@@ -33,6 +34,23 @@ export const ThirdStageForm = () =>
     localStorage.setItem( 'thirdStageForm', 'false' );
     localStorage.setItem( 'fourthStageForm', 'true' );
     window.location.reload();
+  }
+
+    const onCancelClickedHandler = () =>
+  {
+        localStorage.setItem('firstStageForm', 'true')
+    localStorage.setItem('secondStageForm', 'false')
+	localStorage.setItem( 'thirdStageForm', 'false' )
+	localStorage.setItem('fourthStageForm', 'false')
+    localStorage.setItem('fifthStageForm', 'false')
+    localStorage.setItem('sixthStageForm', 'false')
+    localStorage.setItem('models', 'false')
+    localStorage.setItem('colors', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem( 'storages', 'false' )
+	localStorage.removeItem( 'itemId' )	
+    dispatch( deleteItem() )
   }
   return (
 	<>
@@ -51,12 +69,13 @@ export const ThirdStageForm = () =>
             <label className='text-sm text-slate-500' htmlFor="storage">Storage</label>
             <input onChange={onStoragePriceChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-3 rounded border border-slate-400 my-3' type="number" id='storagePrice' name='storagePrice' />
             <label className='text-sm text-slate-500' htmlFor="storagePrice">Storage price</label>
-            <button onClick={onAddStorageClickedHandler} disabled={!canSaveStorage || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add storage'}</button>
+            <button onClick={onAddStorageClickedHandler} disabled={!canSaveStorage || addStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{addStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add storage'}</button>
             </div>
         </div>
       </div>
-        <div className='flex justify-end px-20'>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('storages') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
+      <div className='flex justify-between px-20'>
+      <button onClick={onCancelClickedHandler} disabled={localStorage.getItem('models') === 'false' || cancelStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>{cancelStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Cancel'}</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('storages') === 'false' || addStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{addStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
       </div>
 	</>
   )

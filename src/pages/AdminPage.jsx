@@ -2,13 +2,13 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux'
 import { PlusIcon, UserCircleIcon ,HomeIcon, BuildingStorefrontIcon, Square3Stack3DIcon} from '@heroicons/react/24/outline'
 import { logOut, selectStatus, selectUser } from '../features/user/userSlice'
-import { selectAddStatus, deleteItem} from '../features/items/itemsSlice'
+import {deleteItem} from '../features/items/itemsSlice'
 import { Oval } from "react-loader-spinner";
 import {AuthPage} from '../pages/AuthPage'
 export const AdminPage = () =>
 {
 
-		const firstStageForm = localStorage.getItem( 'firstStageForm' );
+	const firstStageForm = localStorage.getItem( 'firstStageForm' );
 	const secondStageForm = localStorage.getItem( 'secondStageForm' );
 	const thirdStageForm = localStorage.getItem( 'thirdStageForm' );
 	const fourthStageForm = localStorage.getItem( 'fourthStageForm' );
@@ -18,13 +18,7 @@ export const AdminPage = () =>
 	const colors = localStorage.getItem( 'colors' );
 	const storages = localStorage.getItem( 'storages' );
 	const images = localStorage.getItem( 'images' );
-	// const itemId = localStorage.getItem( 'itemId' );
-
 	const stages = [ firstStageForm, secondStageForm, thirdStageForm, fourthStageForm, fifthStageForm, sixthStageForm, models, colors, storages, images ];
-
-
-	
-	const addStatus = useSelector( selectAddStatus );
 	const user = useSelector( selectUser );
 	const status = useSelector( selectStatus );
 	const navigate = useNavigate();
@@ -34,7 +28,6 @@ export const AdminPage = () =>
 		dispatch( logOut());
 		navigate('/login')
 	}
-
 
 	if ( stages.includes(null))
 	{

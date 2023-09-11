@@ -1,21 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { addDoc, collection, updateDoc, doc, arrayUnion, getDocs, deleteDoc, getDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, deleteObject, listAll } from 'firebase/storage';
 import { v4 as uuid } from 'uuid';
 import { store, storage } from '../../config/firebase';
 
 const initialState = {
+	cancelStatus: 'idle',
 	addStatus: 'idle',
 	status: 'idle',
 	items: [],
-	featured: {
-		banners: null,
-		blocks: null
-	},
 	store: []
 };
-
-const featuredRef = collection( store, 'featured' );
 const storeRef = collection( store, 'store' );
 const collectionRef = collection( store, 'products' );
 const utiltiesCollectionRef = collection( store, 'utilties' );
@@ -44,24 +39,6 @@ export const getStore = createAsyncThunk( 'items/getStore', async () =>
 	}
 } );
 
-export const getFeatured = createAsyncThunk( 'items/getFeatured', async () =>
-{
-	try
-	{
-		const arrayData = await getDocs( featuredRef );
-		const data = arrayData.docs.map( ( doc ) => doc.data() );
-		const productsRef = await getDocs( collectionRef );
-		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
-		const blocksIds = data?.at( 0 )?.blocks.map( ( block ) => block?.id );
-		const bannersIds = data?.at( 0 )?.banners.map( ( banner ) => banner.id );
-		const intersectionBanners = productsData.filter( ( product ) => bannersIds.includes( product.id ) );
-		const intersectionBlocks = productsData.filter( ( product ) => blocksIds.includes( product.id ) );
-		return [ intersectionBanners, intersectionBlocks ];
-	} catch ( error )
-	{
-		return error;
-	}
-} );
 
 export const getItems = createAsyncThunk( 'items/getItems', async () =>
 {
@@ -102,8 +79,19 @@ export const deleteItem = createAsyncThunk( 'items/deleteItem', async () =>
 	try
 	{
 		const docRef = doc( store, 'utilties', 'XHIgATrWMN9jUv54BA8W' );
-		const docSnap = await getDoc( docRef );
-		await deleteDoc( doc( store, 'products', docSnap.data().CreatedItemId ) );
+		let docSnap = await getDoc( docRef );
+		const storageRef = ref( storage, '/products' );
+		const allFolders = await listAll( storageRef );
+		// const filePath = allFolders.items.filter( ( item ) =>
+		// {
+		// 	docSnap = `${}`
+		// });
+		let id = docSnap.data().CreatedItemId;
+		console.log( id );
+		console.log( id = `${ allFolders.items[ 2 ].fullPath.split( '/' )[ 0 ] }/${ id }` );
+		console.log( allFolders.items[ 2 ].fullPath );
+		// await deleteDoc( doc( store, 'products', docSnap.data().CreatedItemId ) );
+
 	} catch ( error )
 	{
 		return error;
@@ -163,25 +151,25 @@ export const uploadImages = createAsyncThunk( 'items/uploadImages', async ( { ba
 {
 	try
 	{
-		const bannerRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/banners/${ uuid() }.jpg` );
+		const bannerRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }_banner.jpg` );
 		const bannerSnapshot = await uploadBytes( bannerRef, banner );
 		const bannerUrl = await getDownloadURL( bannerSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
 			banner: bannerUrl
 		} );
-		const cardRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/cards/${ uuid() }.jpg` );
+		const cardRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }_card.jpg` );
 		const cardSnapshot = await uploadBytes( cardRef, card );
 		const cardUrl = await getDownloadURL( cardSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
 			card: cardUrl
 		} );
-		const blockRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/blocks/${ uuid() }.jpg` );
+		const blockRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }_block.jpg` );
 		const blockSnapshot = await uploadBytes( blockRef, block );
 		const blockUrl = await getDownloadURL( blockSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
 			block: blockUrl
 		} );
-		const transparentRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/transparents/${ uuid() }.png` );
+		const transparentRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }_transparent.png` );
 		const transparentSnapshot = await uploadBytes( transparentRef, transparent );
 		const transparentUrl = await getDownloadURL( transparentSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
@@ -198,7 +186,7 @@ export const UploadPreviews = createAsyncThunk( 'items/uploadPreivews', async ( 
 
 	try
 	{
-		const previewRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }/previews/${ uuid() }.jpg` );
+		const previewRef = ref( storage, `products/${ localStorage.getItem( 'itemId' ) }_preview_${ uuid() }.jpg` );
 		const previewSnapshot = await uploadBytes( previewRef, preview );
 		const previewUrl = await getDownloadURL( previewSnapshot.ref );
 		await updateDoc( doc( collectionRef, localStorage.getItem( 'itemId' ) ), {
@@ -303,20 +291,6 @@ const itemsSlice = createSlice( {
 				state.status = 'success';
 				state.items = action.payload;
 			} )
-			.addCase( getFeatured.pending, ( state ) =>
-			{
-				state.status = 'loading';
-			} )
-			.addCase( getFeatured.rejected, ( state ) =>
-			{
-				state.status = 'failed';
-			} )
-			.addCase( getFeatured.fulfilled, ( state, action ) =>
-			{
-				state.status = 'success';
-				state.featured.banners = action.payload[ 0 ];
-				state.featured.blocks = action.payload[ 1 ];
-			} )
 			.addCase( getStore.pending, ( state ) =>
 			{
 				state.status = 'loading';
@@ -332,21 +306,21 @@ const itemsSlice = createSlice( {
 			} )
 			.addCase( deleteItem.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.cancelStatus = 'loading';
 			} )
 			.addCase( deleteItem.rejected, ( state ) =>
 			{
-				state.status = 'failed';
+				state.cancelStatus = 'failed';
 			} )
 			.addCase( deleteItem.fulfilled, ( state ) =>
 			{
-				state.status = 'success';
+				state.cancelStatus = 'success';
 			} )
 	}
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
+export const selectCancelStatus = ( state ) => state.items.cancelStatus;
 export const selectStatus = ( state ) => state.items.status;
 export const selectItems = ( state ) => state.items.items;
-export const selectFeatured = ( state ) => state.items.featured;
 export const selectStore = ( state ) => state.items.store;
 export default itemsSlice.reducer;

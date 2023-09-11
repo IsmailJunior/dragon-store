@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {Oval} from 'react-loader-spinner'
-import {selectAddStatus, uploadImages,UploadPreviews} from '../../features/items/itemsSlice'
+import {selectAddStatus, uploadImages,UploadPreviews,selectCancelStatus,deleteItem} from '../../features/items/itemsSlice'
 
 export const FifthStageForm = () =>
 {
-  const status = useSelector( selectAddStatus );
+  const addStatus = useSelector( selectAddStatus );
+  const cancelStatus = useSelector(selectCancelStatus)
   const dispatch = useDispatch()
 	const [ banner, setBanner ] = useState( '' );
   const [ block, setBlock ] = useState( '' );
@@ -21,11 +22,11 @@ export const FifthStageForm = () =>
   
   useEffect( () =>
   {
-    if ( status === 'success' )
+    if ( addStatus === 'success' || cancelStatus === 'success' )
     {
       window.location.reload()
     }
-  }, [ status ] )
+  }, [ addStatus,cancelStatus ] )
   
   const onAddPreviewClickedHandler = () =>
   {
@@ -45,6 +46,23 @@ export const FifthStageForm = () =>
     localStorage.setItem( 'fifthStageForm', 'false' );
     localStorage.setItem( 'sixthStageForm', 'true' );
     window.location.reload();
+  }
+
+       const onCancelClickedHandler = () =>
+  {
+        localStorage.setItem('firstStageForm', 'true')
+    localStorage.setItem('secondStageForm', 'false')
+	localStorage.setItem( 'thirdStageForm', 'false' )
+	localStorage.setItem('fourthStageForm', 'false')
+    localStorage.setItem('fifthStageForm', 'false')
+    localStorage.setItem('sixthStageForm', 'false')
+    localStorage.setItem('models', 'false')
+    localStorage.setItem('colors', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem( 'storages', 'false' )
+	localStorage.removeItem( 'itemId' )	
+    dispatch( deleteItem() )
   }
   return (
 	<>
@@ -100,16 +118,15 @@ export const FifthStageForm = () =>
       file:bg-violet-50 file:text-slate-700' type="file" id='preview' name='preview' />
             <label className='text-sm my-5 text-slate-500' htmlFor="preview">Preview</label>
             <div className='flex items-center gap-10 mt-5'>
-              <button disabled={!preview || status === 'loading' ? true : false} onClick={onAddPreviewClickedHandler}  className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add preview'}</button>
+              <button disabled={ !preview || addStatus === 'loading' ? true : false } onClick={ onAddPreviewClickedHandler } className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{ addStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={ 20 } /> : 'Add preview' }</button>
+                <button onClick={onUploadClickedHandler} disabled={!canSaveImages || addStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{addStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Upload images'}</button>
               </div>
             </div>
         </div>
-        <div className='flex gap-10'>
-          <button onClick={onUploadClickedHandler} disabled={!canSaveImages || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Upload images'}</button>
-        </div>
       </div>
-      <div className='flex justify-end px-20'>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('images') === 'false' || status === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{status === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Preview'}</button>
+      <div className='flex justify-between px-20'>
+      <button onClick={onCancelClickedHandler} disabled={localStorage.getItem('models') === 'false' || cancelStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>{cancelStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Cancel'}</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('images') === 'false' || addStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{addStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Preview'}</button>
       </div>
 	</>
   )
