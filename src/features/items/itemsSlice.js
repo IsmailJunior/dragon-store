@@ -82,16 +82,31 @@ export const deleteItem = createAsyncThunk( 'items/deleteItem', async () =>
 		let docSnap = await getDoc( docRef );
 		const storageRef = ref( storage, '/products' );
 		const allFolders = await listAll( storageRef );
-		// const filePath = allFolders.items.filter( ( item ) =>
-		// {
-		// 	docSnap = `${}`
-		// });
 		let id = docSnap.data().CreatedItemId;
-		console.log( id );
-		console.log( id = `${ allFolders.items[ 2 ].fullPath.split( '/' )[ 0 ] }/${ id }` );
-		console.log( allFolders.items[ 2 ].fullPath );
-		// await deleteDoc( doc( store, 'products', docSnap.data().CreatedItemId ) );
-
+		const previewFileRef = allFolders.items.filter( ( item ) => item.fullPath === `${ item.fullPath.split( '/' )[ 0 ] }/${ id }_${ item.fullPath.split( '_' )[ 1 ] }_${ item.fullPath.split( '_' )[ 2 ] }` );
+		const fileRef = allFolders.items.filter( ( item ) => item.fullPath === `${ item.fullPath.split( '/' )[ 0 ] }/${ id }_${ item.fullPath.split( '_' )[ 1 ] }` );
+		const previewFilePath = previewFileRef.map( ( file ) => file.fullPath.split( '/' )[ 1 ] );
+		const filePath = fileRef.map( ( file ) => file.fullPath.split( '/' )[ 1 ] );
+		let urlRef;
+		const deleteAllFiles = Promise.all( filePath.map( ( file ) =>
+		{
+			urlRef = ref( storage, `products/${ file }` );
+			return new Promise( () =>
+			{
+				deleteObject( urlRef );
+			} );
+		} ) );
+		const deleteAllPreviewFiles = Promise.all( previewFilePath.map( ( file ) =>
+		{
+			urlRef = ref( storage, `products/${ file }` );
+			return new Promise( () =>
+			{
+				deleteObject( urlRef );
+			} );
+		} ) );
+		deleteAllPreviewFiles();
+		deleteAllFiles();
+		await deleteDoc( doc( store, 'products', docSnap.data().CreatedItemId ) );
 	} catch ( error )
 	{
 		return error;
