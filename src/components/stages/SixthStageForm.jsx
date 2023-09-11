@@ -13,12 +13,12 @@ export const SixthStageForm = () =>
   
   useEffect( () =>
   {
-    if ( addStatus === 'success'  )
+    if ( addStatus === 'success' || cancelStatus === 'success'  )
     {
       window.location.reload()
     }
     setItem( ...items.filter( ( product ) => product.id === localStorage.getItem( 'itemId' ) ) );
-  }, [ addStatus,items] )
+  }, [ addStatus,cancelStatus,items] )
  const onNextClickedHandler = () =>
   {
     localStorage.setItem( 'firstStageForm', 'true' );
@@ -34,21 +34,20 @@ export const SixthStageForm = () =>
     localStorage.removeItem( 'itemId' );
     window.location.reload();
  }
-  
         const onCancelClickedHandler = () =>
   {
-  //       localStorage.setItem('firstStageForm', 'true')
-  //   localStorage.setItem('secondStageForm', 'false')
-	// localStorage.setItem( 'thirdStageForm', 'false' )
-	// localStorage.setItem('fourthStageForm', 'false')
-  //   localStorage.setItem('fifthStageForm', 'false')
-  //   localStorage.setItem('sixthStageForm', 'false')
-  //   localStorage.setItem('models', 'false')
-  //   localStorage.setItem('colors', 'false')
-  //   localStorage.setItem('images', 'false')
-  //   localStorage.setItem('images', 'false')
-  //   localStorage.setItem( 'storages', 'false' )
-	// localStorage.removeItem( 'itemId' )	
+        localStorage.setItem('firstStageForm', 'true')
+    localStorage.setItem('secondStageForm', 'false')
+	localStorage.setItem( 'thirdStageForm', 'false' )
+	localStorage.setItem('fourthStageForm', 'false')
+    localStorage.setItem('fifthStageForm', 'false')
+    localStorage.setItem('sixthStageForm', 'false')
+    localStorage.setItem('models', 'false')
+    localStorage.setItem('colors', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem('images', 'false')
+    localStorage.setItem( 'storages', 'false' )
+	localStorage.removeItem( 'itemId' )	
     dispatch( deleteItem() )
   }
   return (

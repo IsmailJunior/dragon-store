@@ -88,24 +88,25 @@ export const deleteItem = createAsyncThunk( 'items/deleteItem', async () =>
 		const previewFilePath = previewFileRef.map( ( file ) => file.fullPath.split( '/' )[ 1 ] );
 		const filePath = fileRef.map( ( file ) => file.fullPath.split( '/' )[ 1 ] );
 		let urlRef;
-		const deleteAllFiles = Promise.all( filePath.map( ( file ) =>
+
+		const asyncFilesDelete = async () =>
 		{
-			urlRef = ref( storage, `products/${ file }` );
-			return new Promise( () =>
+			await Promise.all( filePath.map( async ( file ) =>
 			{
-				deleteObject( urlRef );
-			} );
-		} ) );
-		const deleteAllPreviewFiles = Promise.all( previewFilePath.map( ( file ) =>
+				urlRef = ref( storage, `products/${ file }` );
+				return await deleteObject( urlRef );
+			} ) );
+		};
+		const asyncFilesPreviewDelete = async () =>
 		{
-			urlRef = ref( storage, `products/${ file }` );
-			return new Promise( () =>
+			await Promise.all( previewFilePath.map( async ( file ) =>
 			{
-				deleteObject( urlRef );
-			} );
-		} ) );
-		deleteAllPreviewFiles();
-		deleteAllFiles();
+				urlRef = ref( storage, `products/${ file }` );
+				return await deleteObject( urlRef );
+			} ) );
+		};
+		await asyncFilesDelete();
+		await asyncFilesPreviewDelete();
 		await deleteDoc( doc( store, 'products', docSnap.data().CreatedItemId ) );
 	} catch ( error )
 	{
