@@ -1,10 +1,11 @@
 
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { selectLanding } from '../../features/items/itemsSlice';
 import { FeatureBlockAdmin } from './FeatureBlockAdmin';
 import { FeaturesGroupAdmin } from './FeaturesGroupAdmin'
 export const LandingPageAdmin = () =>
 {
+	const dispatch = useDispatch();
 	const landing = useSelector( selectLanding );
 return (
 <>

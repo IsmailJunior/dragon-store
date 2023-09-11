@@ -18,6 +18,108 @@ const landingRef = collection( store, 'landing' );
 const collectionRef = collection( store, 'products' );
 const utiltiesCollectionRef = collection( store, 'utilties' );
 
+export const updateLanding = createAsyncThunk( 'items/updateLanding', async ( { group, item, side, id } ) =>
+{
+	try
+	{
+		const landingId = '82sFwktnLRayQ6ZUazXh';
+		if ( group === 'banners' )
+		{
+			if ( item === 'firstBanner' )
+			{
+				await updateDoc( doc( landingRef, landingId ), {
+					banners: {
+						firstBanner: `products/${ id }`
+					}
+				} );
+			} else if ( item === 'secondBanner' )
+			{
+				await updateDoc( doc( landingRef, landingId ), {
+					banners: {
+						secondBanner: `products/${ id }`
+					}
+				} );
+			} else if ( item === 'thirdBanner' )
+			{
+				await updateDoc( doc( landingRef, landingId ), {
+					banners: {
+						thirdBanner: `products/${ id }`
+					}
+				} );
+			}
+		} else if ( group === 'blocks' )
+		{
+			if ( item === 'firstSection' )
+			{
+				if ( side === 'leftBlock' )
+				{
+					await updateDoc( doc( landingRef, landingId ), {
+						blocks: {
+							firstSection: {
+								leftBlock: `products/${ id }`
+							}
+						}
+					} );
+				} else if ( side === 'rightBlock' )
+				{
+					await updateDoc( doc( landingRef, landingId ), {
+						blocks: {
+							firstSection: {
+								rightBlock: `products/${ id }`
+							}
+						}
+					} );
+				}
+			} else if ( item === 'secondSection' )
+			{
+				if ( side === 'leftBlock' )
+				{
+					await updateDoc( doc( landingRef, landingId ), {
+						blocks: {
+							secondSection: {
+								leftBlock: `products/${ id }`
+							}
+						}
+					} );
+				} else if ( side === 'rightBlock' )
+				{
+					await updateDoc( doc( landingRef, landingId ), {
+						blocks: {
+							secondSection: {
+								rightBlock: `products/${ id }`
+							}
+						}
+					} );
+				}
+			} else if ( item === 'thirdSection' )
+			{
+				if ( side === 'leftBlock' )
+				{
+					await updateDoc( doc( landingRef, landingId ), {
+						blocks: {
+							thirdSection: {
+								leftBlock: `products/${ id }`
+							}
+						}
+					} );
+				} else if ( side === 'rightBlock' )
+				{
+					await updateDoc( doc( landingRef, landingId ), {
+						blocks: {
+							thirdSection: {
+								rightBlock: `products/${ id }`
+							}
+						}
+					} );
+				}
+			}
+		}
+	} catch ( error )
+	{
+		return error;
+	}
+} )
+
 export const getLanding = createAsyncThunk( 'items/getLanding', async () =>
 {
 	try
@@ -86,7 +188,6 @@ export const addToCart = createAsyncThunk( 'items/addToCart', async ( { id } ) =
 		const productsRef = await getDocs( collectionRef );
 		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
 		const product = productsData.filter( ( item ) => item.id === id );
-		console.log( product );
 		const cart = JSON.parse( localStorage.getItem( 'guest' ) );
 		cart.cart.push( ...product );
 		const newCart = JSON.stringify( cart );
@@ -169,7 +270,6 @@ export const deleteItem = createAsyncThunk( 'items/deleteItem', async () =>
 		const previewFilePath = previewFileRef.map( ( file ) => file.fullPath.split( '/' )[ 1 ] );
 		const filePath = fileRef.map( ( file ) => file.fullPath.split( '/' )[ 1 ] );
 		let urlRef;
-
 		const asyncFilesDelete = async () =>
 		{
 			await Promise.all( filePath.map( async ( file ) =>
