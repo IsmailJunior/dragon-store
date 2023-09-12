@@ -6,6 +6,7 @@ import { store, storage } from '../../config/firebase';
 
 const initialState = {
 	cancelStatus: 'idle',
+	editStatus: 'idle',
 	updateLandingStatus: 'idle',
 	uploadPreviewStatus: 'idle',
 	addStatus: 'idle',
@@ -20,6 +21,55 @@ const storeRef = collection( store, 'store' );
 const landingRef = collection( store, 'landing' );
 const collectionRef = collection( store, 'products' );
 const utiltiesCollectionRef = collection( store, 'utilties' );
+
+export const updateLandingInvertTextColor = createAsyncThunk( 'items/updateLandingInvertTextColor', async ( { group, item, side } ) =>
+{
+	try
+	{
+		const landingId = '82sFwktnLRayQ6ZUazXh';
+		if ( group === 'banners' )
+		{
+			if ( item === 'firstBanner' )
+			{
+				const docRef = doc( landingRef, landingId );
+				const docSnapshot = await getDoc( docRef );
+				const bannerId = docSnapshot.data().banners.firstBanner.id;
+				const bannerDocRef = doc( store, 'products', bannerId );
+				const bannerInvertStatusSnapshot = await getDoc( bannerDocRef );
+				const bannerInvertStatus = bannerInvertStatusSnapshot.data().invertText;
+				await updateDoc( doc( collectionRef, bannerId ), {
+					invertText: bannerInvertStatus === true ? false : true
+				} );
+			} else if ( item === 'secondBanner' )
+			{
+				const docRef = doc( landingRef, landingId );
+				const docSnapshot = await getDoc( docRef );
+				const bannerId = docSnapshot.data().banners.secondBanner.id;
+				const bannerDocRef = doc( store, 'products', bannerId );
+				const bannerInvertStatusSnapshot = await getDoc( bannerDocRef );
+				const bannerInvertStatus = bannerInvertStatusSnapshot.data().invertText;
+				await updateDoc( doc( collectionRef, bannerId ), {
+					invertText: bannerInvertStatus === true ? false : true
+				} );
+			} else if ( item === 'thirdBanner' )
+			{
+				const docRef = doc( landingRef, landingId );
+				const docSnapshot = await getDoc( docRef );
+				const bannerId = docSnapshot.data().banners.thirdBanner.id;
+				const bannerDocRef = doc( store, 'products', bannerId );
+				const bannerInvertStatusSnapshot = await getDoc( bannerDocRef );
+				const bannerInvertStatus = bannerInvertStatusSnapshot.data().invertText;
+				await updateDoc( doc( collectionRef, bannerId ), {
+					invertText: bannerInvertStatus === true ? false : true
+				} );
+			}
+		}
+
+	} catch ( error )
+	{
+		return error;
+	}
+} )
 
 export const updateLanding = createAsyncThunk( 'items/updateLanding', async ( { group, item, side, id } ) =>
 {
@@ -324,7 +374,8 @@ export const addItem = createAsyncThunk( 'items/addItem', async ( { name, descri
 			name: name,
 			description: description,
 			company: company,
-			price: price
+			price: price,
+			invertText: false
 		} );
 		const itemId = docSnapshot.id;
 		await updateDoc( doc( utiltiesCollectionRef, 'XHIgATrWMN9jUv54BA8W' ), {
@@ -656,6 +707,18 @@ const itemsSlice = createSlice( {
 			{
 				state.updateLandingStatus = 'success';
 			} )
+			.addCase( updateLandingInvertTextColor.pending, ( state ) =>
+			{
+				state.editStatus = 'loading';
+			} )
+			.addCase( updateLandingInvertTextColor.rejected, ( state ) =>
+			{
+				state.editStatus = 'failed';
+			} )
+			.addCase( updateLandingInvertTextColor.fulfilled, ( state ) =>
+			{
+				state.editStatus = 'success';
+			} )
 	}
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
@@ -667,4 +730,5 @@ export const selectLanding = ( state ) => state.items.landing;
 export const selectCartStatus = ( state ) => state.items.cartStatus;
 export const selectUpdateLandingStatus = ( state ) => state.items.updateLandingStatus;
 export const selectUploadPreviewStatus = ( state ) => state.items.uploadPreviewStatus;
+export const selectEditStatus = ( state ) => state.items.editStatus;
 export default itemsSlice.reducer;

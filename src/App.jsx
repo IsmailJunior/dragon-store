@@ -14,7 +14,8 @@ import { NewItemPage } from './pages/NewItemPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { LandingPageAdmin } from './components/admin/LandingPageAdmin'
 import { StorePageAdmin } from './components/admin/StorePageAdmin'
-import {AllItemsAdmin} from './components/admin/AllItemsAdmin'
+import { AllItemsAdmin } from './components/admin/AllItemsAdmin'
+import {EditBannerPageAdmin} from './components/admin/EditBannerPageAdmin'
 function App ()
 {
 	const user = useSelector( selectUser );
@@ -44,7 +45,8 @@ function App ()
 				<Route index element={ <NewItemPage /> } />
 				<Route path='landing' element={ <LandingPageAdmin /> } />
 				<Route path='store' element={ <StorePageAdmin /> } />
-				<Route path='items' element={<AllItemsAdmin />} />
+				<Route path='items' element={ <AllItemsAdmin /> } />
+				<Route path='edit-banner/:banner' element={<EditBannerPageAdmin />} />
 			</Route>
 			<Route path='/login' element={ <AuthPage /> } />
 			<Route path='/*' element={ <NotFoundPage /> } />

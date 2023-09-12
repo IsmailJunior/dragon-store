@@ -1,51 +1,53 @@
 
-import {useState,useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import {Oval} from 'react-loader-spinner'
-import { selectLanding,updateLanding,selectStatus,selectItems,selectUpdateLandingStatus} from '../../features/items/itemsSlice';
+import { useState, useEffect } from 'react';
+import {useSelector } from 'react-redux';
+import { selectLanding,selectUpdateLandingStatus} from '../../features/items/itemsSlice';
 import { FeatureBlockAdmin } from './FeatureBlockAdmin';
-import { FeaturesGroupAdmin } from './FeaturesGroupAdmin'
+import { FeaturesGroupAdmin } from './FeaturesGroupAdmin';
 export const LandingPageAdmin = () =>
 {
-	const [ showItems, setShowItems ] = useState( false );
+	const [ showModal, setShowModal ] = useState( false );
 	const [ selectedItem, setSelectedItem ] = useState( {} );
-	const items = useSelector( selectItems )
+	document.body.style.overflow = showModal ? 'hidden' : null
 	const updateLandingStatus = useSelector(selectUpdateLandingStatus)
-	const status = useSelector(selectStatus)
-	const dispatch = useDispatch();
 	const landing = useSelector( selectLanding );
 	const onCancelClickedHandler = () =>
 	{
-		setShowItems(false)
+		setShowModal(false)
+	}
+
+	const onEditClickedHandler = () =>
+	{
+		setShowModal(false)
+		window.location.replace( `/admin/edit-banner/${ selectedItem?.item }` );
 	}
 	const onFirstBlockClickedHanlder = () =>
 	{
-		setShowItems( true )
+		setShowModal(true)
 		setSelectedItem( {
-			group: 'banners',
 			item: 'firstBanner',
+			name: landing?.banners?.firstBanner?.name
 		})
 	}
 	const onSecondBlockClickedHanlder = () =>
 	{
-		setShowItems( true )
+		setShowModal(true)
 		setSelectedItem( {
-			group: 'banners',
 			item: 'secondBanner',
+			name: landing?.banners?.secondBanner?.name
 		})
 	}
 	const onThirdBlockClickedHanlder = () =>
 	{
-		setShowItems( true )
+		setShowModal(true)
 		setSelectedItem( {
-			group: 'banners',
 			item: 'thirdBanner',
+			name: landing?.banners?.secondBanner?.name
 		})
 	}
 
 	const onFirstSectionLeftBlockClickedHandler = () =>
 	{
-		setShowItems( true )
 		setSelectedItem( {
 			group: 'blocks',
 			item: 'firstSection',
@@ -54,7 +56,6 @@ export const LandingPageAdmin = () =>
 	}
 	const onFirstSectionRightBlockClickedHandler = () =>
 	{
-			setShowItems( true )
 			setSelectedItem( {
 			group: 'blocks',
 			item: 'firstSection',
@@ -63,7 +64,6 @@ export const LandingPageAdmin = () =>
 	}
 	const onSecondSectionLeftBlockClickedHandler = () =>
 	{
-		setShowItems( true )
 		setSelectedItem( {
 			group: 'blocks',
 			item: 'secondSection',
@@ -72,7 +72,6 @@ export const LandingPageAdmin = () =>
 	}
 	const onSecondSectionRightBlockClickedHandler = () =>
 	{
-			setShowItems( true )
 			setSelectedItem( {
 			group: 'blocks',
 			item: 'secondSection',
@@ -81,7 +80,6 @@ export const LandingPageAdmin = () =>
 	}
 	const onThirdSectionLeftBlockClickedHandler = () =>
 	{
-		setShowItems( true )
 		setSelectedItem( {
 			group: 'blocks',
 			item: 'thirdSection',
@@ -90,7 +88,6 @@ export const LandingPageAdmin = () =>
 	}
 	const onThirdSectionRightBlockClickedHandler = () =>
 	{
-			setShowItems( true )
 			setSelectedItem( {
 			group: 'blocks',
 			item: 'thirdSection',
@@ -98,14 +95,6 @@ export const LandingPageAdmin = () =>
 		})
 	}
 
-	const onUpdateClickedHandler = ( id ) =>
-	{
-		dispatch( updateLanding( { group: selectedItem.group, item: selectedItem.item, side: selectedItem?.side ,id: id } ) );
-		if ( updateLandingStatus === 'success' )
-		{
-			setShowItems(false)
-		}
-	}
 
 	useEffect( () =>
 	{
@@ -116,45 +105,26 @@ export const LandingPageAdmin = () =>
 	},[updateLandingStatus])
 return (
 <>
-	{showItems ? <div className='w-120  mx-auto p-5 shadow-lg bg-white'>
-	<h1 className='text-3xl font-semibold mb-7'>Select Item</h1>	
-	<hr />	
-		{ status === 'success' && updateLandingStatus !== 'loading' ? <><div className='w-full flex my-6 flex-col gap-6'>
-	
-			{ items?.map( ( item, i ) => (
-		<div onClick={() => onUpdateClickedHandler(item?.id)} className='hover:bg-slate-100 transition-all cursor-pointer flex h-16 overflow-hidden shadow justify-between items-center border rounded-lg text-center' key={i}>
-		<div className='flex items-center gap-10'>
-		<div>
-		<img width={100} src={item.previews[0]} alt={item.name} />			
-		</div>	
-		<div className='text-md font-semibold'>{ item.name }</div>					
-		</div>
-		<div className='flex '>
-		<div className='flex gap-5'>
-		{ item.storages.map( ( storage, i ) => (
-			<span className='border rounded-lg p-1 text-md font-semibold' key={i}>{storage.storage}GB</span>	
-		))}				
-		</div>		
-		<div className='mx-5 text-md font-semibold'>${ item.price }</div>					
-		</div>			
-		</div>
-			) ) }
-      <button onClick={onCancelClickedHandler} className='w-44 h-10 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>Cancel</button>
+		{ showModal ?
+			<div className='z-20 top-0 left-0 w-screen absolute bg-opacity-20 bg-black' style={{height: 9000 + '100vh'}}>
+				<div className='border-2 w-96 h-72 top-32 left-96 py-16 fixed flex flex-col items-center gap-10 p-5 shadow-md bg-white'>
+					<h1 className='text-2xl font-semibold text-slate-600'>Editing</h1>
+					<span className='text-4xl font-semibold'>{selectedItem.name} Banner?</span>
+					<div className='w-full flex justify-between'>
+						<button onClick={ onCancelClickedHandler } className='w-44 h-10 disabled:bg-slate-300 hover:bg-slate-400 transition-all mb-2 bg-slate-500 text-white rounded-lg'>Cancel</button>
+						<button onClick={onEditClickedHandler} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Edit</button>
+					</div>
+				</div>
 			</div>
-			</>
-			: <div className="flex justify-center items-center h-52">
-		<Oval secondaryColor="black" color="white" />
-	</div>}
-		</div>
-	: <>
-	<FeatureBlockAdmin onClick={ onFirstBlockClickedHanlder } title={ landing?.banners?.firstBanner?.name } description={ landing?.banners?.firstBanner?.description } image={ landing?.banners?.firstBanner?.banner } id={ landing?.banners?.firstBanner?.id } link='Shop Now >' />
-	<FeatureBlockAdmin onClick={onSecondBlockClickedHanlder} title={landing?.banners?.secondBanner?.name} description={landing?.banners?.secondBanner?.description} image={landing?.banners?.secondBanner?.banner} id={landing?.banners?.secondBanner?.id} link='Shop Now >'/>
-	<FeatureBlockAdmin onClick={onThirdBlockClickedHanlder} title={landing?.banners?.thirdBanner?.name} description={landing?.banners?.thirdBanner?.description} image={landing?.banners?.thirdBanner?.banner} id={landing?.banners?.thirdBanner?.id} link='Shop Now >'/>
+			: null}<>	
+	<FeatureBlockAdmin onClick={ onFirstBlockClickedHanlder } title={ landing?.banners?.firstBanner?.name } description={ landing?.banners?.firstBanner?.description } image={ landing?.banners?.firstBanner?.banner } id={ landing?.banners?.firstBanner?.id } invert={landing?.banners?.firstBanner?.invertText} link='Shop Now >' />
+	<FeatureBlockAdmin onClick={onSecondBlockClickedHanlder} title={landing?.banners?.secondBanner?.name} description={landing?.banners?.secondBanner?.description} image={landing?.banners?.secondBanner?.banner} id={landing?.banners?.secondBanner?.id} link='Shop Now >' invert={landing?.banners?.secondBanner?.invertText}/>
+	<FeatureBlockAdmin onClick={onThirdBlockClickedHanlder} title={landing?.banners?.thirdBanner?.name} description={landing?.banners?.thirdBanner?.description} image={landing?.banners?.thirdBanner?.banner} id={landing?.banners?.thirdBanner?.id} link='Shop Now >' invert={landing?.banners?.thirdBanner?.invertText}/>
 <div className='mx-3'>
 	<FeaturesGroupAdmin onLeftClick={onFirstSectionLeftBlockClickedHandler} onRightClick={onFirstSectionRightBlockClickedHandler} data={{data: landing?.blocks?.firstSection}}/>
 	<FeaturesGroupAdmin onLeftClick={onSecondSectionLeftBlockClickedHandler} onRightClick={onSecondSectionRightBlockClickedHandler}  data={{data: landing?.blocks?.secondSection}}/>
 	<FeaturesGroupAdmin onLeftClick={onThirdSectionLeftBlockClickedHandler} onRightClick={onThirdSectionRightBlockClickedHandler} data={{data: landing?.blocks?.thirdSection}}/>
-</div> </>}	
+</div> </>
 </>
 )
 }
