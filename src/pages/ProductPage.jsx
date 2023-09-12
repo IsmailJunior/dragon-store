@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import {useDispatch} from 'react-redux'
-import { addGuest} from '../features/items/itemsSlice';
+import {useDispatch,useSelector} from 'react-redux'
+import { addGuest,getItem,selectGetItemStatus,selectItem} from '../features/items/itemsSlice';
 import {useParams} from 'react-router-dom'
 import { v4 as uuid } from "uuid";
-import { doc, getDoc } from "firebase/firestore";
 import { Oval } from "react-loader-spinner";
-import { store } from "../config/firebase";
 import { RadioSquareModel } from "../components/RadioSquareModel";
 import { RadioSquareStorage } from "../components/RadioSquareStorage";
 import { RadioCircle } from "../components/RadioCircle";
@@ -18,32 +16,43 @@ export const ProductPage = () =>
 	{
 		dispatch( addGuest() );
 	}
+	const getItemStatus = useSelector( selectGetItemStatus )
+	const item = useSelector( selectItem );
 	const params = useParams();
 	const [ product, setProduct ] = useState( {} );
 	const [ colorProp, setColorProp ] = useState( '' );
 	const [ storageProp, setStorageProp ] = useState( '' );
-	const [ modelProp, setModelProp ] = useState( '' );
+	const [ modelProp, setModelProp ] = useState({})
 	const [ colorLabelProp, setColorLabelProp ] = useState( '' );
-const docRef = doc(store, "products", params.product);
-useEffect(() => {
-(async () => {
-const docSnap = await getDoc(docRef);
-if (docSnap.exists()) {
-setProduct({...docSnap.data(), id: docSnap.id});
-}
-})();
-}, [] );
+	
+	useEffect( () =>
+	{
+		if ( getItemStatus === 'idle' )
+		{
+		(async () => {
+		dispatch( getItem( { id: params?.product } ) )
+	})()
+		}
+	if ( getItemStatus === 'success' )
+	{
+		setProduct( { ...item } );
+		setModelProp( {
+			modelName: product?.name,
+			modelPrice: product?.price
+		})
+	}
+	}, [ dispatch, getItemStatus,item,params.product,product?.name,product?.price] );
 return (	
 <div className="mx-20 py-10">
-	{product.name ? (
-	<>
+		{ getItemStatus === 'success' ? (
+<>
 	<div className="mb-10">
 		<h1 className="text-6xl font-semibold mb-5">{product.name}</h1>
 		<p>{product.description}</p>
 	</div>
 	<div className="flex gap-12">
 		<div className="flex flex-col gap-10">
-			<div className="bg-no-repeat bg-cover w-120 h-80 border-2 flex justify-center items-center rounded-xl" style={{backgroundImage: `url(${product.previews[0]})`}}>
+			<div className="bg-no-repeat bg-cover w-120 h-80 border-2 flex justify-center items-center rounded-xl" style={{backgroundImage: `url(${product?.previews?.at(0)})`}}>
 			</div>
 			<h1 className="text-2xl font-semibold">
 			Payment options. Select the one that works for you.
@@ -94,8 +103,9 @@ return (
 					<h1 className="text-2xl font-semibold mb-4 w-80">
 						Storage. How much space do you need?
 					</h1>
-					{ product?.storages.map( ( storage, i ) => (
+					{ product?.storages?.map( ( storage, i ) => (
 						<RadioSquareStorage
+						modelPrice={ modelProp.modelPrice }
 						color={colorProp}
 						changedData={(storageProp) => setStorageProp(storageProp)}
 						key={i}
@@ -113,8 +123,7 @@ return (
 	) : (
 	<div className="flex justify-center items-center h-52">
 		<Oval secondaryColor="black" color="white" />
-	</div>
-	)}
+	</div>)}
 </div>
 );
 };

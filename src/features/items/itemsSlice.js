@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { store, storage } from '../../config/firebase';
 
 const initialState = {
+	getItemStatus: 'idle',
 	cancelStatus: 'idle',
 	editStatus: 'idle',
 	updateLandingStatus: 'idle',
@@ -15,12 +16,27 @@ const initialState = {
 	error: null,
 	landing: {},
 	items: [],
+	item: {},
 	store: []
 };
 const storeRef = collection( store, 'store' );
 const landingRef = collection( store, 'landing' );
 const collectionRef = collection( store, 'products' );
 const utiltiesCollectionRef = collection( store, 'utilties' );
+
+export const getItem = createAsyncThunk( 'items/getItem', async ( { id } ) =>
+{
+	try
+	{
+		const docRef = doc( store, 'products', id );
+		const docSnapshot = await getDoc( docRef );
+		const docData = { ...docSnapshot.data(), id: docSnapshot.id };
+		return docData;
+	} catch ( error )
+	{
+		return error;
+	}
+} )
 
 export const updateLandingInvertTextColor = createAsyncThunk( 'items/updateLandingInvertTextColor', async ( { group, item, side } ) =>
 {
@@ -719,6 +735,19 @@ const itemsSlice = createSlice( {
 			{
 				state.editStatus = 'success';
 			} )
+			.addCase( getItem.pending, ( state ) =>
+			{
+				state.getItemStatus = 'loading';
+			} )
+			.addCase( getItem.rejected, ( state ) =>
+			{
+				state.getItemStatus = 'failed';
+			} )
+			.addCase( getItem.fulfilled, ( state, action ) =>
+			{
+				state.item = { ...action.payload };
+				state.getItemStatus = 'success';
+			} )
 	}
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
@@ -731,4 +760,6 @@ export const selectCartStatus = ( state ) => state.items.cartStatus;
 export const selectUpdateLandingStatus = ( state ) => state.items.updateLandingStatus;
 export const selectUploadPreviewStatus = ( state ) => state.items.uploadPreviewStatus;
 export const selectEditStatus = ( state ) => state.items.editStatus;
+export const selectGetItemStatus = ( state ) => state.items.getItemStatus;
+export const selectItem = ( state ) => state.items.item;
 export default itemsSlice.reducer;
