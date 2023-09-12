@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux';
-import {selectStatus,selectStore} from '../features/items/itemsSlice'
+import {selectStore} from '../features/items/itemsSlice'
 import { CategoryGroup } from '../components/CategoryGroup';
 import { FeatureCardGroup } from '../components/FeatureCardGroup'
 export const StorePage = () =>
 {
-	const status = useSelector(selectStatus)
 	const store = useSelector( selectStore );
 return (
 <div className='container py-10'>

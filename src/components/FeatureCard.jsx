@@ -5,7 +5,7 @@ export const FeatureCard = ( { title='title', heading='heading', price='00,00', 
 	return (
 <Link target={newTab ? '_blank' : ''} to={`/store/${id}`} className={ classes.FeatureCard } style={{color: invert ? 'black' : 'white'}}>
 <div className='flex flex-col gap-2 z-10 absolute'>
-	<p>{title.toUpperCase()}</p>
+	<p>{title?.toUpperCase()}</p>
 			<h1 className='text-2xl'>{heading}</h1>
 	<p>From ${price}</p>
 </div>

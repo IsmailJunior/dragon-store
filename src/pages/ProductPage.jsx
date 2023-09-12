@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import {useDispatch,useSelector} from 'react-redux'
-import { addGuest,selectGuest} from '../features/items/itemsSlice';
+import {useDispatch} from 'react-redux'
+import { addGuest} from '../features/items/itemsSlice';
 import {useParams} from 'react-router-dom'
 import { v4 as uuid } from "uuid";
 import { doc, getDoc } from "firebase/firestore";

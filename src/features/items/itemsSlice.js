@@ -7,9 +7,11 @@ import { store, storage } from '../../config/firebase';
 const initialState = {
 	cancelStatus: 'idle',
 	updateLandingStatus: 'idle',
+	uploadPreviewStatus: 'idle',
 	addStatus: 'idle',
 	cartStatus: 'idle',
 	status: 'idle',
+	error: null,
 	landing: {},
 	items: [],
 	store: []
@@ -335,15 +337,22 @@ export const addItem = createAsyncThunk( 'items/addItem', async ( { name, descri
 	}
 } );
 
-export const deleteItem = createAsyncThunk( 'items/deleteItem', async () =>
+export const deleteItem = createAsyncThunk( 'items/deleteItem', async ( { docId } ) =>
 {
 	try
 	{
-		const docRef = doc( store, 'utilties', 'XHIgATrWMN9jUv54BA8W' );
-		let docSnap = await getDoc( docRef );
+		let docRef;
+		if ( docId )
+		{
+			docRef = doc( store, 'products', docId );
+		} else
+		{
+			docRef = doc( store, 'utilties', 'XHIgATrWMN9jUv54BA8W' );
+		}
+		const docSnap = await getDoc( docRef );
 		const storageRef = ref( storage, '/products' );
 		const allFolders = await listAll( storageRef );
-		let id = docSnap.data().CreatedItemId;
+		let id = docId ? docSnap.id : docSnap.data().CreatedItemId;
 		const previewFileRef = allFolders.items.filter( ( item ) => item.fullPath === `${ item.fullPath.split( '/' )[ 0 ] }/${ id }_${ item.fullPath.split( '_' )[ 1 ] }_${ item.fullPath.split( '_' )[ 2 ] }` );
 		const fileRef = allFolders.items.filter( ( item ) => item.fullPath === `${ item.fullPath.split( '/' )[ 0 ] }/${ id }_${ item.fullPath.split( '_' )[ 1 ] }` );
 		const previewFilePath = previewFileRef.map( ( file ) => file.fullPath.split( '/' )[ 1 ] );
@@ -367,10 +376,16 @@ export const deleteItem = createAsyncThunk( 'items/deleteItem', async () =>
 		};
 		await asyncFilesDelete();
 		await asyncFilesPreviewDelete();
-		await deleteDoc( doc( store, 'products', docSnap.data().CreatedItemId ) );
+		if ( docId )
+		{
+			await deleteDoc( doc( store, 'products', docSnap.id ) );
+		} else
+		{
+			await deleteDoc( doc( store, 'products', docSnap.data().CreatedItemId ) );
+		}
 	} catch ( error )
 	{
-		return error;
+		return error
 	}
 } )
 
@@ -544,15 +559,15 @@ const itemsSlice = createSlice( {
 			} )
 			.addCase( UploadPreviews.pending, ( state ) =>
 			{
-				state.addStatus = 'loading';
+				state.uploadPreviewStatus = 'loading';
 			} )
 			.addCase( UploadPreviews.rejected, ( state ) =>
 			{
-				state.addStatus = 'failed';
+				state.uploadPreviewStatus = 'failed';
 			} )
 			.addCase( UploadPreviews.fulfilled, ( state ) =>
 			{
-				state.addStatus = 'success';
+				state.uploadPreviewStatus = 'success';
 			} )
 			.addCase( getItems.pending, ( state ) =>
 			{
@@ -649,7 +664,7 @@ export const selectStatus = ( state ) => state.items.status;
 export const selectItems = ( state ) => state.items.items;
 export const selectStore = ( state ) => state.items.store;
 export const selectLanding = ( state ) => state.items.landing;
-export const selectGuest = ( state ) => state.items.guest;
 export const selectCartStatus = ( state ) => state.items.cartStatus;
 export const selectUpdateLandingStatus = ( state ) => state.items.updateLandingStatus;
+export const selectUploadPreviewStatus = ( state ) => state.items.uploadPreviewStatus;
 export default itemsSlice.reducer;

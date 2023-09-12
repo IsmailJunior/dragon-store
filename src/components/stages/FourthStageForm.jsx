@@ -51,7 +51,7 @@ export const FourthStageForm = () =>
     localStorage.setItem('images', 'false')
     localStorage.setItem( 'storages', 'false' )
 	localStorage.removeItem( 'itemId' )	
-    dispatch( deleteItem() )
+    dispatch( deleteItem({id: null}) )
   }
   return (
 	<>
@@ -73,8 +73,8 @@ export const FourthStageForm = () =>
         </div>
       </div>
       <div className='flex justify-between px-20'>
-      <button onClick={onCancelClickedHandler} disabled={localStorage.getItem('models') === 'false' || cancelStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>{cancelStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Cancel'}</button>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('colors') === 'false' || addStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 disabled:bg-sky-300 h-10 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{addStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
+      <button onClick={onCancelClickedHandler} disabled={cancelStatus === 'loading' || addStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>{cancelStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Cancel'}</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('colors') === 'false' || addStatus === 'loading' ? true : false} className='w-44 disabled:bg-sky-300 h-10 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Next</button>
       </div>
 	</>
   )

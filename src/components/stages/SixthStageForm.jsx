@@ -36,7 +36,7 @@ export const SixthStageForm = () =>
  }
         const onCancelClickedHandler = () =>
   {
-        localStorage.setItem('firstStageForm', 'true')
+    localStorage.setItem('firstStageForm', 'true')
     localStorage.setItem('secondStageForm', 'false')
 	localStorage.setItem( 'thirdStageForm', 'false' )
 	localStorage.setItem('fourthStageForm', 'false')
@@ -48,14 +48,14 @@ export const SixthStageForm = () =>
     localStorage.setItem('images', 'false')
     localStorage.setItem( 'storages', 'false' )
 	localStorage.removeItem( 'itemId' )	
-    dispatch( deleteItem() )
+    dispatch( deleteItem({docId: null}) )
   }
   return (
     <div className='flex flex-col gap-10 my-5 w-96'>
       <FeatureCard newTab title={ item?.name } heading={ item?.description } id={ item?.id } price={ item?.price } image={ item?.card } invert />
         <div className='flex justify-between px-20'>
       <button onClick={onCancelClickedHandler} disabled={cancelStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>{cancelStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Cancel'}</button>
-      <button onClick={ onNextClickedHandler } className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Finish</button>
+      <button onClick={ onNextClickedHandler } disabled={cancelStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Finish</button>
       </div>
    </div>
   )

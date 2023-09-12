@@ -5,8 +5,8 @@ import {addModel,selectAddStatus,deleteItem,selectCancelStatus} from '../../feat
 
 export const SecondStageForm = () =>
 {
-  const Addstatus = useSelector( selectAddStatus );
-  const cancelStatus = useSelector(selectCancelStatus)
+  const addStatus = useSelector( selectAddStatus );
+  const cancelStatus = useSelector( selectCancelStatus );
   const dispatch = useDispatch();
 	const [ modelName, setModelName ] = useState( '' );
   const [ modelDescription, setModelDescription ] = useState( '' );
@@ -19,22 +19,22 @@ export const SecondStageForm = () =>
 
   useEffect( () =>
   {
-    if ( Addstatus === 'success' || cancelStatus === 'success' )
+    if ( addStatus === 'success' || cancelStatus === 'success')
     {
       window.location.reload();
     }
-  }, [Addstatus,cancelStatus])
+  }, [addStatus,cancelStatus])
 
     const onAddModelClickedHandler = () =>
     {
     if ( !canSaveModel ) return console.log( 'Please fill the forms.' );
-      dispatch( addModel( { modelName: modelName, modelDescription: modelDescription, modelPrice: modelPrice} ) );
+      dispatch( addModel( { modelName: modelName, modelDescription: modelDescription, modelPrice: modelPrice } ) );
       localStorage.setItem( 'models', 'true' );
     }
   
   const onCancelClickedHandler = () =>
   {
-        localStorage.setItem('firstStageForm', 'true')
+    localStorage.setItem('firstStageForm', 'true')
     localStorage.setItem('secondStageForm', 'false')
 	localStorage.setItem( 'thirdStageForm', 'false' )
 	localStorage.setItem('fourthStageForm', 'false')
@@ -46,7 +46,7 @@ export const SecondStageForm = () =>
     localStorage.setItem('images', 'false')
     localStorage.setItem( 'storages', 'false' )
 	localStorage.removeItem( 'itemId' )	
-    dispatch( deleteItem() )
+    dispatch( deleteItem({id:null}) )
   }
   
   const onNextClickedHandler = () =>
@@ -71,13 +71,13 @@ export const SecondStageForm = () =>
             <div className='flex flex-col'>
               <input onChange={onModelPriceChanged} className='hover:border-blue-800 hover:border-2 w-80 h-10 p-3 rounded border border-slate-400 my-3' type="number" id='modelPrice' name='modelPrice' />
             <label className='text-sm text-slate-500' htmlFor="modelPrice">Model price</label>
-            <button disabled={!canSaveModel || Addstatus === 'loading' ? true : false}  onClick={onAddModelClickedHandler} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{Addstatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add model'}</button>
+            <button disabled={!canSaveModel || addStatus === 'loading' ? true : false}  onClick={onAddModelClickedHandler} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all my-4 bg-sky-600 text-white rounded'>{addStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add model'}</button>
           </div>
         </div>
       </div>
       <div className='flex justify-between px-20'>
-      <button onClick={onCancelClickedHandler} disabled={localStorage.getItem('models') === 'false' || cancelStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>{cancelStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Cancel'}</button>
-      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('models') === 'false' || Addstatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{Addstatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Next'}</button>
+      <button onClick={onCancelClickedHandler} disabled={cancelStatus === 'loading' || addStatus === 'loading' ? true : false} className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-400 transition-all mb-2 bg-red-500 text-white rounded-lg'>{cancelStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Cancel'}</button>
+      <button onClick={onNextClickedHandler} disabled={localStorage.getItem('models') === 'false' || addStatus === 'loading' ? true : false} className='w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>Next</button>
       </div>
 	</div>
   )
