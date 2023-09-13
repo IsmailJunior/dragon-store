@@ -36,7 +36,7 @@ export const Summary = ( { title, image, storage, color, model, productId} ) =>
 	</div>
 	<div className="w-52 flex flex-col gap-7">
 		<h1 className="text-xl font-semibold">{model?.modelName ? model?.modelName : 'Choose your model.'}</h1>
-		<p className='font-semibold'>{storage ? `$${Number(storage?.storagePrice) + Number(model.modelPrice)}`: ' Model Price'}</p>
+		<p className='font-semibold'>{storage ? `$${Number(storage?.storagePrice) > Number(model?.modelPrice) ? storage?.storagePrice : model?.modelPrice}`: ' Model Price'}</p>
 		<p className=' font-semibold'>One time payment</p>
 	</div>
 	<div className="w-52 flex flex-col gap-7">

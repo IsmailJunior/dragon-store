@@ -11,7 +11,7 @@ return (
 		<CategoryGroup />
 	</section>
 		{ store?.map( ( section, i ) => (
-			<FeatureCardGroup data={section.cards} headline={section.heading} key={i}/>
+			<FeatureCardGroup data={section.cards} headline={section.title} key={i}/>
 		))}
 </div>
 )

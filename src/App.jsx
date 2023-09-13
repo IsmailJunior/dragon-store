@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import {auth} from './config/firebase'
-import { logIn, logOut, selectStatus, selectUser } from './features/user/userSlice'
+import { logIn, logOut} from './features/user/userSlice'
 import { Layout } from './layouts/Layout'
 import { LandingPage } from './pages/LandingPage'
 import {AuthPage} from './pages/AuthPage'
@@ -15,11 +15,10 @@ import { NotFoundPage } from './pages/NotFoundPage'
 import { LandingPageAdmin } from './components/admin/LandingPageAdmin'
 import { StorePageAdmin } from './components/admin/StorePageAdmin'
 import { AllItemsAdmin } from './components/admin/AllItemsAdmin'
-import {EditBannerPageAdmin} from './components/admin/EditBannerPageAdmin'
+import { EditBannerPageAdmin } from './components/admin/EditBannerPageAdmin'
+import {NewStoreSectionPage} from './pages/NewStoreSectionPage'
 function App ()
 {
-	const user = useSelector( selectUser );
-	const status = useSelector( selectStatus );
 	const dispatch = useDispatch();
 	useEffect( () =>
 	{
@@ -46,7 +45,8 @@ function App ()
 				<Route path='landing' element={ <LandingPageAdmin /> } />
 				<Route path='store' element={ <StorePageAdmin /> } />
 				<Route path='items' element={ <AllItemsAdmin /> } />
-				<Route path='edit-banner/:banner' element={<EditBannerPageAdmin />} />
+				<Route path='edit-banner/:banner' element={ <EditBannerPageAdmin /> } />
+				<Route path='new-section' element={<NewStoreSectionPage/>} />
 			</Route>
 			<Route path='/login' element={ <AuthPage /> } />
 			<Route path='/*' element={ <NotFoundPage /> } />

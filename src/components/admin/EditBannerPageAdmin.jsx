@@ -47,7 +47,8 @@ export const EditBannerPageAdmin = () =>
 	}, [editStatus,updateLandingStatus])
 	return (
 	<div>
-			{ showItems ? <div className='w-120  mx-auto p-5 shadow-lg bg-white'>
+			{ showItems ?
+				<div className='w-120  mx-auto p-5 shadow-lg bg-white'>
 				<h1 className='text-3xl font-semibold mb-7'>Select Item</h1>
 				<hr />
 				{ status === 'success' && updateLandingStatus !== 'loading' ?

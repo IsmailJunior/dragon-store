@@ -11,7 +11,7 @@ return (
 	<span>{data?.data?.storageDescription ? data?.data?.storageDescription + ' ' + typeLabel : null}</span>	
 	</span>
 	<span className="flex flex-col">
-	<span className=' text-sm text-slate-500'>From ${Number(data?.data?.storagePrice) + Number(modelPrice)}</span>
+	<span className=' text-sm text-slate-500'>From ${Number(data?.data?.storagePrice) > Number(modelPrice) ? data?.data?.storagePrice : modelPrice}</span>
 	</span>	
 	</span>	
 	</label>

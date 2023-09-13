@@ -5,27 +5,28 @@ return (
 	<h1 className='text-3xl font-semibold'>{headline}</h1>
 	<div className='flex gap-5'>	
 		<FeatureCard
-		title={ data?.at(1)?.name }
-		heading={ data?.at(1)?.description }
-		price={ data?.at(1)?.price }
-		image={ data?.at(1)?.card }
-		id={data?.at(1)?.id}
+		title={ data?.firstCard?.name }
+		heading={ data?.firstCard?.description }
+		price={ data?.firstCard?.price }
+		image={ data?.firstCard?.card }
+		id={ data?.firstCard?.id }	
+		invert={ data?.firstCard?.invertText }			
 		/>	
 		<FeatureCard
-		title={ data?.at(0)?.name }
-		heading={ data?.at(0)?.description }
-		price={ data?.at(0)?.price }
-		image={ data?.at(0)?.card }
-		id={data?.at(0)?.id}
-		invert
+		title={ data?.secondCard?.name }
+		heading={ data?.secondCard?.description }
+		price={ data?.secondCard?.price }
+		image={ data?.secondCard?.card }
+		id={ data?.secondCard?.id }	
+		invert={data?.secondCard?.invertText}		
 		/>	
 		<FeatureCard
-		title={ data?.at(2)?.name }
-		heading={ data?.at(2)?.description }
-		price={ data?.at(2)?.price }
-		image={ data?.at(2)?.card }
-		id={data?.at(2)?.id}
-		invert
+		title={ data?.thirdCard?.name }
+		heading={ data?.thirdCard?.description }
+		price={ data?.thirdCard?.price }
+		image={ data?.thirdCard?.card }
+		id={ data?.thirdCard?.id }	
+		invert={data?.thirdCard?.invertText}		
 		/>	
 	</div>
 </div>

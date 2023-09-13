@@ -6,6 +6,8 @@ import { store, storage } from '../../config/firebase';
 
 const initialState = {
 	getItemStatus: 'idle',
+	deleteStoreStatus: 'idle',
+	addStoreStatus: 'idle',
 	cancelStatus: 'idle',
 	editStatus: 'idle',
 	updateLandingStatus: 'idle',
@@ -13,6 +15,7 @@ const initialState = {
 	addStatus: 'idle',
 	cartStatus: 'idle',
 	status: 'idle',
+	getLandingStatus: 'dle',
 	error: null,
 	landing: {},
 	items: [],
@@ -32,6 +35,36 @@ export const getItem = createAsyncThunk( 'items/getItem', async ( { id } ) =>
 		const docSnapshot = await getDoc( docRef );
 		const docData = { ...docSnapshot.data(), id: docSnapshot.id };
 		return docData;
+	} catch ( error )
+	{
+		return error;
+	}
+} )
+
+export const addStoreSection = createAsyncThunk( 'items/addStoreSection', async ( { title, cards } ) =>
+{
+	try
+	{
+		const docSnapshot = await addDoc( storeRef, {
+			cards: {
+				firstCard: doc( store, 'products', cards.firstCard ),
+				secondCard: doc( store, 'products', cards.secondCard ),
+				thirdCard: doc( store, 'products', cards.thirdCard )
+			},
+			title: title
+		} );
+		console.log( docSnapshot.id );
+	} catch ( error )
+	{
+		return error;
+	}
+} );
+
+export const deleteStoreSection = createAsyncThunk( 'items/deleteStoreSection', async ( { id } ) =>
+{
+	try
+	{
+		await deleteDoc( doc( storeRef, id ) );
 	} catch ( error )
 	{
 		return error;
@@ -352,15 +385,12 @@ export const getStore = createAsyncThunk( 'items/getStore', async () =>
 		const productsRef = await getDocs( collectionRef );
 		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
 		const arrayData = await getDocs( storeRef );
-		const data = arrayData.docs.map( ( doc ) => doc.data() );
-		const sections = data?.at( 0 )?.sections;
-		sections.forEach( ( element, index, arr ) =>
+		const sections = arrayData.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
+		sections.forEach( ( element ) =>
 		{
-			element.cards.forEach( ( element, index, arr ) =>
-			{
-				arr[ index ] = element.id;
-			} );
-			arr[ index ].cards = productsData.filter( ( product ) => element.cards.includes( product.id ) );
+			element.cards.firstCard = productsData.filter( ( product ) => product.id === element.cards.firstCard.id )[ 0 ];
+			element.cards.secondCard = productsData.filter( ( product ) => product.id === element.cards.secondCard.id )[ 0 ];
+			element.cards.thirdCard = productsData.filter( ( product ) => product.id === element.cards.thirdCard.id )[ 0 ];
 		} );
 		return sections;
 	} catch ( error )
@@ -664,15 +694,15 @@ const itemsSlice = createSlice( {
 			} )
 			.addCase( getLanding.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.getLandingStatus = 'loading';
 			} )
 			.addCase( getLanding.rejected, ( state ) =>
 			{
-				state.status = 'failed';
+				state.getLandingStatus = 'failed';
 			} )
 			.addCase( getLanding.fulfilled, ( state, action ) =>
 			{
-				state.status = 'success';
+				state.getLandingStatus = 'success';
 				state.landing = { ...action.payload };
 			} )
 			.addCase( deleteItem.pending, ( state ) =>
@@ -748,6 +778,31 @@ const itemsSlice = createSlice( {
 				state.item = { ...action.payload };
 				state.getItemStatus = 'success';
 			} )
+			.addCase( addStoreSection.pending, ( state ) =>
+			{
+				state.addStoreStatus = 'loading';
+			} )
+			.addCase( addStoreSection.rejected, ( state ) =>
+			{
+				state.addStoreStatus = 'failed';
+			} )
+			.addCase( addStoreSection.fulfilled, ( state ) =>
+			{
+				state.addStoreStatus = 'success';
+			} )
+			.addCase( deleteStoreSection.pending, ( state ) =>
+			{
+				state.deleteStoreStatus = 'loading';
+			} )
+			.addCase( deleteStoreSection.rejected, ( state ) =>
+			{
+				state.deleteStoreStatus = 'failed';
+			} )
+			.addCase( deleteStoreSection.fulfilled, ( state ) =>
+			{
+				state.deleteStoreStatus = 'success';
+			} )
+
 	}
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
@@ -762,4 +817,7 @@ export const selectUploadPreviewStatus = ( state ) => state.items.uploadPreviewS
 export const selectEditStatus = ( state ) => state.items.editStatus;
 export const selectGetItemStatus = ( state ) => state.items.getItemStatus;
 export const selectItem = ( state ) => state.items.item;
+export const selectGetLandingStatus = ( state ) => state.items.getLandingStatus;
+export const selectAddStoreStatus = ( state ) => state.items.addStoreStatus;
+export const selectDeleteStoreStatus = ( state ) => state.items.deleteStoreStatus;
 export default itemsSlice.reducer;

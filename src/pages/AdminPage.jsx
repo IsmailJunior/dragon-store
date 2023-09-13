@@ -56,11 +56,17 @@ export const AdminPage = () =>
 		<Oval secondaryColor="black" color="white" />
 		</div> : !user ? <AuthPage /> : <div className='flex'>
 		<aside className="sticky z-30 top-0 w-64 h-screen shadow-lg bg-white border block">
-			<ul className="flex flex-col gap-12 items-center p-4 py-10">
+			<ul className="flex flex-col gap-12 items-start p-4 py-10">
 			<Link to='/admin'>
 			<li className='w-42 font-semibold flex items-center gap-3 hover:text-slate-400'>
 			<PlusIcon className='w-6'/>	
 				Create new item
+			</li>	
+			</Link>		
+			<Link to='/admin/new-section'>
+			<li className='w-42 font-semibold flex items-center gap-3 hover:text-slate-400'>
+			<PlusIcon className='w-6'/>	
+				New store section
 			</li>	
 			</Link>		
 			<Link to='/admin/landing'>
