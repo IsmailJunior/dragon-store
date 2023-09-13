@@ -42,7 +42,7 @@ export const LandingPageAdmin = () =>
 		setShowModal(true)
 		setSelectedItem( {
 			item: 'thirdBanner',
-			name: landing?.banners?.secondBanner?.name
+			name: landing?.banners?.thirdBanner?.name
 		})
 	}
 
