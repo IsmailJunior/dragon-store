@@ -16,7 +16,8 @@ import { LandingPageAdmin } from './components/admin/LandingPageAdmin'
 import { StorePageAdmin } from './components/admin/StorePageAdmin'
 import { AllItemsAdmin } from './components/admin/AllItemsAdmin'
 import { EditBannerPageAdmin } from './components/admin/EditBannerPageAdmin'
-import {NewStoreSectionPage} from './pages/NewStoreSectionPage'
+import { NewStoreSectionPage } from './pages/NewStoreSectionPage'
+import {EditBlockPageAdmin} from './components/admin/EditBlockPageAdmin'
 function App ()
 {
 	const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App ()
 				<Route path='store' element={ <StorePageAdmin /> } />
 				<Route path='items' element={ <AllItemsAdmin /> } />
 				<Route path='edit-banner/:banner' element={ <EditBannerPageAdmin /> } />
+				<Route path='edit-block/:group/:block/:side' element={<EditBlockPageAdmin />} />
 				<Route path='new-section' element={<NewStoreSectionPage/>} />
 			</Route>
 			<Route path='/login' element={ <AuthPage /> } />

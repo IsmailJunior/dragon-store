@@ -112,6 +112,89 @@ export const updateLandingInvertTextColor = createAsyncThunk( 'items/updateLandi
 					invertText: bannerInvertStatus === true ? false : true
 				} );
 			}
+		} else if ( group === 'blocks' )
+		{
+			if ( item === 'firstSection' )
+			{
+				if ( side === 'leftBlock' )
+				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
+					const blockId = docSnapshot.data().blocks.firstSection.leftBlock.id;
+					const blockDocRef = doc( store, 'products', blockId );
+					const blockInvertStatusSnapshot = await getDoc( blockDocRef );
+					const blockInvertStatus = blockInvertStatusSnapshot.data().invertText;
+					await updateDoc( doc( collectionRef, blockId ), {
+						invertText: blockInvertStatus === true ? false : true
+					} );
+				}
+				if ( side === 'rightBlock' )
+				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
+					const blockId = docSnapshot.data().blocks.firstSection.rightBlock.id;
+					const blockDocRef = doc( store, 'products', blockId );
+					const blockInvertStatusSnapshot = await getDoc( blockDocRef );
+					const blockInvertStatus = blockInvertStatusSnapshot.data().invertText;
+					await updateDoc( doc( collectionRef, blockId ), {
+						invertText: blockInvertStatus === true ? false : true
+					} );
+				}
+			}
+			if ( item === 'secondSection' )
+			{
+				if ( side === 'leftBlock' )
+				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
+					const blockId = docSnapshot.data().blocks.secondSection.leftBlock.id;
+					const blockDocRef = doc( store, 'products', blockId );
+					const blockInvertStatusSnapshot = await getDoc( blockDocRef );
+					const blockInvertStatus = blockInvertStatusSnapshot.data().invertText;
+					await updateDoc( doc( collectionRef, blockId ), {
+						invertText: blockInvertStatus === true ? false : true
+					} );
+				}
+				if ( side === 'rightBlock' )
+				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
+					const blockId = docSnapshot.data().blocks.secondSection.rightBlock.id;
+					const blockDocRef = doc( store, 'products', blockId );
+					const blockInvertStatusSnapshot = await getDoc( blockDocRef );
+					const blockInvertStatus = blockInvertStatusSnapshot.data().invertText;
+					await updateDoc( doc( collectionRef, blockId ), {
+						invertText: blockInvertStatus === true ? false : true
+					} );
+				}
+			}
+			if ( item === 'thirdSection' )
+			{
+				if ( side === 'leftBlock' )
+				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
+					const blockId = docSnapshot.data().blocks.thirdSection.leftBlock.id;
+					const blockDocRef = doc( store, 'products', blockId );
+					const blockInvertStatusSnapshot = await getDoc( blockDocRef );
+					const blockInvertStatus = blockInvertStatusSnapshot.data().invertText;
+					await updateDoc( doc( collectionRef, blockId ), {
+						invertText: blockInvertStatus === true ? false : true
+					} );
+				}
+				if ( side === 'rightBlock' )
+				{
+					const docRef = doc( landingRef, landingId );
+					const docSnapshot = await getDoc( docRef );
+					const blockId = docSnapshot.data().blocks.thirdSection.rightBlock.id;
+					const blockDocRef = doc( store, 'products', blockId );
+					const blockInvertStatusSnapshot = await getDoc( blockDocRef );
+					const blockInvertStatus = blockInvertStatusSnapshot.data().invertText;
+					await updateDoc( doc( collectionRef, blockId ), {
+						invertText: blockInvertStatus === true ? false : true
+					} );
+				}
+			}
 		}
 
 	} catch ( error )

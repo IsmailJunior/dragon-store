@@ -38,7 +38,8 @@ export const ProductPage = () =>
 		setProduct( { ...item } );
 		setModelProp( {
 			modelName: product?.name,
-			modelPrice: product?.price
+			modelPrice: product?.price,
+			selected: false
 		})
 	}
 	}, [ dispatch, getItemStatus,item,params.product,product?.name,product?.price] );
@@ -79,7 +80,7 @@ return (
 				<div className="flex flex-col gap-3">
 					{product?.models?.map((model, i) => (
 						<RadioSquareModel
-						changedData={(modelProp) => setModelProp(modelProp)}
+							changedData={ ( modelProp ) => setModelProp( () => ({...modelProp,selected: true} )) }
 						key={i}
 						data={{ data: model }}
 						id={uuid()}
@@ -87,14 +88,14 @@ return (
 						/>
 					))}
 				</div>
-				<div className={modelProp ? "flex flex-col gap-6" : "flex flex-col gap-6 opacity-30"}>
+				<div className={modelProp.selected ? "flex flex-col gap-6" : "flex flex-col gap-6 opacity-30"}>
 				<h1 className="text-2xl font-semibold mb-4 w-80">
 				Finish. Pick your favorite.
 				</h1>	
 				<h1 className=" text-lg mb-1 font-semibold">Color - {colorLabelProp ? colorLabelProp : colorProp}</h1>
 				<div className="w-56 flex flex-wrap gap-5">
 					{product?.colors?.map((color, i) => (
-					<RadioCircle model={modelProp} label={(colorLabelProp) => setColorLabelProp(colorLabelProp)} changedData={(colorProp) => setColorProp(colorProp)} name={color.colorName} color={color.colorHex} key={i} id={uuid()} />
+					<RadioCircle model={modelProp.selected} label={(colorLabelProp) => setColorLabelProp(colorLabelProp)} changedData={(colorProp) => setColorProp(colorProp)} name={color.colorName} color={color.colorHex} key={i} id={uuid()} />
 					))}
 				</div>
 				</div>			

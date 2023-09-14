@@ -41,11 +41,10 @@ return (
 		{ showModal ? 
 			<div className='z-20 top-0 left-0 w-screen absolute bg-opacity-20 bg-black' style={{height: 9000 + '100vh'}}>
 			<div className='border-2 w-96 h-72 top-32 left-96 py-16 fixed flex flex-col items-center gap-10 p-5 shadow-md bg-white'>
-				<h1 className='text-2xl font-semibold text-slate-600'>Editing</h1>
-				<span className='text-4xl font-semibold'>{selectedItem.name} Banner?</span>
-				<div className='w-full flex justify-between'>
+				<h1 className='text-2xl font-semibold text-slate-600'>Are you sure you want to delete this section?</h1>
+				<div className='w-full mt-14 flex justify-between'>
 					<button onClick={ onCancelClickedHandler } disabled={deleteStoreSectionStatus === 'loading' ? true : false} className='w-44 h-10 disabled:bg-slate-300 hover:bg-slate-400 transition-all mb-2 bg-slate-500 text-white rounded-lg'>Cancel</button>
-    				<button onClick={ onConfirmClickedHandler } disabled={ deleteStoreSectionStatus === 'loading' ? true : false } className='flex justify-center items-center w-44 h-10 disabled:bg-sky-300 hover:bg-sky-500 transition-all mb-2 bg-sky-600 text-white rounded-lg'>{deleteStoreSectionStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Confirm'}</button>
+                    <button onClick={ onConfirmClickedHandler } disabled={ deleteStoreSectionStatus === 'loading' ? true : false } className='flex justify-center items-center w-44 h-10 disabled:bg-red-300 hover:bg-red-500 transition-all mb-2 bg-red-600 text-white rounded-lg'>{deleteStoreSectionStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Delete'}</button>
 				</div>
 			</div>
 		</div>

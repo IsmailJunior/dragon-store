@@ -1,4 +1,3 @@
-import {Link} from 'react-router-dom'
 import classes from './FeatureCardAdmin.module.css'
 export const FeatureCardAdmin = ( { title, heading, price, image, invert, id, newTab=false}) =>
 {
