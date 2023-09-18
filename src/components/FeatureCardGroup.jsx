@@ -1,32 +1,47 @@
 import {FeatureCard} from './FeatureCard'
-export const FeatureCardGroup = ({headline='Headline Description.', data}) => {
-return (
+export const FeatureCardGroup = ( { headline = 'Headline Description.', data } ) =>
+{
+	
+    const firstPhrase = ( text ) =>
+    {
+        return text.split( '.' ).at( 0 );
+    }
+    const secondPhrase = ( text ) =>
+    {
+        return text.split( '.' ).at( 1 )
+	}
+	
+	const onClickHandler = (id) => {
+		window.location.replace(`store/${id}`)
+	}
+
+	return (
 <div className='flex flex-col gap-6 mb-20'>
-	<h1 className='text-3xl font-semibold'>{headline}</h1>
-	<div className='flex gap-5'>	
+	<h1 className='text-3xl font-semibold'><span>{ firstPhrase( headline ) }</span>. <span className=' text-slate-500'>{secondPhrase(headline)}.</span></h1>        
+	<div className='flex flex-col mx-auto md:flex-row lg:w-124 gap-5'>	
 		<FeatureCard
 		title={ data?.firstCard?.name }
 		heading={ data?.firstCard?.description }
 		price={ data?.firstCard?.price }
 		image={ data?.firstCard?.card }
-		id={ data?.firstCard?.id }	
-		invert={ data?.firstCard?.invertText }			
+		invert={ data?.firstCard?.invertText }	
+		onClick={() => onClickHandler(data?.firstCard?.id)}			
 		/>	
 		<FeatureCard
 		title={ data?.secondCard?.name }
 		heading={ data?.secondCard?.description }
 		price={ data?.secondCard?.price }
 		image={ data?.secondCard?.card }
-		id={ data?.secondCard?.id }	
-		invert={data?.secondCard?.invertText}		
+		invert={ data?.secondCard?.invertText }		
+		onClick={() => onClickHandler(data?.secondCard?.id)}			
 		/>	
 		<FeatureCard
 		title={ data?.thirdCard?.name }
 		heading={ data?.thirdCard?.description }
 		price={ data?.thirdCard?.price }
 		image={ data?.thirdCard?.card }
-		id={ data?.thirdCard?.id }	
-		invert={data?.thirdCard?.invertText}		
+		invert={ data?.thirdCard?.invertText }	
+		onClick={() => onClickHandler(data?.thirdCard?.id)}		
 		/>	
 	</div>
 </div>

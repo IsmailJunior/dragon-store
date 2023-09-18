@@ -8,6 +8,7 @@
 	box-shadow: 0 0 7px #0000002a;
 	background-color: #bababa;
 	transition: transform 700ms ease;
+	cursor: pointer;
 }
 
 .FeatureCard:hover {

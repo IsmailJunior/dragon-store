@@ -2,7 +2,7 @@ import { FeatureBlock } from './FeatureBlock'
 export const FeaturesGroup = ({data}) =>
 {
 return (
-<div className='flex gap-3'>
+<div className='flex flex-col md:flex-row md:gap-2'>
 	<FeatureBlock
 	title={ data?.data?.leftBlock?.name }
 	description={ data?.data?.leftBlock?.description }

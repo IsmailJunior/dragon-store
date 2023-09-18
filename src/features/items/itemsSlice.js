@@ -15,6 +15,7 @@ const initialState = {
 	addStatus: 'idle',
 	cartStatus: 'idle',
 	status: 'idle',
+	storeStatus: 'idle',
 	getLandingStatus: 'dle',
 	error: null,
 	landing: {},
@@ -764,15 +765,15 @@ const itemsSlice = createSlice( {
 			} )
 			.addCase( getStore.pending, ( state ) =>
 			{
-				state.status = 'loading';
+				state.storeStatus = 'loading';
 			} )
 			.addCase( getStore.rejected, ( state ) =>
 			{
-				state.status = 'failed';
+				state.storeStatus = 'failed';
 			} )
 			.addCase( getStore.fulfilled, ( state, action ) =>
 			{
-				state.status = 'success';
+				state.storeStatus = 'success';
 				state.store = action.payload;
 			} )
 			.addCase( getLanding.pending, ( state ) =>
@@ -903,4 +904,5 @@ export const selectItem = ( state ) => state.items.item;
 export const selectGetLandingStatus = ( state ) => state.items.getLandingStatus;
 export const selectAddStoreStatus = ( state ) => state.items.addStoreStatus;
 export const selectDeleteStoreStatus = ( state ) => state.items.deleteStoreStatus;
+export const selectStoreStatus = ( state ) => state.items.storeStatus;
 export default itemsSlice.reducer;

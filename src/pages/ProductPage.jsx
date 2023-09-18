@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import {useDispatch,useSelector} from 'react-redux'
-import { addGuest,getItem,selectGetItemStatus,selectItem} from '../features/items/itemsSlice';
+import { addGuest,getItem,selectGetItemStatus,selectItem,addToCart,selectCartStatus} from '../features/items/itemsSlice';
 import {useParams} from 'react-router-dom'
 import { v4 as uuid } from "uuid";
 import { Oval } from "react-loader-spinner";
 import { RadioSquareModel } from "../components/RadioSquareModel";
 import { RadioSquareStorage } from "../components/RadioSquareStorage";
 import { RadioCircle } from "../components/RadioCircle";
+import {RadioSquareContained} from '../components/RadioSqureContained'
 import { Summary } from "../components/Summary";
 
 export const ProductPage = () =>
@@ -16,6 +17,7 @@ export const ProductPage = () =>
 	{
 		dispatch( addGuest() );
 	}
+	const cartStatus = useSelector( selectCartStatus );
 	const getItemStatus = useSelector( selectGetItemStatus )
 	const item = useSelector( selectItem );
 	const params = useParams();
@@ -25,6 +27,13 @@ export const ProductPage = () =>
 	const [ modelProp, setModelProp ] = useState({})
 	const [ colorLabelProp, setColorLabelProp ] = useState( '' );
 	
+	const onAddToBagClickedHandler = (id) =>
+	{
+		if ( localStorage.getItem( 'guest' ) != null)
+		{
+			dispatch( addToCart( { id: id } ) )
+		}
+		}
 	useEffect( () =>
 	{
 		if ( getItemStatus === 'idle' )
@@ -44,20 +53,24 @@ export const ProductPage = () =>
 	}
 	}, [ dispatch, getItemStatus,item,params.product,product?.name,product?.price] );
 return (	
-<div className="mx-20 py-10">
+<div className="mx-12 sm:mx-24 md:mx-32 py-10">
 		{ getItemStatus === 'success' ? (
 <>
 	<div className="mb-10">
-		<h1 className="text-6xl font-semibold mb-5">{product.name}</h1>
+		<h1 className="text-4xl md:text-6xl font-semibold mb-5">{product.name}</h1>
 		<p>{product.description}</p>
 	</div>
-	<div className="flex gap-12">
+	<div className="flex flex-col lg:flex-row gap-12">
 		<div className="flex flex-col gap-10">
-			<div className="bg-no-repeat bg-cover w-120 h-80 border-2 flex justify-center items-center rounded-xl" style={{backgroundImage: `url(${product?.previews?.at(0)})`}}>
-			</div>
+		<div className="bg-no-repeat bg-center bg-cover w-82 sm:w-96 md:w-112 lg:w-120 h-80 border-2 flex justify-center items-center rounded-xl" style={ { backgroundImage: `url(${ product?.previews?.at( 0 ) })` } }>
+						</div>
 			<h1 className="text-2xl font-semibold">
 			Payment options. Select the one that works for you.
-			</h1>
+			</h1>			
+			<div className="flex flex-col gap-6">
+			<RadioSquareContained id={uuid()} name='cash'  title='Zain Cash' description='Pay with zain cash'/>				
+			<RadioSquareContained id={uuid()} name='cash'  title='Cash' description='Pay cash'/>				
+			</div>					
 			<div className="flex justify-center gap-5">
 			</div>
 				<Summary			
@@ -93,7 +106,7 @@ return (
 				Finish. Pick your favorite.
 				</h1>	
 				<h1 className=" text-lg mb-1 font-semibold">Color - {colorLabelProp ? colorLabelProp : colorProp}</h1>
-				<div className="w-56 flex flex-wrap gap-5">
+				<div className="w-80 lg:w-52 flex flex-wrap gap-5">
 					{product?.colors?.map((color, i) => (
 					<RadioCircle model={modelProp.selected} label={(colorLabelProp) => setColorLabelProp(colorLabelProp)} changedData={(colorProp) => setColorProp(colorProp)} name={color.colorName} color={color.colorHex} key={i} id={uuid()} />
 					))}
@@ -118,8 +131,9 @@ return (
 					))}
 				</div>
 			</div>
-		</fieldset>
-	</div>
+			</fieldset>
+			<button onClick={() => onAddToBagClickedHandler(product.id)} disabled={ !storageProp || cartStatus === 'loading' ? true : false } className="w-82 sm:w-96 md:w-112 lg:w-44 lg:hidden h-10 disabled:bg-blue-300 flex justify-center items-center hover:bg-blue-600 border active:bg-blue-500 border-slate-300 p-2 rounded-md bg-blue-500 text-white">{cartStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add to Bag'}</button>		
+		</div>
 	</>
 	) : (
 	<div className="flex justify-center items-center h-52">

@@ -1,0 +1,56 @@
+.bar {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+}
+
+.topStake {
+	width: 25px;
+	height: 2px;
+	background-color: black;
+	border-radius: 10px;
+}
+
+.bottomStake {
+	width: 25px;
+	height: 2px;
+	background-color: black;
+	border-radius: 10px;
+}
+
+.rotateTopStake {
+	width: 25px;
+	height: 2px;
+	background-color: black;
+	border-radius: 10px;
+	animation: topStake 300ms forwards;
+}
+
+.rotateBottomStake {
+	width: 25px;
+	height: 2px;
+	background-color: black;
+	border-radius: 10px;
+	animation: bottomStake 300ms forwards;
+}
+
+@keyframes topStake {
+   from {
+	transform: rotate(0deg);
+   } 
+   to {
+	transform: rotate(45deg) translate(0px, 10px);
+   }
+}
+
+@keyframes bottomStake {
+	from {
+	transform: rotate(0deg);
+   } 
+   to {
+	transform: rotate(-45deg) translate(-1px, -10px);
+   }
+}
