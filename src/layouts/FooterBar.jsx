@@ -1,8 +1,8 @@
 import {Link} from 'react-router-dom'
 export const FooterBar = () => {
 return (
-<footer className="bg-slate-100 text-gray-500 p-4">
-	<div className="container">
+<footer className="bg-slate-100 text-gray-500 p-2 lg:p-4">
+	<div className="lg:container text-xs font-light lg:font-normal lg:text-base">
 		<section>
 			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam amet numquam quis! Sint adipisci rerum temporibus! Doloremque ab exercitationem officiis ut incidunt dolor at, ullam quae unde odio repudiandae rem!</p>
 		</section>
@@ -159,7 +159,7 @@ return (
 		</section>
 		<hr className="my-5" />
 		<section>
-			<div className="flex gap-20">
+			<div className="flex gap-5 lg:gap-20">
 				<p>Copyright © 2023 Dragon Group. All rights reserved.</p>
 				<div className="text-gray-600">
 					<Link to='/store/s'>

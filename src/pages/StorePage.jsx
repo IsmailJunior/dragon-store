@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import {Oval} from 'react-loader-spinner'
 import {selectStore,selectStoreStatus} from '../features/items/itemsSlice'
-import { CategoryGroup } from '../components/CategoryGroup';
 import { FeatureCardGroup } from '../components/FeatureCardGroup';
 export const StorePage = () =>
 {
