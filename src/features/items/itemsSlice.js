@@ -13,7 +13,6 @@ const initialState = {
 	updateLandingStatus: 'idle',
 	uploadPreviewStatus: 'idle',
 	addStatus: 'idle',
-	cartStatus: 'idle',
 	status: 'idle',
 	storeStatus: 'idle',
 	getLandingStatus: 'dle',
@@ -445,23 +444,6 @@ export const addGuest = createAsyncThunk( 'items/addGuest', async () =>
 	}
 } );
 
-export const addToCart = createAsyncThunk( 'items/addToCart', async ( { id } ) =>
-{
-	try
-	{
-		const productsRef = await getDocs( collectionRef );
-		const productsData = productsRef.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
-		const product = productsData.filter( ( item ) => item.id === id );
-		const cart = JSON.parse( localStorage.getItem( 'guest' ) );
-		cart.cart.push( ...product );
-		const newCart = JSON.stringify( cart );
-		localStorage.setItem( 'guest', newCart );
-	} catch ( error )
-	{
-		return error;
-	}
-} )
-
 export const getStore = createAsyncThunk( 'items/getStore', async () =>
 {
 	try
@@ -673,7 +655,15 @@ export const UploadPreviews = createAsyncThunk( 'items/uploadPreivews', async ( 
 const itemsSlice = createSlice( {
 	name: 'items',
 	initialState,
-	reducers: {},
+	reducers: {
+		addToCart: ( state, action ) =>
+		{
+			const cart = JSON.parse( localStorage.getItem( 'guest' ) );
+			cart.cart.push( action.payload );
+			const newCart = JSON.stringify( cart );
+			localStorage.setItem( 'guest', newCart );
+		}
+	},
 	extraReducers ( builder )
 	{
 		builder.addCase( addItem.pending, ( state ) =>
@@ -813,18 +803,6 @@ const itemsSlice = createSlice( {
 			{
 				state.status = 'success';
 			} )
-			.addCase( addToCart.pending, ( state ) =>
-			{
-				state.cartStatus = 'loading';
-			} )
-			.addCase( addToCart.rejected, ( state ) =>
-			{
-				state.cartStatus = 'failed';
-			} )
-			.addCase( addToCart.fulfilled, ( state ) =>
-			{
-				state.cartStatus = 'success';
-			} )
 			.addCase( updateLanding.pending, ( state ) =>
 			{
 				state.updateLandingStatus = 'loading';
@@ -886,7 +864,6 @@ const itemsSlice = createSlice( {
 			{
 				state.deleteStoreStatus = 'success';
 			} )
-
 	}
 } );
 export const selectAddStatus = ( state ) => state.items.addStatus;
@@ -895,7 +872,6 @@ export const selectStatus = ( state ) => state.items.status;
 export const selectItems = ( state ) => state.items.items;
 export const selectStore = ( state ) => state.items.store;
 export const selectLanding = ( state ) => state.items.landing;
-export const selectCartStatus = ( state ) => state.items.cartStatus;
 export const selectUpdateLandingStatus = ( state ) => state.items.updateLandingStatus;
 export const selectUploadPreviewStatus = ( state ) => state.items.uploadPreviewStatus;
 export const selectEditStatus = ( state ) => state.items.editStatus;
@@ -905,4 +881,5 @@ export const selectGetLandingStatus = ( state ) => state.items.getLandingStatus;
 export const selectAddStoreStatus = ( state ) => state.items.addStoreStatus;
 export const selectDeleteStoreStatus = ( state ) => state.items.deleteStoreStatus;
 export const selectStoreStatus = ( state ) => state.items.storeStatus;
+export const { addToCart } = itemsSlice.actions;
 export default itemsSlice.reducer;

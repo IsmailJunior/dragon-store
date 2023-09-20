@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import {useDispatch,useSelector} from 'react-redux'
-import { addGuest,getItem,selectGetItemStatus,selectItem,addToCart,selectCartStatus} from '../features/items/itemsSlice';
+import { useDispatch, useSelector } from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import { addGuest,getItem,selectGetItemStatus,selectItem,addToCart} from '../features/items/itemsSlice';
 import {useParams} from 'react-router-dom'
 import { v4 as uuid } from "uuid";
 import { Oval } from "react-loader-spinner";
@@ -17,7 +18,7 @@ export const ProductPage = () =>
 	{
 		dispatch( addGuest() );
 	}
-	const cartStatus = useSelector( selectCartStatus );
+	const navigate = useNavigate();
 	const getItemStatus = useSelector( selectGetItemStatus )
 	const item = useSelector( selectItem );
 	const params = useParams();
@@ -26,12 +27,22 @@ export const ProductPage = () =>
 	const [ storageProp, setStorageProp ] = useState( '' );
 	const [ modelProp, setModelProp ] = useState({})
 	const [ colorLabelProp, setColorLabelProp ] = useState( '' );
-	
-	const onAddToBagClickedHandler = (id) =>
+
+	const cartItem = {
+		model: modelProp,
+		color: colorProp,
+		storage: storageProp,
+		image: item.transparent,
+		price: Number(storageProp?.storagePrice) > Number(modelProp?.modelPrice) ? storageProp?.storagePrice : modelProp?.modelPrice,
+		paymentMethod: 'Zain Cash'
+	}
+
+	const onAddToBagClickedHandler = () =>
 	{
 		if ( localStorage.getItem( 'guest' ) != null)
 		{
-			dispatch( addToCart( { id: id } ) )
+			dispatch( addToCart( cartItem ) )
+			navigate('/bag')
 		}
 		}
 	useEffect( () =>
@@ -74,7 +85,6 @@ return (
 			<div className="flex justify-center gap-5">
 			</div>
 				<Summary			
-				productId={ product?.id }				
 				model={modelProp}	
 				color={colorProp}
 				storage={storageProp}
@@ -132,7 +142,7 @@ return (
 				</div>
 			</div>
 			</fieldset>
-			<button onClick={() => onAddToBagClickedHandler(product.id)} disabled={ !storageProp || cartStatus === 'loading' ? true : false } className="w-82 sm:w-96 md:w-112 lg:w-44 lg:hidden h-10 disabled:bg-blue-300 flex justify-center items-center hover:bg-blue-600 border active:bg-blue-500 border-slate-300 p-2 rounded-md bg-blue-500 text-white">{cartStatus === 'loading' ? <Oval secondaryColor='black' color='white' width={20}/> : 'Add to Bag'}</button>		
+			<button onClick={onAddToBagClickedHandler} disabled={ !storageProp ? true : false } className="w-82 sm:w-96 md:w-112 lg:w-44 lg:hidden h-10 disabled:bg-blue-300 flex justify-center items-center hover:bg-blue-600 border active:bg-blue-500 border-slate-300 p-2 rounded-md bg-blue-500 text-white">Add to Bag</button>		
 		</div>
 	</>
 	) : (
