@@ -1,10 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import {v4 as uuid} from 'uuid'
 import { useDispatch } from 'react-redux';
 import { addToCart} from '../features/items/itemsSlice';
 export const Summary = ( { title, image, storage, color, model} ) =>
 {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 		const cartItem = {
 		model: model,
@@ -21,7 +19,7 @@ export const Summary = ( { title, image, storage, color, model} ) =>
 		if ( localStorage.getItem( 'guest' ) != null)
 		{
 			dispatch( addToCart( cartItem ) )
-			navigate('/bag')
+			window.location.replace('/bag')
 		}
 		}
 	return (

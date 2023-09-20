@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import {useNavigate} from 'react-router-dom'
 import { addGuest,getItem,selectGetItemStatus,selectItem,addToCart} from '../features/items/itemsSlice';
 import {useParams} from 'react-router-dom'
 import { v4 as uuid } from "uuid";
@@ -18,7 +17,6 @@ export const ProductPage = () =>
 	{
 		dispatch( addGuest() );
 	}
-	const navigate = useNavigate();
 	const getItemStatus = useSelector( selectGetItemStatus )
 	const item = useSelector( selectItem );
 	const params = useParams();
@@ -42,7 +40,7 @@ export const ProductPage = () =>
 		if ( localStorage.getItem( 'guest' ) != null)
 		{
 			dispatch( addToCart( cartItem ) )
-			navigate('/bag')
+			window.location.replace('/bag')
 		}
 		}
 	useEffect( () =>
