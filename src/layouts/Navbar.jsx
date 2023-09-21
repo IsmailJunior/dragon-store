@@ -24,6 +24,10 @@ export const Navbar = () =>
 		setCartItems(cart?.cart?.length)
 	}, [ cart?.cart?.length ] )
 	
+	const onLinkClicked = ( path ) =>
+	{
+		window.location.replace(`/${path}`)
+	}
 return (
 	<nav className="z-20 text-sm bg-slate-100/60 backdrop-blur-lg fixed w-full">
 
@@ -79,11 +83,15 @@ return (
 		</ul>
 		<div className={showBar ? 'h-120 transition-all duration-300 overfow-hidden bg-white-50 my-8 mx-10 lg:hidden' : 'h-0 overflow-hidden transition-all duration-300 bg-white-50 mx-10'}>
 			<ul className='space-y-7 text-3xl font-semibold'>
-				<li>Store</li>
-				<li>Store</li>
-				<li>Store</li>
-				<li>Store</li>
-				<li>Store</li>
+				<li onClick={() => onLinkClicked('')}>
+					Home
+				</li>
+				<li onClick={() => onLinkClicked('store')}>
+					Store
+				</li>
+				<li onClick={() => onLinkClicked('bag')}>
+					Bag
+				</li>
 			</ul>	
 		</div>
 </nav>

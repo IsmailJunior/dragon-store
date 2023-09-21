@@ -13,14 +13,13 @@ export const BagPage = () =>
 		window.location.reload()
 	}
 return (
-<div className="flex flex-col gap-8 items-center container mt-7 mb-7">
-	<h1 className='text-3xl font-semibold'>Your Total is: </h1>
-	<p>Very very long descriptive detail</p>
+<div className="flex flex-col gap-8 items-center lg:container mt-7 mb-7">
+	<h1 className='text-lg md:text-3xl font-semibold'>Your Total is: </h1>
 		{ cart.cart.map( ( item,i ) => (
-			<div key={i} className=' cursor-pointer flex flex-row gap-10'>
+			<div key={i} className=' cursor-pointer flex flex-col md:flex-row gap-10'>
 			<img width={ 150 } src={item.image} />
 		<div className='flex flex-col gap-5'>
-				<h1 className='text-3xl font-semibold'>{item.model.modelName}</h1>
+				<h1 className='text-lg md:text-3xl font-semibold'>{item.model.modelName}</h1>
 				<p className='font-semibold'>Storage: {item.storage.storage}GB</p>
 				<p className='font-semibold'>Color: {item.color}</p>
 			<p className='font-semibold'>Payment Method: {item.paymentMethod}</p>

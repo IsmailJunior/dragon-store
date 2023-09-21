@@ -62,7 +62,7 @@ export const ProductPage = () =>
 	}
 	}, [ dispatch, getItemStatus,item,params.product,product?.name,product?.price] );
 return (	
-<div className="mx-12 sm:mx-24 md:mx-32 py-10">
+<div className="mx-5 sm:mx-24 md:mx-32 py-10">
 		{ getItemStatus === 'success' ? (
 <>
 	<div className="mb-10">
@@ -71,7 +71,7 @@ return (
 	</div>
 	<div className="flex flex-col lg:flex-row gap-12">
 		<div className="flex flex-col gap-10">
-		<div className="bg-no-repeat bg-center bg-cover w-82 sm:w-96 md:w-112 lg:w-120 h-80 border-2 flex justify-center items-center rounded-xl" style={ { backgroundImage: `url(${ product?.previews?.at( 0 ) })` } }>
+		<div className="bg-no-repeat bg-center bg-cover  sm:w-96 md:w-112 lg:w-120 h-80 border-2 flex justify-center items-center rounded-xl" style={ { backgroundImage: `url(${ product?.previews?.at( 0 ) })` } }>
 						</div>
 			<h1 className="text-2xl font-semibold">
 			Payment options. Select the one that works for you.
@@ -98,7 +98,7 @@ return (
 				</h1>
 			</legend>
 			<div className="flex flex-col gap-24">
-				<div className="flex flex-col gap-3">
+				<div className="flex mt-4 flex-col gap-3">
 					{product?.models?.map((model, i) => (
 						<RadioSquareModel
 							changedData={ ( modelProp ) => setModelProp( () => ({...modelProp,selected: true} )) }
@@ -140,7 +140,7 @@ return (
 				</div>
 			</div>
 			</fieldset>
-			<button onClick={onAddToBagClickedHandler} disabled={ !storageProp ? true : false } className="w-82 sm:w-96 md:w-112 lg:w-44 lg:hidden h-10 disabled:bg-blue-300 flex justify-center items-center hover:bg-blue-600 border active:bg-blue-500 border-slate-300 p-2 rounded-md bg-blue-500 text-white">Add to Bag</button>		
+			<button onClick={onAddToBagClickedHandler} disabled={ !storageProp ? true : false } className="w-72 sm:w-96 md:w-112 lg:w-44 lg:hidden h-10 disabled:bg-blue-300 flex justify-center items-center hover:bg-blue-600 border active:bg-blue-500 border-slate-300 p-2 rounded-md bg-blue-500 text-white">Add to Bag</button>		
 		</div>
 	</>
 	) : (
