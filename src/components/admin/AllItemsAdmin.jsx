@@ -10,6 +10,7 @@ export const AllItemsAdmin = () =>
 	const deleteStatus = useSelector( selectCancelStatus );
 	const dispatch = useDispatch();
 	const items = useSelector( selectItems );
+	console.log(items)
 	const status = useSelector( selectStatus );
 	document.body.style.overflow = showModal ? 'hidden' : null
 	const onItemClickedHandler = (item) =>
@@ -56,7 +57,7 @@ export const AllItemsAdmin = () =>
 		<div onClick={() => onItemClickedHandler(item)} className='cursor-pointer flex h-16 overflow-hidden shadow justify-between items-center border rounded-lg text-center' key={i}>
 		<div className='flex items-center gap-10'>
 		<div>
-		<img width={100} src={item.previews[0]} alt={item.name} />			
+		<img width={100} src={item.previews?.at(0)} alt={item.name} />			
 		</div>	
 		<div className='text-md font-semibold'>{ item.name }</div>					
 		</div>

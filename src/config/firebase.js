@@ -4,12 +4,12 @@ import { getStorage } from 'firebase/storage'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-	apiKey: "AIzaSyDf0sBIrJzH_26eLhJCtBjxp29Yx9RpYFI",
-	authDomain: "dragon-20621.firebaseapp.com",
-	projectId: "dragon-20621",
-	storageBucket: "dragon-20621.appspot.com",
-	messagingSenderId: "335588296100",
-	appId: "1:335588296100:web:8da38b4f092d78a186ed31"
+	apiKey: "AIzaSyApXh2s5L4BGzd0tV8Q1jz8YU9gSV_VlQc",
+	authDomain: "dragon-group-c04ca.firebaseapp.com",
+	projectId: "dragon-group-c04ca",
+	storageBucket: "dragon-group-c04ca.appspot.com",
+	messagingSenderId: "410914598752",
+	appId: "1:410914598752:web:a92a517915e9511258f805"
 };
 
 const app = initializeApp( firebaseConfig );
