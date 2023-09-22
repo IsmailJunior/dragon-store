@@ -10,7 +10,7 @@ return (
 <h2 className="font-light md:font-normal text-1xl md:text-3xl">{ description }</h2>
 <p className=" font-extralight text-sm underline decoration-solid text-sky-600">{link}</p>
 </div>
-<figure className='absolute w-full h-full z-0 top-0 left-0  bg-cover bg-no-repeat bg-center' style={{backgroundImage: `url(${image})`}}></figure>
+<figure className='absolute w-full h-full z-0 top-0 left-0 bg-cover bg-no-repeat bg-center' style={{backgroundImage: `url(${image})`}}></figure>
 </div>
 )
 }
