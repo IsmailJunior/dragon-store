@@ -39,7 +39,7 @@ return (
 		</li>
 		<li>
 			<Link to='/store'>
-			Store</Link>
+			المتجر</Link>
 		</li>
 		<li>
 			<Link to='/store/i'>

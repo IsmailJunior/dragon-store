@@ -1,17 +1,17 @@
 import {Link} from 'react-router-dom'
 export const FooterBar = () => {
 return (
-<footer className="bg-slate-100 text-gray-500 p-2 lg:p-4">
+<footer className="bg-slate-100 text-gray-500 p-2 lg:p-4 text-right">
 	<div className="lg:container text-xs font-light lg:font-normal lg:text-base">
 		<section>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam amet numquam quis! Sint adipisci rerum temporibus! Doloremque ab exercitationem officiis ut incidunt dolor at, ullam quae unde odio repudiandae rem!</p>
+			<p>ان المتجر في حالة التطوير قد لاتظهر بعض المزيا او قد تكون هناك بعض الصفحات مفقودة</p>
 		</section>
 		<hr className="my-5" />
 		<section className="flex justify-between">
 			{/* Catagories	 */}
 			<ul>
 				<li>
-					<h1 className="text-black">Catagories</h1>
+					<h1 className="text-black">الفئات</h1>
 				</li>
 				<li>
 					<Link to='/store/o'>
@@ -69,110 +69,110 @@ return (
 			{/* Store */ }
 			<ul>
 				<li>
-					<h1 className="text-black">Store</h1>
+					<h1 className="text-black">المتجر</h1>
 				</li>
 				<li>
 					<Link to='/store/2'>
-					Mobile Phones</Link>
+					هواتف النقالة</Link>
 				</li>
 				<li>
 					<Link to='/store/1'>
-					Used Phones</Link>
+					الهواتف المستخدمة</Link>
 				</li>
 				<li>
 					<Link to='/store/5'>
-					New Phones</Link>
+					الهواتف الجديدة</Link>
 				</li>
 				<li>
 					<Link to='/store/2'>
-					Watchs</Link>
+					الساعات</Link>
 				</li>
 			</ul>
 			{/* Paymenet */}
 			<ul>
 				<li>
-					<h1 className="text-black">Payment</h1>
+					<h1 className="text-black">طرق الدفع</h1>
 				</li>
 				<li>
 					<Link to='/store/7'>
-					Zain Cash</Link>
+					زين كاش</Link>
 				</li>
 				<li>
 					<Link to='/store/6'>
-					Asiacell</Link>
+					اسيا حوالة</Link>
 				</li>
 				<li>
 					<Link to='/store/5'>
-					Visa</Link>
+					فيزا</Link>
 				</li>
 				<li>
 					<Link to='/store/4'>
-					Cash</Link>
+					الدفع المباشر</Link>
 				</li>
 			</ul>
 			{/* Contact */ }
 			<ul>
 				<li>
-					<h1 className="text-black">Contact</h1>
+					<h1 className="text-black">التواصل</h1>
 				</li>
 				<li>
 					<Link to='/store/d'>
-					Via Number</Link>
+					عن طريق الهاتف</Link>
 				</li>
 				<li>
 					<Link to='/store/d'>
-					Via Email</Link>
+					عن طريق البريد الاكتروني</Link>
 				</li>
 			</ul>
 			{/* Hiring */ }
 			<ul>
 				<li>
-					<h1 className="text-black">Hiring</h1>
+					<h1 className="text-black">الوظائف</h1>
 				</li>
 				<li>
 					<Link to='/store/3'>
-					Designer</Link>	
+					مصمم</Link>	
 				</li>
 				<li>
 					<Link to='/store/2'>
-					Sales Manger</Link>	
+					مدير مبيعات</Link>	
 				</li>
 				<li>
 					<Link to='/store/0'>
-					Online Marketer</Link>	
+					مسوق تجاري</Link>	
 				</li>
 			</ul>
 			{/* About us */}
 			<ul>
 				<li>
-					<h1 className="text-black">About us</h1>
+					<h1 className="text-black">حولنا</h1>
 				</li>
 				<li>
 					<Link to='/store/6'>
-					Career Opportunities</Link>
+					فرص عمل</Link>
 				</li>
 				<li>
 					<Link to='/store/0'>
-					News Room</Link>
+					الاخبار</Link>
 				</li>
 			</ul>
 		</section>
 		<hr className="my-5" />
 		<section>
 			<div className="flex gap-5 lg:gap-20">
-				<p>Copyright © 2023 Dragon Group. All rights reserved.</p>
+				<p>Copyright © 2023 Dragon Group. جميع الحقوق محفوظة</p>
 				<div className="text-gray-600">
 					<Link to='/store/s'>
-					Privacy Policy</Link>
+					سياسة الخصوصة</Link>
 					<span className="mx-3">|</span>
 					<Link to='/store/s'>
-					Terms of Use</Link>
+					دواعي الاستخدام</Link>
 					<span className="mx-3">|</span>
 					<Link to='/store/s'>
-					Sales and Refunds</Link>
+					سياسة الاسترجاع</Link>
 					<span className="mx-3">|</span>
 					<Link to='/store/s'>
-					Site Map</Link>
+					خريطة الموقع</Link>
 				</div>
 			</div>
 		</section>

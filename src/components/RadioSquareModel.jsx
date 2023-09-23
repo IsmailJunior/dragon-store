@@ -11,7 +11,7 @@ return (
 	<span className=' text-slate-500 mt-2 text-sm'>{data?.data?.modelDescription ? data?.data?.modelDescription + ' ' + typeLabel : null}</span>	
 	</span>
 	<span className="flex flex-col">
-	<span className='text-sm text-slate-500'>From ${data?.data?.modelPrice}</span>
+	<span className='text-sm text-slate-500'>د.ع {data?.data?.modelPrice + ',000'}</span>
 	</span>	
 	</span>	
 	</label>

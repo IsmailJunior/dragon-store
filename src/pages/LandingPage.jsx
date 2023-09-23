@@ -12,9 +12,9 @@ export const LandingPage = () =>
 	return (	
 	<>
 	{ getLandingStatus === 'success' ? <>
-	<FeatureBlock title={landing?.banners?.firstBanner?.name} description={landing?.banners?.firstBanner?.description} image={landing?.banners?.firstBanner?.banner} id={landing?.banners?.firstBanner?.id} invert={landing?.banners?.firstBanner?.invertText} link='Shop Now >'/>
-	<FeatureBlock title={landing?.banners?.secondBanner?.name} description={landing?.banners?.secondBanner?.description} image={landing?.banners?.secondBanner?.banner} id={landing?.banners?.secondBanner?.id} invert={landing?.banners?.secondBanner?.invertText} link='Shop Now >'/>
-	<FeatureBlock title={landing?.banners?.thirdBanner?.name} description={landing?.banners?.thirdBanner?.description} image={landing?.banners?.thirdBanner?.banner} id={landing?.banners?.thirdBanner?.id} invert={landing?.banners?.thirdBanner?.invertText} link='Shop Now >'/>
+	<FeatureBlock title={landing?.banners?.firstBanner?.name} description={landing?.banners?.firstBanner?.description} image={landing?.banners?.firstBanner?.banner} id={landing?.banners?.firstBanner?.id} invert={landing?.banners?.firstBanner?.invertText} link='تسوق الان >'/>
+	<FeatureBlock title={landing?.banners?.secondBanner?.name} description={landing?.banners?.secondBanner?.description} image={landing?.banners?.secondBanner?.banner} id={landing?.banners?.secondBanner?.id} invert={landing?.banners?.secondBanner?.invertText} link='تسوق الان >'/>
+	<FeatureBlock title={landing?.banners?.thirdBanner?.name} description={landing?.banners?.thirdBanner?.description} image={landing?.banners?.thirdBanner?.banner} id={landing?.banners?.thirdBanner?.id} invert={landing?.banners?.thirdBanner?.invertText} link='تسوق الان >'/>
 <div className='md:mx-2'>
 	<FeaturesGroup data={{data: landing?.blocks?.firstSection}}/>
 	<FeaturesGroup data={{data: landing?.blocks?.secondSection}}/>

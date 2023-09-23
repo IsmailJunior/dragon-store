@@ -6,7 +6,7 @@ return (
 	<FeatureBlock
 	title={ data?.data?.leftBlock?.name }
 	description={ data?.data?.leftBlock?.description }
-	link='Shop Now >'
+	link='تسوق الان >'
 	image={ data?.data?.leftBlock?.block }
 	invert={ data?.data?.leftBlock?.invertText ? true : false }
 	id={data?.data?.leftBlock?.id}
@@ -14,7 +14,7 @@ return (
 	<FeatureBlock
 	title={ data?.data?.rightBlock?.name }
 	description={ data?.data?.rightBlock?.description }
-	link='Shop Now >'
+	link='تسوق الان >'
 	image={ data?.data?.rightBlock?.block }
 	invert={ data?.data?.rightBlock?.invertText ? true : false }
 	id={data?.data?.rightBlock?.id}

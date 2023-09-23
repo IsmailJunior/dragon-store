@@ -14,7 +14,7 @@ export const FeatureCardGroupAdmin = ( { headline = 'Headline Description.', dat
 
 return (
 <div className='flex flex-col gap-6 mb-20'>
-	<h1 className='text-3xl font-semibold'><span>{ firstPhrase( headline ) }</span>. <span className=' text-slate-500'>{secondPhrase(headline)}.</span></h1>        
+	<h1 className='text-right text-3xl font-semibold'><span>{ firstPhrase( headline ) }</span>. <span className=' text-slate-500'>{secondPhrase(headline)}</span></h1>        
 	<div className='flex gap-5'>	
 		<FeatureCardAdmin
 		title={ data?.firstCard?.name }

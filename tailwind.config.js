@@ -5,6 +5,9 @@ export default {
 	'./src/**/*.{js,ts,jsx,tsx}',
 ],
   theme: {
+    fontFamily: {
+      'Vazirmatn': [ 'Vazirmatn', 'sans-serif' ]
+    },
     extend: {
       spacing: {
         '82': '26rem',

@@ -73,12 +73,12 @@ return (
 		<div className="flex flex-col gap-10">
 		<div className="bg-no-repeat bg-center bg-cover  sm:w-96 md:w-112 lg:w-120 h-80 border-2 flex justify-center items-center rounded-xl" style={ { backgroundImage: `url(${ product?.previews?.at( 0 ) })` } }>
 						</div>
-			<h1 className="text-2xl font-semibold">
-			Payment options. Select the one that works for you.
+			<h1 className="text-2xl font-semibold text-right">
+			طرق الدفع، اختر طريقة الدفع التي تناسبك
 			</h1>			
 			<div className="flex flex-col gap-6">
-			<RadioSquareContained id={uuid()} name='cash'  title='Zain Cash' description='Pay with zain cash'/>				
-			<RadioSquareContained id={uuid()} name='cash'  title='Cash' description='Pay cash'/>				
+			<RadioSquareContained id={uuid()} name='cash'  title='زين كاش' description='ادفع مع زين كاش'/>				
+			<RadioSquareContained id={uuid()} name='cash'  title='كاش' description='ادفع عند الاستلام'/>				
 			</div>					
 			<div className="flex justify-center gap-5">
 			</div>
@@ -94,7 +94,7 @@ return (
 		<fieldset>
 			<legend>
 				<h1 className="text-2xl font-semibold mb-7">
-					Model. Which is best for you?
+					الموديل، ماهو الانسب لك؟
 				</h1>
 			</legend>
 			<div className="flex flex-col gap-24">
@@ -111,9 +111,9 @@ return (
 				</div>
 				<div className={modelProp.selected ? "flex flex-col gap-6" : "flex flex-col gap-6 opacity-30"}>
 				<h1 className="text-2xl font-semibold mb-4 w-80">
-				Finish. Pick your favorite.
+				اللون، اختر ما تفضل
 				</h1>	
-				<h1 className=" text-lg mb-1 font-semibold">Color - {colorLabelProp ? colorLabelProp : colorProp}</h1>
+				<h1 className="text-lg mb-1 font-semibold">اللون - {colorLabelProp ? colorLabelProp : colorProp}</h1>
 				<div className="w-80 lg:w-52 flex flex-wrap gap-5">
 					{product?.colors?.map((color, i) => (
 					<RadioCircle model={modelProp.selected} label={(colorLabelProp) => setColorLabelProp(colorLabelProp)} changedData={(colorProp) => setColorProp(colorProp)} name={color.colorName} color={color.colorHex} key={i} id={uuid()} />
@@ -123,7 +123,7 @@ return (
 
 				<div className={colorProp ? "flex flex-col gap-3" : "flex flex-col gap-3 opacity-30 select-none"}>
 					<h1 className="text-2xl font-semibold mb-4 w-80">
-						Storage. How much space do you need?
+						التخزين، كم من المساحة تحتاج؟
 					</h1>
 					{ product?.storages?.map( ( storage, i ) => (
 						<RadioSquareStorage
