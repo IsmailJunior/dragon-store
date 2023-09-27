@@ -9,8 +9,8 @@ export const BagPage = () =>
 	{
 		const filteredCart = cart.cart.filter( ( item ) => item.id !== id );
 		const newCart = {cart: filteredCart}
-		localStorage.setItem( 'guest', JSON.stringify( newCart ) )
-		window.location.reload()
+		localStorage.setItem( 'guest', JSON.stringify( newCart ) );
+		window.location.reload();
 	}
 return (
 <div className="flex flex-col gap-8 items-center lg:container mt-7 mb-7">

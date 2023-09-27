@@ -5,7 +5,7 @@ export const FeatureBlock = ( { title, description, link, image, invert, id } ) 
 	}
 return (
 <div onClick={onClickHandler} className="cursor-pointer w-full h-96 bg-slate-200 flex justify-center items-center flex-col mb-2 relative">
-<div className="text-center absolute top-10 z-10" style={{color: invert ? 'white' : 'initial'}}>
+<div className="text-center absolute top-16 md:top-10 z-10" style={{color: invert ? 'white' : 'initial'}}>
 <h1 className="text-4xl lg:text-6xl mb-2 font-medium">{title}</h1>
 <h2 className="font-light md:font-normal text-1xl md:text-3xl">{ description }</h2>
 <p className=" font-extralight text-sm underline decoration-solid text-sky-600">{link}</p>

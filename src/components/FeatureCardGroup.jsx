@@ -16,9 +16,9 @@ export const FeatureCardGroup = ( { headline = 'Headline Description.', data } )
 	}
 
 	return (
-<div className='flex flex-col gap-6 mb-20'>
+<div className='flex flex-col gap-6 mb-20 mx-auto w-64 md:w-120 lg:w-124'>
 	<h1 className='text-right text-3xl font-semibold'><span>{ firstPhrase( headline ) }</span>. <span className=' text-slate-500'>{secondPhrase(headline)}</span></h1>        
-	<div className='flex flex-col mx-auto md:flex-row lg:w-124 gap-5'>	
+	<div className='flex flex-col mx-auto md:flex-row md:w-120 lg:w-124 gap-5'>	
 		<FeatureCard
 		title={ data?.firstCard?.name }
 		heading={ data?.firstCard?.description }

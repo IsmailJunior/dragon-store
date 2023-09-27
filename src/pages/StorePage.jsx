@@ -7,7 +7,7 @@ export const StorePage = () =>
 	const storeStatus = useSelector(selectStoreStatus)
 	const store = useSelector( selectStore );
 return (
-<div className='lg:container mx-5 md:mx-12 py-10'>
+<div className='mx-5 py-10'>
 		{ storeStatus === 'success' ?
 			<>
 			{ store?.map( ( section, i ) => (

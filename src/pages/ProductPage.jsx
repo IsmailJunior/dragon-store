@@ -91,7 +91,7 @@ return (
 				price={product?.price}
 				/>
 		</div>
-		<fieldset>
+		<fieldsdet>
 			<legend>
 				<h1 className="text-2xl font-semibold mb-7">
 					الموديل، ماهو الانسب لك؟
@@ -139,8 +139,8 @@ return (
 					))}
 				</div>
 			</div>
-			</fieldset>
-			<button onClick={onAddToBagClickedHandler} disabled={ !storageProp ? true : false } className="w-72 sm:w-96 md:w-112 lg:w-44 lg:hidden h-10 disabled:bg-blue-300 flex justify-center items-center hover:bg-blue-600 border active:bg-blue-500 border-slate-300 p-2 rounded-md bg-blue-500 text-white">Add to Bag</button>		
+			</fieldsdet>
+			<button onClick={onAddToBagClickedHandler} disabled={ !storageProp ? true : false } className="w-full sm:w-96 md:w-112 lg:w-44 lg:hidden h-10 disabled:bg-blue-300 flex justify-center items-center hover:bg-blue-600 border active:bg-blue-500 border-slate-300 p-2 rounded-md bg-blue-500 text-white">اضافة الى السلة</button>		
 		</div>
 	</>
 	) : (

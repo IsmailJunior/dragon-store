@@ -57,10 +57,10 @@ return (
 			<Link to='/store/2'>
 			Tecno</Link>
 		</li>
-		<li>
-			<Link className=' relative' to='/bag'>
+		<li className='relative'>
+			<Link to='/bag'>
 			<ShoppingBagIcon className='w-6 h-6' />
-				{isFinite(cartItems) && cartItems != 0 ? <span className='absolute left-4 top-2 bg-black w-5 h-5 text-white text-center rounded-full'>{cartItems}</span> : null}
+				{isFinite(cartItems) && cartItems != 0 ? <span className='absolute top-3 left-0 bg-black ml-3 mb-2 px-2 py-0.5 text-white text-center rounded-full'>{cartItems}</span> : null}
 			</Link>
 		</li>
 		</ul>
@@ -82,15 +82,15 @@ return (
 		</li>
 		</ul>
 		<div className={showBar ? 'h-120 transition-all duration-300 overfow-hidden bg-white-50 my-8 mx-10 lg:hidden' : 'h-0 overflow-hidden transition-all duration-300 bg-white-50 mx-10'}>
-			<ul className='space-y-7 text-3xl font-semibold'>
+			<ul className='space-y-7 text-3xl font-semibold text-right'>
 				<li onClick={() => onLinkClicked('')}>
-					Home
+					الصفحة الرئيسية
 				</li>
 				<li onClick={() => onLinkClicked('store')}>
-					Store
+					المتجر
 				</li>
 				<li onClick={() => onLinkClicked('bag')}>
-					Bag
+					السلة
 				</li>
 			</ul>	
 		</div>
