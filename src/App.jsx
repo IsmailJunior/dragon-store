@@ -12,12 +12,16 @@ import { BagPage } from './pages/BagPage'
 import { AdminPage } from './pages/AdminPage'
 import { NewItemPage } from './pages/NewItemPage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { HuaweiPage } from './pages/HuaweiPage'
+import { SamsungPage } from './pages/SamsungPage'
+import { XiaomiPage } from './pages/XiaomiPage'
+import {TecnoPage} from './pages/TecnoPage'
 import { LandingPageAdmin } from './components/admin/LandingPageAdmin'
 import { StorePageAdmin } from './components/admin/StorePageAdmin'
 import { AllItemsAdmin } from './components/admin/AllItemsAdmin'
 import { EditBannerPageAdmin } from './components/admin/EditBannerPageAdmin'
 import { NewStoreSectionPage } from './pages/NewStoreSectionPage'
-import {EditBlockPageAdmin} from './components/admin/EditBlockPageAdmin'
+import { EditBlockPageAdmin } from './components/admin/EditBlockPageAdmin'
 function App ()
 {
 	const dispatch = useDispatch();
@@ -37,6 +41,10 @@ function App ()
 		<Routes>
 			<Route path='/' element={ <Layout /> }>
 				<Route index element={ <LandingPage /> } />
+				<Route path='/huawei' element={ <HuaweiPage /> } />
+				<Route path='/samsung' element={ <SamsungPage /> } />
+				<Route path='/xiaomi' element={ <XiaomiPage /> } />
+				<Route path='/tecno' element={<TecnoPage />} />
 				<Route path='store' element={ <StorePage /> } />
 				<Route path='store/:product' element={ <ProductPage /> } />
 				<Route path='bag' element={ <BagPage /> } />

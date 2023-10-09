@@ -42,19 +42,19 @@ return (
 			المتجر</Link>
 		</li>
 		<li>
-			<Link to='/store/i'>
+			<Link to='/samsung'>
 			Samsung</Link>
 		</li>
 		<li>
-			<Link to='/store/a'>
+			<Link to='/huawei'>
 			Huawei</Link>
 		</li>
 		<li>
-			<Link to='/store/0'>
+			<Link to='/xiaomi'>
 			Xiaomi</Link>
 		</li>
 		<li>
-			<Link to='/store/2'>
+			<Link to='/tecno'>
 			Tecno</Link>
 		</li>
 		<li className='relative'>
@@ -92,6 +92,22 @@ return (
 				<li onClick={() => onLinkClicked('bag')}>
 					السلة
 				</li>
+						<li>
+			<Link onClick={() => onLinkClicked('samsung')}>
+			Samsung</Link>
+		</li>
+		<li>
+			<Link onClick={() => onLinkClicked('huawei')}>
+			Huawei</Link>
+		</li>
+		<li>
+			<Link onClick={() => onLinkClicked('xiaomi')}>
+			Xiaomi</Link>
+		</li>
+		<li>
+			<Link onClick={() => onLinkClicked('tecno')}>
+			Tecno</Link>
+		</li>
 			</ul>	
 		</div>
 </nav>

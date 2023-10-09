@@ -471,7 +471,6 @@ export const getItems = createAsyncThunk( 'items/getItems', async () =>
 	{
 		const arrayData = await getDocs( collectionRef );
 		const data = arrayData.docs.map( ( doc ) => ( { ...doc.data(), id: doc.id } ) );
-		console.log( data )
 		return data;
 	} catch ( error )
 	{
