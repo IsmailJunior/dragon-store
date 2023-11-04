@@ -160,7 +160,7 @@ return (
 		<hr className="my-5" />
 		<section>
 			<div className="flex gap-5 lg:gap-20">
-				<p>Copyright © 2023 Dragon Group. جميع الحقوق محفوظة</p>
+				<p>Copyright © 2023 Apple. جميع الحقوق محفوظة</p>
 				<div className="text-gray-600">
 					<Link to='/store/s'>
 					سياسة الخصوصة</Link>

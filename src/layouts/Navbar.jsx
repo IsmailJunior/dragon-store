@@ -2,7 +2,6 @@ import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './Bar.module.css';
 import {ShoppingBagIcon} from '@heroicons/react/24/outline'
-import dragon from '../assets/dragon.png'
 export const Navbar = () =>
 {
 	const cart = JSON.parse( localStorage.getItem( 'guest' ) );
@@ -32,11 +31,6 @@ return (
 	<nav className="z-20 text-sm bg-slate-100/60 backdrop-blur-lg fixed w-full">
 
 	<ul className="p-4 hidden lg:flex justify-between container">
-		<li>
-			<Link to='/'>
-			<img width={30} src={dragon} alt="logo" />	
-			</Link>
-		</li>
 		<li>
 			<Link to='/store'>
 			المتجر</Link>
