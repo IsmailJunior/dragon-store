@@ -59,11 +59,6 @@ return (
 		</li>
 		</ul>
 	<ul className="p-4 flex lg:hidden justify-between">
-		<li>
-			<Link to='/'>
-			<img width={30} src={dragon} alt="logo" />	
-			</Link>
-			</li>
 		<li className='flex gap-10'>
 			<Link className='relative' to='/bag'>
 			<ShoppingBagIcon className='w-6 h-6' />
